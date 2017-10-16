@@ -462,12 +462,12 @@ document.addEventListener('DOMContentLoaded', function () {
   link.rel = "stylesheet";
   document.getElementsByTagName( "head" )[0].appendChild( link );
   link = document.createElement( "link" );
-  link.href = "css/simpatico.css";
+  link.href = "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/css/simpatico.css";
   link.type = "text/css";
   link.rel = "stylesheet";
   document.getElementsByTagName( "head" )[0].appendChild( link );
   link = document.createElement( "link" );
-  link.href = "css/trento.css";
+  link.href = "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/css/trento.css";
   link.type = "text/css";
   link.rel = "stylesheet";
   document.getElementsByTagName( "head" )[0].appendChild( link );
