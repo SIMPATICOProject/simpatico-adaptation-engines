@@ -45,13 +45,38 @@ var taeCORE = ( function () {
       // As we don't have a TAE working environment, we emulate the original 
       // text and the json response
       // When we have the TAE working we will change it
-
+      document.getElementById('loading_'+name).style.display = "block";
       // TODO: UNCOMMENT [BEGIN]
+     /*
+      console.log(simplifyTextURL + '?' +
+                            'text="' + originalText +
+                            '"&lang="' + language +
+                            '"');
       jQuery.getJSON(simplifyTextURL + '?' +
                             'text="' + originalText +
                             '"&lang="' + language +
                             '"',
         function(jsonResponse) {
+          storeWords(name, jsonResponse);
+          simplifyCallback(name, originalText, jsonResponse);
+        }
+      );//
+      // TODO: UNCOMMENT [END]/
+      */
+      jQuery.getJSON(simplifyTextURL + "?text=" + originalText,
+        function(jsonResponse) {
+          console.log("TAE REsponse:");
+          console.log(jsonResponse);
+          if (jsonResponse && jsonResponse.simplifications) {
+            for(var i = 0; i < jsonResponse.simplifications.length; i++) {
+              if (jsonResponse.simplifications[i].simplification == "NULL") {
+                jsonResponse.simplifications.splice(i,1);
+                i--;
+              }
+            }
+            console.log("TAE REsponse without NULL simplification values:");
+            console.log(jsonResponse);
+          }
           storeWords(name, jsonResponse);
           simplifyCallback(name, originalText, jsonResponse);
         }

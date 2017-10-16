@@ -17,17 +17,21 @@ function initFeatures() {
     endpoint: 'https://tn.smartcommunitylab.it/aac', 
     clientID: '8ab03990-d5dd-47ea-8fc6-c92a3b0c04a4',
     authority: null,
-    redirect: 'https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/logincb.html'
+    redirect: 'https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/logincb.html',
+    greeting: 'Sign In to SIMPATICO'
   });
   
   // Init the LOG component (see log-core.js)
   // - endpoint: the main URL of the used LOG instance
+  // - testMode: true if the data should not be sent to the LOG component
   logCORE.getInstance().init({
+	  testMode: true,
 	  endpoint: "https://simpatico.smartcommunitylab.it/simpatico-logs/api"
   });
 
   // Init the Citizenpedia component (see ctz-ui.js)
   // - endpoint: the main URL of the used Citizenpedia instance
+  // - cpdDiagramEndpoint: endpoint of the CPD process summary service (should end with eService)
   // - primaryColor: Color used to highlight the enhanced components
   // - secondaryColor: Color used to paint the question boxes backgrounds
   // - elementsToEnhanceClassName: The CSS class used to define the enhanced elements
@@ -37,56 +41,54 @@ function initFeatures() {
   // - diagramNotificationImage: Image to show when a diagram is found
   // - diagramNotificationClassName: The CSS class of the img shown when a diagram is found
   // - diagramNotificationText: The text to notify that a diagram
+  // - questionSelectionFilters: filters for text selection to ask question for
   citizenpediaUI.getInstance().init({
     endpoint: 'https://simpatico.smartcommunitylab.it/qae',
+    cpdDiagramEndpoint: 'https://dev.smartcommunitylab.it/cpd/api/diagram/eService',
     primaryColor: "#24BCDA",
     secondaryColor:"#D3F2F8",
-    elementsToEnhanceClassName: "simp-text-paragraph",
+    elementsToEnhanceClassName: "simpatico-query-and-answer",
     questionsBoxClassName: "simp-ctz-ui-qb",
-    questionsBoxTitle: "Domande legate",
-    addQuestionLabel: "+ Aggiungi una domanda",
+    questionsBoxTitle: "Related questions",
+    addQuestionLabel: "+ Add new question",
     diagramNotificationImage: "./img/diagram.png",
     diagramNotificationClassName: "simp-ctz-ui-diagram",
-    diagramNotificationText: "C'e' una visualizzazione di e-service in Citizenpedia"
+    diagramNotificationText: "There is a visualization of a diagram in Citizenpedia",
+    questionSelectionFilters: ['h1', '.Rigaintestazione', '.Rigaintestazioneridotta']
   });
   
   // Init the CDV component (see cdv-ui.js)
   // - endpoint: the main URL of the used cdv instance
   // - serviceID: the id corresponding to the e-service
-  // - serviceURL: the id corresponding to the e-service
+  // - serviceName: name corresponding to the e-service
+  // - serviceURL: the URL of the e-service page
   // - dataFields: eservice field ids mapped with cdv
   // - cdvColor: Color used to highlight the eservice fields enhanced with cdv 
   // - dialogTitle: Title of the dialog box of CDV component
   // - tabPFieldsTitle: tab label of personal data
   cdvUI.getInstance().init({
-    endpoint: 'https://simpatico.smartcommunitylab.it/',
+    endpoint: 'https://cdv.comune.trento.it/CDV',
     serviceID: simpaticoEservice,
+	serviceName: simpaticoEserviceName,
+    serviceURL: simpaticoEserviceURL,
     dataFields: simpaticoMapping,
+    informedConsentLink: "https://cdv.comune.trento.it/CDV/IFE/informed_consent.html",
     cdvColor: '#008000',
-    dialogTitle: 'Citizen Data Vault',
-    tabPFieldsTitle: 'I miei dati',
-    entryMessage: 'Gestione dati personali',
-    statusMessage: 'Adesso puoi selezionare i tuoi dati per compilare i campi evidenziati con bordo verde. Usa i valori ' +
-    'salvati predecentemente oppure aggiungi i valori nuovi.',
-    notextMessage: 'Nessun campo selezionato',
-    dialogSaveTitle: 'I dati salvati!',
-    dialogSaveMessage: 'I tuoi dati sono stati salvati con successo al tuo Data Vault.',
-    statusMessageNoAccount: "Nessun account di gestione dati personali e' associato a te. Crearne uno?",
-    statusMessageNoActive: "CDV non e' abilitato per questo servizio. Abilitare?",
-    tabSettingsTitle: 'Impostazioni',
-	buttonSave: 'Salva i tuoi dati',
-	labelAccount : 'Account',
-	buttonRemoveAccount: 'Rimuovi account',
-	buttonActivateCDV: 'Abilita gestione dati personali',
-	labelExport : 'Esportazione',
-	buttonExport: 'Esporta i tuoi dati',
-	buttonActivate: 'Crea account',
-	msgConfirmRemove: "<p> Sei sicuro di voler rimuovere l'account?</p><p>I tuoi dati personali salvati in Citizen Data Vault saranno cancellati. </p><p>Premere 'OK' per procedere...</p>",
-	dialogRemoveTitle: 'Rimuovi account',
-	buttonOK : 'OK',
-	buttonCANCEL: 'Annula'
-    
-    
+    dialogTitle: 'Personal data',
+    entryMessage: 'Personal data management',
+    statusMessage: 'Now you can use your personal data to fill in the fields highlighted in green. Use the values saved previsously or add new values.',
+    dialogSaveTitle: 'Data saved',
+    dialogSaveMessage: 'Your personal data has been correctly saved.',
+    statusMessageNoAccount: "No personal account has been associated. Create one?",
+    statusMessageNoActive: "Personal data management is not active. Activate it now?",
+    confirmSaveDataMessage: "Do you want to update your personal data?",
+    buttonSaveData:"Save your data",
+    buttonManageData:"Manage your data",
+    buttonActivate:"Activate",
+    buttonCreate: "Create",
+    consentButton: "Accept",
+    tabSettingsTitle: 'Settings',
+	cdvDashUrl:'https://cdv.comune.trento.it/CDV/cdv-dashboard/index.html'
   });
 
   // Init the Text Adaptation Engine component (see tae-ui.js)
@@ -98,19 +100,26 @@ function initFeatures() {
   // - simplifyBoxClassName: The CSS class of the box which shows the simplifications
   // - simplifyBoxTitle: Title of the box which shows the simplifications
   // - wordPropertiesClassName: The CSS class of the word properties box
+  // - synonimLabel: Label for synonyms
+  // - definitionLabel: label for definitions
+  // - emptyText: label for empty text
   taeUI.getInstance().init({
     endpoint: 'https://simpatico.smartcommunitylab.it/simp-engines/tae',
     language: 'it',
     primaryColor: "#DE453E",
     secondaryColor:"#F0ABA8",
-    elementsToEnhanceClassName: "simp-text-paragraph",
+    elementsToEnhanceClassName: "simpatico-text-paragraph",
     simplifyBoxClassName: "simp-tae-ui-sb",
-    simplifyBoxTitle: "Testo semplificato",
-    wordPropertiesClassName: "simp-tae-ui-word"
+    simplifyBoxTitle: "Simplified text",
+    wordPropertiesClassName: "simp-tae-ui-word",
+    synonymLabel:'Synonyms',
+  	definitionLabel: 'Definitions',
+  	emptyText: 'No simplifications found for this text'
+
   });
 
   // Init the Text Adaptation Engine component for free text selection (see tae-ui-popup.js)
-  // - language: the language of the text to adapt by the TAE instance
+  // - lang: the language of the text to adapt by the TAE instance
   // - endpoint: the main URL of the used TAE instance
   // - dialogTitle: popup title
   // - tabDefinitionsTitle: title of 'definitions' tab
@@ -121,17 +130,18 @@ function initFeatures() {
   taeUIPopup.getInstance().init({
 		lang: 'it',
 		endpoint: 'https://simpatico.smartcommunitylab.it/simp-engines/tae',
-		dialogTitle: 'Arricchimento testo',
-		tabDefinitionsTitle: 'Definizioni',
-		tabSyntSimpTitle: 'Testo semplificato',
-		tabSimplificationTitle: 'Semplificazione lessicale',
+		dialogTitle: 'Text enrichment',
+		tabDefinitionsTitle: 'Definitions',
+		tabSyntSimpTitle: 'Simplified text',
+		tabSimplificationTitle: 'Lexical simplification',
 		tabWikipediaTitle: 'Wikipedia',
-		entryMessage: 'Scegli il tipo di aiuto',
-		notextMessage: 'Nessun testo selezionato'
+		entryMessage: 'Select a help option',
+		notextMessage: 'No text selected'
 	});
 
   
   // Init the Workflow Adaptation Engine component (see wae-ui.js)
+  // - lang: language used
   // - endpoint: the main URL of the used WAE instance
   // - prevButtonLabel: Label for 'previous step' button
   // - nextButtonLabel: Label for 'next step' button
@@ -143,6 +153,7 @@ function initFeatures() {
 		prevButtonLabel: 'Precedente',
 		nextButtonLabel: 'Successivo',
 		lastButtonLabel: 'Fine',
+		descriptionLabel: 'Step-by-step compil',
 		topBarHeight: 60,
 		errorLabel: ERROR_LABELS
   });
@@ -174,16 +185,17 @@ function initFeatures() {
   buttons = [{
                   id: "simp-bar-sw-login",
                   // Ad-hoc images to define the enabled/disabled images
-                  imageSrcEnabled: "./img/ic_on.png",
+                  imageSrcEnabled: "./img/login.png",
                   imageSrcDisabled: "./img/login.png",
-                  alt: "Entra",
+                  alt: "Sign in",
                   // Ad-hoc css classes to define the enabled/disabled styles
                   styleClassEnabled: "simp-none", 
                   styleClassDisabled: "simp-none",
                   
                   isEnabled: function() { return authManager.getInstance().isEnabled(); },
                   enable: function() { authManager.getInstance().enable(); },
-                  disable: function() { authManager.getInstance().disable(); }
+                  disable: function() { authManager.getInstance().disable(); },
+				  text: "Sign In"
                 },
 
                 {
@@ -191,26 +203,38 @@ function initFeatures() {
                   // Ad-hoc images to define the enabled/disabled images
                   imageSrcEnabled: "./img/citizenpedia.png",
                   imageSrcDisabled: "./img/citizenpedia.png",
-                  alt: "Domande e risposte",
+                  alt: "Questions and answers",
                   // Ad-hoc css classes to define the enabled/disabled styles
                   styleClassEnabled: "simp-bar-btn-active",
                   styleClassDisabled: "simp-bar-btn-inactive",
-                  label: 'Domande e risposte',
                   isEnabled: function() { return citizenpediaUI.getInstance().isEnabled(); },
                   enable: function() { citizenpediaUI.getInstance().enable(); },
-                  disable: function() { citizenpediaUI.getInstance().disable(); }
+                  disable: function() { citizenpediaUI.getInstance().disable(); },
+				  text: "Questions and Answers"
                 },
-                
+{
+                  id: "simp-bar-sw-tae",
+                  // Ad-hoc images to define the enabled/disabled images
+                  imageSrcEnabled: "./img/simplify.png",
+                  imageSrcDisabled: "./img/simplify.png",
+                  alt: "Simplify text",
+                  // Ad-hoc css classes to define the enabled/disabled styles
+                  styleClassEnabled: "simp-bar-btn-active-tae",
+                  styleClassDisabled: "simp-bar-btn-inactive-tae",
+                  isEnabled: function() { return taeUI.getInstance().isEnabled(); },
+                  enable: function() { taeUI.getInstance().enable(); },
+                  disable: function() { taeUI.getInstance().disable(); },
+				  text: "Simplify"
+                },                
                 {
                     id: "simp-bar-sw-tae-popup",
                     // Ad-hoc images to define the enabled/disabled images
                     imageSrcEnabled: "./img/enrich.png",
                     imageSrcDisabled: "./img/enrich.png",
-                    alt: "Semplificazione del testo selezionato",
+                    alt: "Text simplification",
                     // Ad-hoc css classes to define the enabled/disabled styles
                     styleClassEnabled: "simp-bar-btn-active",
                     styleClassDisabled: "simp-bar-btn-inactive",
-                    label: 'Semplifica testo',
                     isEnabled: function() { return false; },
                     enable: function() { 
                     	console.log(window.getSelection().toString().trim());
@@ -219,64 +243,37 @@ function initFeatures() {
                     disable: function() { 
                     	taeUIPopup.getInstance().hideDialog(); 
                     },
-                    exclusive: true
+                    exclusive: true,
+  				  text: "Simplify (Popup)"
                   },
                 {
                   id: "simp-bar-sw-cdv",
                   // Ad-hoc images to define the enabled/disabled images
                   imageSrcEnabled: "./img/cdv.png",
                   imageSrcDisabled: "./img/cdv.png",
-                  alt: "Citizen Data Vault",
+                  alt: "Personal data",
                   // Ad-hoc css classes to define the enabled/disabled styles
                   styleClassEnabled: "simp-bar-btn-active",
                   styleClassDisabled: "simp-bar-btn-inactive",
-                  label: 'Dati personali',
-                  isEnabled: function() { return false; },
+                  isEnabled: function() { return cdvUI.getInstance().isEnabled(); },
                   enable: function() { cdvUI.getInstance().enable(); },
                   disable: function() { cdvUI.getInstance().disable(); },
-                  exclusive: true
+                  exclusive: true,
+				  text: "Personal data"
                 },
                 { // workflow adaptation. Switch to the modality, where the form adaptation starts
                   id: 'workflow',
                   imageSrcEnabled: "./img/forms.png",
                   imageSrcDisabled: "./img/forms.png",
-                  alt: "Semplifica processo",
+                  alt: "Step-by-step execution",
                   // Ad-hoc css classes to define the enabled/disabled styles
                   styleClassEnabled: "simp-bar-btn-active",
                   styleClassDisabled: "simp-bar-btn-inactive",
-                  label: 'Compilazione guidata',
                   isEnabled: function() { return waeUI.getInstance().isEnabled(); },
                   enable: function() { var idProfile = null; waeUI.getInstance().enable(idProfile); },
-                  disable: function() { waeUI.getInstance().disable(); }
-                },
-                { // session feedback
-                    id: 'process',
-                    imageSrcEnabled: "img/diagram.png",
-                    imageSrcDisabled: "img/diagram.png",
-                    alt: "Procedura amministrativa",
-                    // Ad-hoc css classes to define the enabled/disabled styles
-                    styleClassEnabled: "simp-bar-btn-active",
-                    styleClassDisabled: "simp-bar-btn-inactive",
-                    label: 'Procedura',
-                    isEnabled: function() { return false; },
-                    enable: function() { citizenpediaUI.getInstance().openDiagram(); },
-                    disable: function() {  }
-                  },
-                  { // session feedback
-                      id: 'sf',
-                      imageSrcEnabled: "img/feedback.png",
-                      imageSrcDisabled: "img/feedback.png",
-                      alt: "La tua opinione",
-                      // Ad-hoc css classes to define the enabled/disabled styles
-                      styleClassEnabled: "simp-bar-btn-active",
-                      styleClassDisabled: "simp-bar-btn-inactive",
-                      label: 'Feedback',
-                      isEnabled: function() { return false; },
-                      enable: function() { sfUI.getInstance().showSF(); },
-                      disable: function() { sfUI.getInstance().hideSF(); },
-                      exclusive: true
-                    }
-             
+                  disable: function() { waeUI.getInstance().disable(); },
+                  text: "Step by step compilation"
+                }
             ];
 }//initFeatures()
 
@@ -294,6 +291,10 @@ function createButtonHTML(button) {
                             'width="50" height="50" />' +
                             (button.label ? ('<div class="toolbar-button-label">'+ button.label+'</div>') :'')+
                             //'</a>'+
+	                    '<figcaption id="'+button.id +'-fig" style="text-align: center;">'+
+                            button.text + 
+                            '</figcaption>' + 
+                          '</figure>' + 
                           '</li>';
 }//createButtonHTMLbutton()
 
@@ -314,11 +315,16 @@ function enablePrivateFeatures() {
   
   // For each button (without the login one) create and add the node
   var buttonsContainer = document.getElementById("simp-bar-container-left");
+  while (buttonsContainer.firstChild) {
+    cuttonsContainer.removeChild(buttonsContainer.firstChild);
+  }
   for (var i = 1, len = buttons.length; i < len; i++) {
 	if (document.getElementById(buttons[i].id) == null) {
 		buttonsContainer.appendChild(createButtonNode(buttons[i]), loginButton);
 	}
   }
+  document.getElementById("simpatico-bar-copy").style.display = "none";
+  document.getElementById("simp-bar-sw-login-fig").innerHTML = "Log Out";
 }//enablePrivateFeatures(id)
 
 // It inits all the configured buttons
@@ -336,12 +342,15 @@ function disablePrivateFeatures() {
       currentButton.parentNode.removeChild(currentButton);
     }
   }
+  document.getElementById("simpatico-bar-copy").style.display = "inline-block";
+  document.getElementById("simp-bar-sw-login-fig").innerHTML = "Sign In";
 }//disablePrivateFeatures()
 
 // It adds the Simpatico Toolbar inside the component of which id is passed 
 // as parameter
 // - containerID: the Id of the element which is going to contain the toolbar 
 function addSimpaticoBar(containerID) {
+  var simpaticoCopy = "SIMPATICO te ayudará con tus gestiones. Entra aquí";
   var simpaticoBarContainer = document.getElementById(containerID);
   if (simpaticoBarContainer == null) {
     var body = document.getElementsByTagName('body')[0];
@@ -351,16 +360,18 @@ function addSimpaticoBar(containerID) {
 
   // Create the main div of the toolbar
   var simpaticoBarHtml = '<div id="simp-bar">' +
-                            '<div>' +
+                            '<div style="margin: 1%;">' +
                               '<a href="#">' +
                                 '<img src="./img/logo.png" ' +
                                 'height="50px" ' +
                                 'alt="Simpatico ">' +
                               '</a>' +
-                            '</div>';
+                            '</div>'+
+			    '<div id="simpatico-bar-copy">'+simpaticoCopy+'</div>';
 
   // Add the left side of the toolbar
-  simpaticoBarHtml += '<ul id="simp-bar-container-left"></ul>';
+  //simpaticoBarHtml += '<ul id="simp-bar-container-left"></ul>';
+  simpaticoBarHtml += '<ul id="simp-bar-container-left" style="position: absolute;"></ul>';
 
   // Add the right side of the toolbar
   simpaticoBarHtml += '<ul id="simp-bar-container-right">' + 
@@ -425,5 +436,5 @@ document.addEventListener('DOMContentLoaded', function () {
   authManager.getInstance().updateUserData();
 });
 window.addEventListener('beforeunload', function (e) {
-  logCORE.getInstance().logTimeEvent($('body'));
+  logCORE.getInstance().logTimeEvent({});
 });

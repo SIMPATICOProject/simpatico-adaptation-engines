@@ -1,42 +1,79 @@
+body {
+    margin-left: 0 !important;
+    margin-top: 60px !important;
+}
 form {
     padding-left: 1cm;
 }
 
-body {
-	margin-left: 0 !important;
+/********************************/
+/** CUSTOM TOOLBAR STYLING   **/
+/********************************/
+#simp-bar {
+    background-color: #d3d3d6 !important;
+    font-family: inherit !important;
+    font-size: 14px  !important;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
 }
-.simp-ctz-ui-qb {
-	border-radius: 0 !important;
-	border-left: 0 !important;
-}
-
-.simp-ctz-ui-qb p {
-	border-radius: 0 !important;
-	margin: 0 !important;
-}
-
-.simp-paragraph-active {
-	position: relative;
-	border-left: 0;
-	border-radius: 0;
-	padding: 0;
-	margin: 0;
+#simp-bar div, #simp-bar ul {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
-/**
-    NEEDED TO CLEAN TEXT SELECTION WHEN TOOLBAR BUTTON IS CLICKED
-*/
 #simp-bar-sw-tae-popup img {
     padding-right: 100px;
 }
+
 #simp-bar-sw-tae-popup .toolbar-button-label {
     position: absolute;
     right: 0;
     padding-top: 13px;
     pointer-events: none;
 }
- 
+.toolbar-button-label {
+    max-width: 100px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    font-size: 11px;
+}
+#simp-bar-container-left li {
+    position: relative;
+}    
 
+#simp-usr-data {
+    font-size: 12px;
+    display: block;
+    color: #399E4C;
+    font-weight: bold;
+} 
+/********************************/
+/** CUSTOM TAE POPUP STYLING   **/
+/********************************/
+.ui-widget-content .simpatico-label {
+    background-color: #337ab7;
+    color: #ffffff;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    padding-right: 0.3em;
+    padding-left: 0.3em;
+    border-radius: .25em;
+}
+
+/***************************/
+/** CUSTOM CTZP STYLING   **/
+/***************************/
+.simp-ctz-ui-qb a {
+    text-decoration: none;
+}
+
+.simp-paragraph-active {
+    position: relative;
+    border-left: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+}
 .simp-paragraph-active::before {
 	content: "";
 	position: absolute;
@@ -56,113 +93,79 @@ body {
 	top: 0;
 	min-width: 8cm;
 	margin-left: 0 !important;
+    border-radius: 0 !important;
+    border-left: 0 !important;
+}
+
+.simp-ctz-ui-qb p {
+    border-radius: 0 !important;
+    margin: 0 !important;
+}
+
+.simp-ctz-ui-diagram {
+	display: none !important;
+}
+/***************************/
+/** CUSTOM SF STYLING     **/
+/***************************/
+.session-feedback-comments {
+	margin: 0;
+	padding: 0 6%;
+}
+.session-feedback-comments textarea {
+	width: calc(100% - 6px);
+}
+
+.slider-horizontal-text-below-left, .slider-horizontal-text-below-right {
+	font-weight: bold;
+	margin: 0;
 }
 
 #slider-session-feedback-content {
-	width: 80%;
-	margin: 10px 9%;
+    width: 100% !important;
+    margin: 10px 0 !important;	
+}
+
+#slider-session-feedback-content form {
 	padding: 0;
+	margin: 10px 6%;
+	text-align: center;
 }
 
-.toolbar-button-label {
-	max-width: 100px;
-	text-transform: uppercase;
-	vertical-align: middle;
-	font-size: 11px;
-}
-
-#simp-bar-container-left li {
-	position: relative;
-}    
-
-#simp-usr-data {
-	font-size: 12px;
-	display: block;
-	color: #399E4C;
+.mensaje {
+	padding-bottom: 10px;
+	margin-left: 6%;
+    margin-right: 6%;
 	font-weight: bold;
 }
 
-.block_edited {
-    border: 3px #24BCDA solid !important;
-    width: 19cm;
-    /* margin: 2px; */
-  padding: 0.05cm;
+#buttons_session_feedback {
+	margin: 20px 6%;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
 }
 
-.block_edited_wrapper {
-	width: 100%;
-	position: relative;
+#buttons_session_feedback a {
+    background-color: #d3d3d6 !important;
 }
 
-#div_simpatico_block_description {
-	position: absolute;
-	left: 20.5cm;
-	right: 0.5cm;
-	top: 9px;
+.button_cancel_session_feedback {
+	margin-left: 0 !important;
+    display: inline;
+    background-color: #d3d3d6 !important;
 }
 
-.div_simpatico_block_description_content {
-    background-color: #E9F8FC !important;
-    padding: 10px;
-    margin: 0;
-}
-.div_simpatico_block_description_content, .div_simpatico_block_description_content * {
-    color: #24BCDA !important;	
+#button_send_session_feedback_a {
+	margin-right: 0 !important;
+	display: inline;
+    background-color: #d3d3d6 !important;
 }
 
-#div_simpatico_block_description > h5 {
-	margin: 0;
-	font-weight: bold;
-    padding-left: 10px;
-    color: #E9F8FC !important;
-    background-color: #24BCDA !important;
-    font-size: 12px;
-    line-height: 18px;
-}
 
-#btn_simpatico_next, #btn_simpatico_prev {
-	text-transform: uppercase;
-	background-color: #24BCDA;
-	color: #fff;
-	border: 0;
-	margin: 8px 8px 6px 8px;
-	padding: 8px 16px;
-}
 
-img[src="img/happy_face.png"], img[src="img/normal_face.png"],img[src="img/sad_face.png"] {
-	visibility: hidden;
-}
-
-label[for="face-happy-session-feedback"] {
-    width: 80px;
-    height: 80px;
-    background-size: contain;
-    background-image:
-        url(https://dev.smartcommunitylab.it/simp-engines/wae/webdemo/img/happy_face.png);
-} 
-label[for="face-normal-session-feedback"] {
-    width: 80px;
-    height: 80px;
-    background-size: contain;
-    background-image:
-        url(https://dev.smartcommunitylab.it/simp-engines/wae/webdemo/img/normal_face.png);
-}
-label[for="face-sad-session-feedback"] {
-    width: 80px;
-    height: 80px;
-    background-size: contain;
-    background-image:
-        url(https://dev.smartcommunitylab.it/simp-engines/wae/webdemo/img/sad_face.png);
-}
-
-.ui-dialog-buttonset {
-	width: 100%;
-}
-
-.ui-dialog-buttonset button:not(:first-child) {
-    float: right;
-}
-
+/***************************/
+/**       TUTORIAL        **/
+/***************************/
 .tutorial-dialog .ui-dialog-titlebar {
 	display: none;
 }

@@ -36,6 +36,7 @@ var taeUIPopup = (function () {
 		/**
 		 * INITIALIZE UI COMPONENT.
 		 * CONFIG PARAMETERS:
+		 * - lang: language to be used
 		 * - endpoint: URL OF THE TAE API ENDPOINT
 		 * - dialogTitle:  title of the dialog
 		 * - tabSyntSimpTitle: title of the syntactic simplification tab

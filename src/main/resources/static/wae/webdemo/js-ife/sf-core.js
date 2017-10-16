@@ -4,15 +4,17 @@ var sfCORE = (function () {
   function Singleton () {
     var endpoint = '';
     var listener = null;
+    var language = null;
 
     function initComponent (parameters) {
       endpoint = parameters.endpoint;
       listener = parameters.listener;
+      language = parameters.language || 'en';
     }
 
     function selectDialog (ctzSelected, simplificationSelected, timeoutExceeded, userId) {
       // Check which dialog show
-      var lang = "it"; // TODO: How to get this
+      var lang = language; 
       $.get(endpoint + "/sf/selectdialog?id="+userId+"&ctz="+ctzSelected+"&simpl="+simplificationSelected+"&timeout="+timeoutExceeded+"&lang="+lang,
         function (modalChosen) {
           showFeedbackDialog(modalChosen, lang);
@@ -31,6 +33,7 @@ var sfCORE = (function () {
 			height: "auto",
 			width: 600
       });
+      $('.ui-dialog').css('zIndex', '10000');
       $('#dialogSF').show();
       $('#dialogSF #button_cancel_session_feedback_text').off('click').on('click', function () {
     	  if (!!listener) listener();
@@ -41,6 +44,7 @@ var sfCORE = (function () {
 
     // Internal
     function sendFeedback () {
+                console.log("SendFeedback");
 		var dataForms = $('#dialogSF input,#dialogSF textarea,#dialogSF select');
 		var dataObj = {};
 		dataForms.each(function(idx, d) {
@@ -51,6 +55,8 @@ var sfCORE = (function () {
 				dataObj[key] = d.value;
 			}
 		});
+                console.log("Sending:");
+                console.log(dataObj);
 		logCORE.getInstance().sfLogger.feedbackData(simpaticoEservice, dataObj);
 		// TODO: manage complexity correctly
 		complexity = 0;

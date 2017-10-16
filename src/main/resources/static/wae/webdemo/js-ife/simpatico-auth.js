@@ -8,9 +8,11 @@ var authManager = (function () {
     var featureEnabled = true;
     // Component-related variables
     var userdataElementID = 'simp-usr-data'
-    var ifeClientID = '33c10bee-136b-463c-8b9d-ad21d82182db'
-    var endpoint = 'http://localhost:8080/aac'
-    var authority = 'google';
+    var endpoint = 'https://simpatico.hi-iberia.es:4570/aac/'
+    //var ifeClientID = '5c24dd95-a1b4-4208-ab5a-ce288963fe28'
+    //var authority = 'google';
+    var ifeClientID = 'f21558f2-0992-47b1-85af-1ada614d8cc6'
+    var authority = 'internal';
     var redirect = null;
     var greeting = '';
 
@@ -52,9 +54,8 @@ var authManager = (function () {
                     'response_type=token' +
                     '&redirect_uri=' + redirect + // login window URL
                     '&client_id=' + ifeClientID; //Client id from the AAC console
-	   console.log(url);				
 
-      var win = window.open(url, 'AuthPopup', 'width=1024,height=768,resizable=1,scrollbars=1,status=1');
+      var win = window.open(url, 'AuthPopup', 'width=1024,height=768,resizable=true,scrollbars=true,status=true');
 	   
       var processData = function(data) {
         jQuery.ajax({
@@ -73,7 +74,7 @@ var authManager = (function () {
 		  }
 		});
 		// add expiration timestamp with 1 hour buffer
-		data.expires_on = new Date().getTime() + parseInt(data.expires_in)*1000 - 1000*60*60*1;
+		data.expires_on = new Date().getTime() + parseInt(data.expires_in)*1000 /*- 1000*60*60*1*/;
 		localStorage.aacTokenData = JSON.stringify(data);
       }
 
@@ -98,6 +99,7 @@ var authManager = (function () {
     	  logger().formEnd(simpaticoEservice, simpaticoForm);
       }
       localStorage.userData = '';
+	  localStorage.aacTokenData = '';
       updateUserData();
     }
 

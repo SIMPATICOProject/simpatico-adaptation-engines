@@ -18,14 +18,14 @@ var sfUI = (function () {
     var timeoutExceeded = false;
     var timeout = 5 * 60 * 1000; // 5 minutes in ms
     var startTime;
-
+    var language = null;
 
     this.active = false;
     
     function initComponent (parameters) {
       buttonToShowSfId = parameters.buttonToShowSfId;
       formSelector = parameters.formSelector;
-      
+      language = parameters.language || 'en';
       // Add the onclick event
       if (buttonToShowSfId) {
           var button = document.getElementById(buttonToShowSfId);
@@ -36,28 +36,45 @@ var sfUI = (function () {
           }
       }
       if (formSelector != null) {
+    	  // original handler
     	  var formElement = $(formSelector).get(0);
     	  var originalHandler = formElement.onsubmit;
+    	  // new handler: stop submit and show SF
     	  var handler = function(e) {
+			  // if out of SIMPATICO proceed
+    		  if (!authManager.getInstance().isEnabled()){
+    			  return true;
+    		  }
     		  e.preventDefault();
     		  showSF();
+    		  return false;
     	  };
+    	  // new handler: call original and if true, stop submit and show SF
     	  if (originalHandler != null && typeof originalHandler == 'function') {
-    		  formElement.removeEventListener('submit',originalHandler);
     		  handler = function(e){
+    			  // if out of SIMPATICO proceed
+        		  if (!authManager.getInstance().isEnabled()) {
+        			  return originalHandler();
+        		  }
+        		  // execute original handler
     			  var res = originalHandler();
         		  e.preventDefault();
+        		  // if successful, show SF
     			  if (res) {
+    				  // new handler on SF complete should go directly to submit
+    				  formElement.onsubmit = function(){
+    					  return true;
+    				  }    				  
     				  showSF();
-    	    		  formElement.removeEventListener('submit',handler);
     			  }
     		  }
     	  }
-    	  formElement.addEventListener('submit', handler);
+    	  formElement.onsubmit = handler;
       }
       sfCORE.getInstance().init({
           endpoint: parameters.apiEndpoint,
-          listener: parameters.listener
+          listener: parameters.listener,
+          language: language
         });
 
       // Start counting time
@@ -66,13 +83,14 @@ var sfUI = (function () {
 
     function showSF () {
       if (!authManager.getInstance().isEnabled()){
+        alert("You must be log in SIMPATICO");
         console.log("Auth needed");
         return; // If there isn't an user logged in, SF won't work
       } 
 
       var data = JSON.parse(localStorage.userData); // Get the user's ID from localStorage
       ctzSelected = citizenpediaUI.getInstance().isEnabled();
-      simplificationSelected = true;//taeUI.getInstance().isEnabled();
+      simplificationSelected = taeUI.getInstance().isEnabled();
       // Check if timeout exists
       var currentTime = new Date().getTime();
       timeoutExceeded = isTimeExceeded(currentTime - startTime);

@@ -14,7 +14,7 @@ var logCORE = (function () {
 	// Variables to store the used API and URL paths
 	var insertLogEventAPI = '';
 
-  var TEST_MODE = false;
+    var TEST_MODE = false;
 
 	var serverEndpoint = '';  
 	var ctzpEndpoint = '';
@@ -30,11 +30,16 @@ var logCORE = (function () {
   
 	var start;
 	var log = function(url, data) {
-		if (TEST_MODE) return;
 		var token = authManager.getInstance().getToken();
 		var userId = authManager.getInstance().getUserId();
 		data.userID = userId;
 		data.sessionId = localStorage.logSessionStart;
+		
+		if (TEST_MODE) {
+			console.log('TEST LOG: '+data);
+			return;
+		}
+		
 		$.ajax({
 			url: url,
 			type: 'POST',
@@ -44,7 +49,6 @@ var logCORE = (function () {
 			dataType: 'json',
 			success: (function (resp) {
 				console.log(resp);
-
 			}),
 			error: function (jqxhr, textStatus, err) {
 				console.log(textStatus + ", " + err);
@@ -155,7 +159,15 @@ var logCORE = (function () {
 		formEnd: function(eservice, form) {
 			var ts = new Date().getTime();
 			log(ifeEndpoint+'/formend', {'e-serviceID': eservice, formID: form, timestamp: ''+ts});
-			endActivity('ife','form', null, null, true);
+      endActivity('ife','form', null, null, true);
+		},
+		formIdle: function(eservice, form) {  // TODO Create end point in log component
+			var ts = new Date().getTime();
+			log(ifeEndpoint, {'e-serviceID': eservice, formID: form, timestamp: ''+ts, event: "form_idle"});
+		},
+		formAbandoned: function(eservice, form) {  // TODO Create end point in log component
+			var ts = new Date().getTime();
+			log(ifeEndpoint, {'e-serviceID': eservice, formID: form, timestamp: ''+ts, event: "form_abandoned"});
 		},
 		clicks: function(eservice, contentId, clicks) {
 			log(ifeEndpoint+'/clicks', {'e-serviceID': eservice, annotableElementID: contentId, clicks: clicks});
@@ -163,9 +175,13 @@ var logCORE = (function () {
 	}
 	var sfLogger = {
 		feedbackEvent: function(eservice, complexity) {
+                        console.log("feedbackEvent");
+                        console.log(eservice);
+                        console.log(complexity);
 			log(sfEndpoint, {'e-serviceID': eservice, complexity: complexity});
 		},
 		feedbackData: function(eservice, data) {
+                        console.log("feedbackData");
 			data['e-serviceID'] = eservice;
 			// SEND NUMERIC DATA OTHERWISE ELASTICSEARCH DOES NOT INDEX AS NUMERIC 
 			if (data.slider_session_feedback_paragraph) data.slider_session_feedback_paragraph = parseInt(data.slider_session_feedback_paragraph);
@@ -173,6 +189,8 @@ var logCORE = (function () {
 			if (data.slider_session_feedback_word) data.slider_session_feedback_word = parseInt(data.slider_session_feedback_word);
 			if (data.slider_session_feedback_ctz) data.slider_session_feedback_ctz = parseInt(data.slider_session_feedback_ctz);
 			data['datatype'] = 'session-feedback'; // to distinguish it
+                        console.log("Sending:");
+                        console.log(data);
 			log(logsEndpoint, data);
 		}
 	}
@@ -182,6 +200,8 @@ var logCORE = (function () {
     // In this case it generates the used API and URL paths
     // An object with an endpoint 
     function initComponent(parameters) {
+	  if (parameters.testMode) TEST_MODE = true;
+	  
       insertLogEventAPI = parameters.endpoint + '/logs/insert';
       ctzpEndpoint = parameters.endpoint + '/ctzp/insert';
       taeEndpoint = parameters.endpoint + '/tae/insert';
