@@ -35,7 +35,7 @@ function initFeatures() {
   // - endpoint: the main URL of the used LOG instance
   // - testMode: true if the data should not be sent to the LOG component
   logCORE.getInstance().init({
-	  testMode: true,
+	  testMode: !isProd(),
 	  endpoint: "https://simpatico.smartcommunitylab.it/simpatico-logs/api"
   });
 
@@ -176,16 +176,19 @@ function initFeatures() {
   // - buttonToShowSfId: the id of the button/link that opens the dialog of the feedback form
   // - apiEndpoint: the main URL of the logs API server (<site>/simpatico/api)
   // NOTE: Requires jquery-ui to work properly
-  sfUI.getInstance().init({
-    language: 'it',
-	buttonToShowSfId: 'SF',
-    apiEndpoint: 'https://simpatico.smartcommunitylab.it/simpatico-logs/api',
-    // TEMPORALY DISABLED
-    formSelector: '#modulo',
-    listener: function() {
-    	$('#modulo').submit();
-    },
-  });
+  
+  if (!isProd()) {
+	  sfUI.getInstance().init({
+		    language: 'it',
+			buttonToShowSfId: 'SF',
+		    apiEndpoint: 'https://simpatico.smartcommunitylab.it/simpatico-logs/api',
+		    // TEMPORALY DISABLED
+		    formSelector: '#modulo',
+		    listener: function() {
+		    	$('#modulo').submit();
+		    },
+		  });	  
+  }
 
   // Init the Data Analysis component (see da-ui.js)
   // It is useful for UI elements like different tabs in the same view or an accordion.

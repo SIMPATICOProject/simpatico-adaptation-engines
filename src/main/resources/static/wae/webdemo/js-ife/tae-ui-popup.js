@@ -6,10 +6,10 @@ $( function() {
  * TAE UI OPERATIONS
  */
 var taeUIPopup = (function () {
-	  var instance; // Singleton Instance of the UI component
+	  var _instance; // Singleton Instance of the UI component
 
 	  function Singleton() {
-		_instance = this;  
+		_instance = this;
 
 		_instance.colors = {
 			simplify: '#000'
@@ -28,11 +28,11 @@ var taeUIPopup = (function () {
 
 		// It uses the log component to register the produced events
 		_instance.logger = function(event, details) {
-		  var nop = function(){};	
+			  var nop = function(){};
 	      if (logCORE != null) return logCORE.getInstance().taeLogger;
 	      else return {logParagraph: nop, logPhrase: nop, logWord: nop, logFreetext: nop, logAction: nop};
-	    }
-	
+		  }
+		
 		/**
 		 * INITIALIZE UI COMPONENT.
 		 * CONFIG PARAMETERS:
@@ -94,14 +94,14 @@ var taeUIPopup = (function () {
 	            	featureEnabled = false;
 	    			_instance.dialogOpened = false;
 	    			logCORE.getInstance().endActivity('tae', 'simplification');
-	            }
+					}
 				
 			});
 			_instance.dialog_simplify.tabs({
 				beforeActivate: function( event, ui ) {
 					var cb = setInnerText(ui.newPanel["0"].id);
 					var errCb = setError(ui.newPanel["0"].id);
-						
+	
 					if(ui.newPanel["0"].id == "tab-0") {
 						if(!!_instance.selectedText) {
 							ui.newPanel["0"].innerHTML = '<p>Loading...</p>';
@@ -128,7 +128,7 @@ var taeUIPopup = (function () {
 						} else {
 							ui.newPanel["0"].innerHTML = '<p>'+_instance.labels.notextMessage+'</p>';
 						}
-					} 
+						}
 					if(ui.newPanel["0"].id == "tab-wikipedia") {
 						if(!!_instance.selectedText) {
 							ui.newPanel["0"].innerHTML = '<p>Loading...</p>';
@@ -141,7 +141,7 @@ var taeUIPopup = (function () {
 				},
 				load:function( event, ui ) {
 		  		/* After page load*/
-		  	}
+		  		}
 			});
 	
 		}
@@ -163,12 +163,9 @@ var taeUIPopup = (function () {
 				_instance.selectedText.text = _instance.selectedText.text ? _instance.selectedText.text.trim() : null;
 				_instance.selectedText.word = _instance.selectedText.word ? _instance.selectedText.word.trim() : null;
 			}
-
 			var disabled = [];
 			if (!_instance.selectedText || !_instance.selectedText.text) disabled = [0,1,2,3];
-//			else if (_instance.selectedText.word) disabled.push(0);
 			_instance.dialog_simplify.tabs("option", "disabled", disabled);
-			
 			var cb = setInnerText('tab-0');
 			var errCb = setError('tab-0');
 			if (_instance.selectedText && _instance.selectedText.word) {
@@ -301,8 +298,8 @@ var taeUIPopup = (function () {
 	};
     return {
     	getInstance: function() {
-    		if(!instance) instance = new Singleton();
-    		return instance;
+    		if(!_instance) _instance = new Singleton();
+    		return _instance;
     	}
     };
 })();

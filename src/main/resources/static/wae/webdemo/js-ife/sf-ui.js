@@ -20,28 +20,24 @@ var sfUI = (function () {
     var startTime;
     var language = null;
 
-    this.active = false;
-    
+    var active = false;
     function initComponent (parameters) {
       buttonToShowSfId = parameters.buttonToShowSfId;
       formSelector = parameters.formSelector;
       language = parameters.language || 'en';
       // Add the onclick event
       if (buttonToShowSfId) {
-          var button = document.getElementById(buttonToShowSfId);
-          if (button != null) {
-              button.addEventListener('click', function(){
-            	  sfUI.getInstance().showSF();
-              });
-          }
+        var button = document.getElementById(buttonToShowSfId);
+        if (button != null) {
+          button.addEventListener('click', function(){
+        	  sfUI.getInstance().showSF();
+          });
+        }
       }
       if (formSelector != null) {
-    	  // original handler
     	  var formElement = $(formSelector).get(0);
     	  var originalHandler = formElement.onsubmit;
-    	  // new handler: stop submit and show SF
     	  var handler = function(e) {
-			  // if out of SIMPATICO proceed
     		  if (!authManager.getInstance().isEnabled()){
     			  return true;
     		  }
@@ -49,19 +45,14 @@ var sfUI = (function () {
     		  showSF();
     		  return false;
     	  };
-    	  // new handler: call original and if true, stop submit and show SF
     	  if (originalHandler != null && typeof originalHandler == 'function') {
     		  handler = function(e){
-    			  // if out of SIMPATICO proceed
         		  if (!authManager.getInstance().isEnabled()) {
         			  return originalHandler();
         		  }
-        		  // execute original handler
     			  var res = originalHandler();
         		  e.preventDefault();
-        		  // if successful, show SF
     			  if (res) {
-    				  // new handler on SF complete should go directly to submit
     				  formElement.onsubmit = function(){
     					  return true;
     				  }    				  
@@ -82,6 +73,7 @@ var sfUI = (function () {
     }
 
     function showSF () {
+
       if (!authManager.getInstance().isEnabled()){
         alert("You must be log in SIMPATICO");
         console.log("Auth needed");
@@ -95,7 +87,7 @@ var sfUI = (function () {
       var currentTime = new Date().getTime();
       timeoutExceeded = isTimeExceeded(currentTime - startTime);
       sfCORE.getInstance().selectDialog(ctzSelected, simplificationSelected, timeoutExceeded, data.userId);
-      this.active = true;
+      active = true;
     }
 
     function isTimeExceeded (timeMs) {
@@ -104,11 +96,9 @@ var sfUI = (function () {
 
       return timeoutExceeded;
     }
-    
     function isActive() {
     	return this.active;
     }
-    
     function hideSF() {
     	this.active = false;
         $('#dialogSF').dialog("destroy").remove();
