@@ -28,6 +28,10 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
+
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.naming.OperationNotSupportedException;
@@ -35,6 +39,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author raman
@@ -68,6 +73,16 @@ public class Handler {
 
     private String DEFAULT_CONFIG = "classpath:/simpatico-default.props";
 
+    private LoadingCache<CacheKey, String> simplificationCache = CacheBuilder.newBuilder()
+    		.maximumSize(1000)
+    		.expireAfterWrite(1, TimeUnit.DAYS)
+    		.build(new CacheLoader<CacheKey, String>(){
+				@Override
+				public String load(CacheKey key) throws Exception {
+					return doService(key.word, key.position, key.lang, key.text);
+				}
+    		});
+    
     @PostConstruct
     public void init() throws IOException {
         if (modeProxy) {
@@ -111,6 +126,10 @@ public class Handler {
     }
 
     public String service(String word, Integer position, String lang, String text) throws Exception {
+    	return simplificationCache.get(new CacheKey(word, text, lang, position));
+    }
+    private String doService(String word, Integer position, String lang, String text) throws Exception {
+    	
         if (modeProxy) {
             String res = rest.getForObject(proxyEndpoint + "?lang={lang}&text={text}&position={position}", String.class, lang, text, position);
             res = res.replace(" NaN", " null");
@@ -159,4 +178,54 @@ public class Handler {
         return json;
     }
 
+    private static class CacheKey {
+    	private String word, text, lang;
+    	private int position;
+    	
+		public CacheKey(String word, String text, String lang, int position) {
+			super();
+			this.word = word;
+			this.text = text;
+			this.lang = lang;
+			this.position = position;
+		}
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((lang == null) ? 0 : lang.hashCode());
+			result = prime * result + position;
+			result = prime * result + ((text == null) ? 0 : text.hashCode());
+			result = prime * result + ((word == null) ? 0 : word.hashCode());
+			return result;
+		}
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			CacheKey other = (CacheKey) obj;
+			if (lang == null) {
+				if (other.lang != null)
+					return false;
+			} else if (!lang.equals(other.lang))
+				return false;
+			if (position != other.position)
+				return false;
+			if (text == null) {
+				if (other.text != null)
+					return false;
+			} else if (!text.equals(other.text))
+				return false;
+			if (word == null) {
+				if (other.word != null)
+					return false;
+			} else if (!word.equals(other.word))
+				return false;
+			return true;
+		}
+    }
 }
