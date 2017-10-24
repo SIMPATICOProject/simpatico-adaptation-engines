@@ -126,6 +126,7 @@ public class Handler {
     }
 
     public String service(String word, Integer position, String lang, String text) throws Exception {
+    	
     	return simplificationCache.get(new CacheKey(word, text, lang, position));
     }
     private String doService(String word, Integer position, String lang, String text) throws Exception {
@@ -180,25 +181,27 @@ public class Handler {
 
     private static class CacheKey {
     	private String word, text, lang;
-    	private int position;
+    	private Integer position;
     	
-		public CacheKey(String word, String text, String lang, int position) {
+		public CacheKey(String word, String text, String lang, Integer position) {
 			super();
 			this.word = word;
 			this.text = text;
 			this.lang = lang;
 			this.position = position;
 		}
+
 		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + ((lang == null) ? 0 : lang.hashCode());
-			result = prime * result + position;
+			result = prime * result + ((position == null) ? 0 : position.hashCode());
 			result = prime * result + ((text == null) ? 0 : text.hashCode());
 			result = prime * result + ((word == null) ? 0 : word.hashCode());
 			return result;
 		}
+
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
@@ -213,7 +216,10 @@ public class Handler {
 					return false;
 			} else if (!lang.equals(other.lang))
 				return false;
-			if (position != other.position)
+			if (position == null) {
+				if (other.position != null)
+					return false;
+			} else if (!position.equals(other.position))
 				return false;
 			if (text == null) {
 				if (other.text != null)
@@ -227,5 +233,6 @@ public class Handler {
 				return false;
 			return true;
 		}
+		
     }
 }
