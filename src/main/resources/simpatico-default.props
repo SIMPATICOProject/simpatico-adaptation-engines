@@ -1,10 +1,11 @@
 supportedLanguages = it, en, es
 
-en.annotators = tokenize, ssplit, pos, lemma, readability
+en.annotators = tokenize, ssplit, pos, lemma, readability, syntsimp
 en.readability.language = en
+en.syntsimp.language = en
 en.customAnnotatorClass.readability = eu.fbk.dh.tint.readability.ReadabilityAnnotator
 
-es.annotators = spanish, readability, lexsimp
+es.annotators = spanish, readability
 es.spanish.posModel = src/main/resources/es-pos-perceptron-autodict01-ancora-2.0.bin
 es.spanish.lemmaModel = src/main/resources/es-lemma-perceptron-ancora-2.0.bin
 es.readability.language = es
@@ -15,17 +16,19 @@ es.lsimp.min_difficult = 4
 es.customAnnotatorClass.lexsimp = eu.simpaticoproject.adaptation.text.tae.LexSimpAnnotator
 
 # add languagetool
-it.annotators = ita_toksent, pos, ita_morpho, ita_lemma, readability, simplesyn, ml
+it.annotators = ita_toksent, pos, ita_morpho, ita_lemma, readability, simplesim, ml, depparse, syntfake
 it.readability.language = it
 it.readability.glossario.parse = yes
 it.readability.glossario.use = yes
 it.readability.glossario.stanford.annotators = ita_toksent, pos, ita_morpho, ita_lemma
-it.fakesyn.list = src/main/resources/out-sinonimicontrari-lemmatized-noinvert.txt
-it.fakesyn.only_one = false
-it.ita_toksent.model = src/main/resources/token-settings.xml
+it.simplesyn.only_one = false
 it.ml.annotator = ml-annotate
 it.ml.address = http://ml.apnetwork.it/annotate
 it.ml.min_confidence = 0.25
+it.pos.model=models/italian-big.tagger
+it.ner.model=models/ner-ita-nogpe-noiob_gaz_wikipedia_sloppy.ser.gz
+it.depparse.model=models/parser-model-1.txt.gz
+it.syntfake.list=
 
 ml_address = http://ml.apnetwork.it/annotate
 ml_min_confidence = 0.25
@@ -36,6 +39,11 @@ all.customAnnotatorClass.ita_morpho=eu.fbk.dh.tint.digimorph.annotator.DigiMorph
 all.customAnnotatorClass.ita_tense=eu.fbk.dh.tint.tense.TenseAnnotator
 all.customAnnotatorClass.ml=eu.fbk.dkm.pikes.twm.LinkingAnnotator
 all.customAnnotatorClass.readability=eu.fbk.dh.tint.readability.ReadabilityAnnotator
-all.customAnnotatorClass.simplesyn = eu.simpaticoproject.adaptation.text.tae.SimpleSynAnnotator
+all.customAnnotatorClass.simplesim = eu.simpaticoproject.adaptation.text.tae.SimpleSimAnnotator
 all.customAnnotatorClass.spanish = eu.simpaticoproject.adaptation.text.spanish.BasicAnnotator
 all.customAnnotatorClass.lexsimp = eu.simpaticoproject.adaptation.text.tae.LexSimpAnnotator
+all.customAnnotatorClass.syntsimp = eu.simpaticoproject.adaptation.text.tae.SyntSimpAnnotator
+all.customAnnotatorClass.syntfake = eu.simpaticoproject.adaptation.text.tae.SyntFakeAnnotator
+
+all.syntsimp.host = dh-server.fbk.eu
+all.syntsimp.port = 9002

@@ -81,7 +81,7 @@ $(function () {
         $(this).toggleClass('disabled');
         $('#text').attr('disabled', 'disabled');
 
-        $.ajax("../../tae/simp", {
+        $.ajax("../simp", {
             dataType: "json",
             data: {
                 text: text
@@ -99,6 +99,98 @@ $(function () {
 
                     var tooLongSentences = data.readability.tooLongSentences;
                     var textLen = text.length;
+
+                    var allText = data.text;
+
+                    var simpText = allText;
+                    var defText = allText;
+                    var linksText = allText;
+
+                    // Definitions
+                    if (data.readability != undefined) {
+                        Object.keys(data.readability.forms).sort().reverse().forEach(function (start) {
+                            var end = data.readability.forms[start].end;
+                            var before = '<a data-content="' + data.readability.forms[start].description.description.replace('"', "'") +
+                                // '" title="' + item.shortMessage.replace('"', "'") +
+                                '" tabindex="0" role="button" class="my-popover label label-danger">';
+                            var after = '</a>';
+
+                            var newText = defText.substring(0, start);
+                            newText += before;
+                            newText += defText.substring(start, end);
+                            newText += after;
+                            newText += defText.substring(end);
+
+                            defText = newText;
+                        });
+                    }
+
+                    // Lexical simplifications
+                    if (data.simplifications != undefined) {
+
+                        var okSimp = {};
+                        data.simplifications.forEach(function (element) {
+                            okSimp[element.start] = element;
+                        });
+
+                        Object.keys(okSimp).sort(function (a, b) {
+                            return b - a;
+                        }).forEach(function (start) {
+                            var element = okSimp[start];
+                            var end = element.end;
+                            var before = '<a data-content="' + element.simplification.replace('"', "'") +
+                                // '" title="' + item.shortMessage.replace('"', "'") +
+                                '" tabindex="0" role="button" class="my-popover label label-danger">';
+                            var after = '</a>';
+
+                            var newText = simpText.substring(0, start);
+                            newText += before;
+                            newText += simpText.substring(start, end);
+                            newText += after;
+                            newText += simpText.substring(end);
+
+                            simpText = newText;
+                        });
+                    }
+
+                    // Links
+                    if (data.linkings != undefined) {
+                        var okLink = {};
+
+                        data.linkings.forEach(function (element) {
+                            okLink[element.offset] = element;
+                        });
+
+                        Object.keys(okLink).sort(function (a, b) {
+                            return b - a;
+                        }).forEach(function (start) {
+                            start = parseInt(start);
+                            var element = okLink[start];
+                            var end = start + element["length"];
+                            var page = element.page;
+                            page = page.replace(/\.dbpedia\./gi, ".wikipedia.");
+                            page = page.replace(/\/resource\//gi, "/wiki/");
+                            page = encodeURI(page);
+
+                            var before = '<a target="_blank" tabindex="0" role="button" ' +
+                                'href="' + page + '" ' +
+                                'data-content="' + page + '" ' +
+                                'class="my-popover label label-danger">';
+                            var after = '</a>';
+
+                            var newText = linksText.substring(0, start);
+                            newText += before;
+                            newText += linksText.substring(start, end);
+                            newText += after;
+                            newText += linksText.substring(end);
+
+                            linksText = newText;
+                        });
+                    }
+
+                    $("#text-original-simplifications").html(simpText);
+                    $("#text-original-definitions").html(defText);
+                    $("#text-original-links").html(linksText);
 
                     $.each(data.sentences, function (i, item) {
                         var p = $("<p></p>");
@@ -159,8 +251,17 @@ $(function () {
                         if ($.inArray(item.index, tooLongSentences) > -1) {
                             p.addClass("too-long")
                         }
-                        $("#parsed-text").append(p);
+                        $("#text-original-content").append(p);
                     });
+
+                    // Syntactic simplifications
+                    // leave here (needs #text-original-content)
+                    if (data.syntSimplifiedVersion != undefined) {
+                        $("#text-original-ssimplifications").html(data.syntSimplifiedVersion);
+                    }
+                    else {
+                        $("#text-original-ssimplifications").html($("#text-original-content").html());
+                    }
 
                     $("#part2").tooltip({
                         selector: '.too-long',
@@ -208,8 +309,7 @@ $(function () {
                     $.each(data.readability.minYellowValues, function (key, value) {
                         var name = key;
                         var divName = key + "-gauge";
-                        $("#difficulty-values-panel .panel-body .row").
-                            append("<div class='col-md-3' id='" + divName + "'>");
+                        $("#difficulty-values-panel .panel-body .row").append("<div class='col-md-3' id='" + divName + "'>");
 
                         var myValue = data.readability[name];
 
@@ -306,6 +406,7 @@ $(function () {
                     } else {
                         // Empty divs
                         $('#annotations').empty();
+
                         // Re-render divs
                         function createAnnotationDiv(id, annotator, selector, label) {
                             // (make sure we requested that element)
