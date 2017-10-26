@@ -21,21 +21,21 @@ import java.util.regex.Pattern;
  * Created by alessio on 19/12/16.
  */
 
-public class SimpleSynAnnotator implements Annotator {
+public class SimpleSimAnnotator implements Annotator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleSynAnnotator.class);
-    private FakeSynModel model;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleSimAnnotator.class);
+    private FakeSimModel model;
     private static Pattern firstLinePattern = Pattern.compile("1. ([^2]+)");
     private static Pattern firstResPattern = Pattern.compile("1. ([^,]+)");
     private boolean onlyOne = false;
     SkipModel skipModel;
 
-    public SimpleSynAnnotator(String annotatorName, Properties props) {
+    public SimpleSimAnnotator(String annotatorName, Properties props) {
         Properties globalProperties = props;
         Properties localProperties = PropertiesUtils.dotConvertedProperties(props, annotatorName);
         this.onlyOne = PropertiesUtils.getBoolean(localProperties.getProperty("only_one", "false"), false);
         this.skipModel = SkipModel.getInstance(localProperties.getProperty("skipLemmaFile"));
-        this.model = FakeSynModel.getInstance(globalProperties, localProperties, this.skipModel);
+        this.model = FakeSimModel.getInstance(globalProperties, localProperties, this.skipModel);
     }
 
     @Override public void annotate(Annotation annotation) {
