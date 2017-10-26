@@ -8,15 +8,21 @@ var authManager = (function () {
     var featureEnabled = true;
     // Component-related variables
     var userdataElementID = 'simp-usr-data'
-    var ifeClientID = '33c10bee-136b-463c-8b9d-ad21d82182db'
-    var endpoint = 'http://localhost:8080/aac'
-    var authority = 'google';
+    var endpoint = 'https://simpatico.hi-iberia.es:4570/aac/'
+    // Google
+    //var ifeClientID = '5c24dd95-a1b4-4208-ab5a-ce288963fe28'
+    //var authority = 'google';
+    // Internal
+    var ifeClientID = 'f21558f2-0992-47b1-85af-1ada614d8cc6'
+    var authority = 'internal';
     var redirect = null;
+    var greeting = '';
 
     function initComponent(parameters) {
       endpoint = parameters.endpoint;
       ifeClientID = parameters.clientID;
       authority = parameters.authority;
+      greeting = parameters.greeting || '';
       // support null setting where authority is selected by user
       if (!authority) {
         authority = "";
@@ -31,14 +37,13 @@ var authManager = (function () {
         redirect = arr[0] + '//' + arr[2] + '/IFE/login.html';
       }
     }
-     
-	// It uses the log component to register the produced events
-	var logger = function(event, details) {
-	  var nop = function(){};	
+      
+    // It uses the log component to register the produced events
+    var logger = function(event, details) {
+      var nop = function(){};
       if (logCORE != null) return logCORE.getInstance().ifeLogger;
       else return {sessionStart: nop, sessionEnd: nop, formStart: nop, formEnd: nop};
-    }
-
+    }  
 
     // Component-related methods and behaviour
     function handleAuthClick() {
@@ -49,11 +54,10 @@ var authManager = (function () {
       var url = endpoint + '/eauth/authorize' + authority + '?' +
                     'response_type=token' +
                     '&redirect_uri=' + redirect + // login window URL
-                    '&client_id=' + ifeClientID; //Client id from the AAC console
-	   console.log(url);				
+                    '&client_id=' + ifeClientID; //Client id from the AAC console			
 
-      var win = window.open(url, 'AuthPopup', 'width=1024,height=768,resizable=1,scrollbars=1,status=1');
-	   
+      var win = window.open(url, 'AuthPopup', 'width=1024,height=768,resizable=true,scrollbars=true,status=true');
+
       var processData = function(data) {
         jQuery.ajax({
 		  url: endpoint + '/basicprofile/me',
@@ -71,7 +75,7 @@ var authManager = (function () {
 		  }
 		});
 		// add expiration timestamp with 1 hour buffer
-		data.expires_on = new Date().getTime() + parseInt(data.expires_in)*1000 - 1000*60*60*1;
+		data.expires_on = new Date().getTime() + parseInt(data.expires_in)*1000 /*- 1000*60*60*1*/;
 		localStorage.aacTokenData = JSON.stringify(data);
       }
 
@@ -81,6 +85,7 @@ var authManager = (function () {
     	  win.close();
       }
       window.addEventListener('message', function (event) {
+        if (!event.data.access_token) return;
     	  processData(event.data);
       }, false);
     }
@@ -88,15 +93,13 @@ var authManager = (function () {
     // attach login flow to the sign-in button
     function handleSignoutClick(event) {
       if (!featureEnabled) return;
-      
-      // log end of session
       logger().sessionEnd(simpaticoEservice);
       if (window.simpaticoForm) {
-          // log end of session
     	  logger().formEnd(simpaticoEservice, simpaticoForm);
       }
       localStorage.userData = '';
-      updateUserData();
+	  localStorage.aacTokenData = '';
+	  updateUserData();
     }
 
     // It checks if the corresponding user is previously loged in and updates the view accordingly 
@@ -111,22 +114,21 @@ var authManager = (function () {
               updateUserData();
               return;
           }
-          userData = data;
           document.getElementById(userdataElementID).innerHTML = data.name + ' '+ data.surname;
           document.getElementById(userdataElementID).style = "display:block";
           enablePrivateFeatures();
           featureEnabled = true;
-          
           // session started successfully, log
           logger().sessionStart(simpaticoEservice);
-          // if the e-service page is associated to the form, log the form start event 
+          // if the e-service page is associated to the form, log the form start event
           if (window.simpaticoForm) {
-              // log end of session
+            // log end of session
         	  logger().formStart(simpaticoEservice, simpaticoForm);
           }
 
         } else {
-          document.getElementById(userdataElementID).innerHTML = "";
+          document.getElementById(userdataElementID).innerHTML = greeting;
+          document.getElementById(userdataElementID).style  = "display:block";
           disablePrivateFeatures();
           featureEnabled = false;
         }
@@ -147,7 +149,7 @@ var authManager = (function () {
       },
       getToken: function() {
           var tokenData = JSON.parse(localStorage.aacTokenData || 'null');
-    	  return !!tokenData ? tokenData.access_token : null;
+        return !!tokenData ? tokenData.access_token : null;
       }
     };
   }

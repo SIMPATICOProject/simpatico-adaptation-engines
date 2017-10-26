@@ -21,7 +21,9 @@ var taeUI = (function () {
     var simplifyBoxTitle = '';
     var simplifyBoxClassName = '';
     var wordPropertiesClassName = '';
-
+    var synonymLabel = '';
+    var definitionLabel = '';
+    var emptyText = '';
 
     // Internal usage variables
     var paragraphs = []; // Used to store all the tagged paragraphs
@@ -36,6 +38,10 @@ var taeUI = (function () {
       simplifyBoxTitle = parameters.simplifyBoxTitle;
       simplifyBoxClassName = parameters.simplifyBoxClassName;
       wordPropertiesClassName = parameters.wordPropertiesClassName;
+      synonymLabel = parameters.synonymLabel || 'Synonyms';
+      definitionLabel = parameters.definitionLabel || 'Definitions';
+      emptyText = parameters.emptyText || 'no simplification found for the text';
+      
       taeCORE.getInstance().init({
           endpoint: parameters.endpoint,
           language: parameters.language
@@ -70,6 +76,11 @@ var taeUI = (function () {
         paragraphs[i].setAttribute("onclick", 
           "taeUI.getInstance()." + 
               "paragraphEvent('" + paragraphName + "');");
+  var loadingImage = document.createElement("img");
+        loadingImage.setAttribute("src", "img/loader.gif");
+        loadingImage.setAttribute("id", "loading_"+paragraphName);
+        loadingImage.style.display = "none";
+        paragraphs[i].appendChild(loadingImage);
         paragrapId++;
       }
     }
@@ -133,14 +144,28 @@ var taeUI = (function () {
     // - originalText: the original text contained in a paragraph
     // - simplifications: A list of simplified words of the text
     function createSimplifiedTextHTML(originalText, simplifications) {
+      Array.prototype.keySort = function(key, desc){
+        this.sort(function(a, b) {
+          var result = desc ? (a[key] < b[key]) : (a[key] > b[key]);
+          return result ? 1 : -1;
+        });
+        return this;
+      }
+      simplifications.keySort('start');
+      if (simplifications.length == 0)
+      {
+  var result = emptyText;//'No hay palabras que necesiten ser simplificadas';
+      }else{
       var result = originalText;
       var item = '';
       // for each simplified word add an element containing it
       for (var i = simplifications.length -1; i >= 0; i--) {
         item = simplifications[i];
+  console.log(item);
         result = result.substring(0, item.start) + 
                       createSimplifiedWordLabel(item) + 
                         result.substring(item.end, result.length);
+      }
       }
       return result;
     }
@@ -198,11 +223,11 @@ var taeUI = (function () {
       // Update the content
       currentBox.innerHTML = '<b>' + wordHTMLelement.innerText + '</b></br>';
       if (definition != null) // If the word has definition show it
-        currentBox.innerHTML += '<i>' + 'Definition:' + '</i>' 
+        currentBox.innerHTML += '<i>' + definitionLabel + ':' + '</i>' 
                                 + definition 
                                 + '</br>';
       if (synonyms != null) // If the word has synonyms show them
-        currentBox.innerHTML += '<i>' + 'Synonyms:' + '</i>' + synonyms;
+        currentBox.innerHTML += '<i>' + synonymLabel +':' + '</i>' + synonyms;
 
       logger().logWord(simpaticoEservice, wordHTMLelement.innerHTML);
     }
@@ -246,6 +271,7 @@ var taeUI = (function () {
       // 3. The Simplification Box div is attached to the corresponding paragraph
       questionsBox.innerHTML = questionsHtml;
       document.getElementById(paragraphID).appendChild(questionsBox);
+      document.getElementById('loading_'+paragraphID).style.display = "none";
     } //showSimplificationBox
 
     // Hide the simplification box attached to a paragraph passed as paramether

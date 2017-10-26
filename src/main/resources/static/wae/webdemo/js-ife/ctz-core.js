@@ -25,7 +25,7 @@ var qaeCORE = (function () {
       createQuestionURL = parameters.endpoint + '/questions/create';
       showQuestionURL = parameters.endpoint + '/questions/show';
       getQuestionsAPI = parameters.endpoint + '/api/qae/questions';
-      getDiagramAPI = 'https://dev.smartcommunitylab.it/cpd/api/diagram/eService';
+      getDiagramAPI = parameters.cpdDiagramEndpoint;
     }
 
     // Get questions from Citizenpedia related to a paragraphName.

@@ -18,46 +18,54 @@ var sfUI = (function () {
     var timeoutExceeded = false;
     var timeout = 5 * 60 * 1000; // 5 minutes in ms
     var startTime;
+    var language = null;
 
-
-    this.active = false;
-    
+    var active = false;
     function initComponent (parameters) {
       buttonToShowSfId = parameters.buttonToShowSfId;
       formSelector = parameters.formSelector;
-      
+      language = parameters.language || 'en';
       // Add the onclick event
       if (buttonToShowSfId) {
-          var button = document.getElementById(buttonToShowSfId);
-          if (button != null) {
-              button.addEventListener('click', function(){
-            	  sfUI.getInstance().showSF();
-              });
-          }
+        var button = document.getElementById(buttonToShowSfId);
+        if (button != null) {
+          button.addEventListener('click', function(){
+        	  sfUI.getInstance().showSF();
+          });
+        }
       }
       if (formSelector != null) {
     	  var formElement = $(formSelector).get(0);
     	  var originalHandler = formElement.onsubmit;
     	  var handler = function(e) {
+    		  if (!authManager.getInstance().isEnabled()){
+    			  return true;
+    		  }
     		  e.preventDefault();
     		  showSF();
+    		  return false;
     	  };
     	  if (originalHandler != null && typeof originalHandler == 'function') {
-    		  formElement.removeEventListener('submit',originalHandler);
     		  handler = function(e){
+        		  if (!authManager.getInstance().isEnabled()) {
+        			  return originalHandler();
+        		  }
     			  var res = originalHandler();
         		  e.preventDefault();
     			  if (res) {
+    				  formElement.onsubmit = function(){
+    					  return true;
+    				  }    				  
     				  showSF();
-    	    		  formElement.removeEventListener('submit',handler);
     			  }
     		  }
     	  }
-    	  formElement.addEventListener('submit', handler);
+    	  formElement.onsubmit = handler;
       }
       sfCORE.getInstance().init({
           endpoint: parameters.apiEndpoint,
-          listener: parameters.listener
+          listener: parameters.listener,
+          language: language
         });
 
       // Start counting time
@@ -65,7 +73,9 @@ var sfUI = (function () {
     }
 
     function showSF () {
+
       if (!authManager.getInstance().isEnabled()){
+        alert("You must be log in SIMPATICO");
         console.log("Auth needed");
         return; // If there isn't an user logged in, SF won't work
       } 
@@ -77,7 +87,7 @@ var sfUI = (function () {
       var currentTime = new Date().getTime();
       timeoutExceeded = isTimeExceeded(currentTime - startTime);
       sfCORE.getInstance().selectDialog(ctzSelected, simplificationSelected, timeoutExceeded, data.userId);
-      this.active = true;
+      active = true;
     }
 
     function isTimeExceeded (timeMs) {
@@ -86,11 +96,9 @@ var sfUI = (function () {
 
       return timeoutExceeded;
     }
-    
     function isActive() {
     	return this.active;
     }
-    
     function hideSF() {
     	this.active = false;
         $('#dialogSF').dialog("destroy").remove();
