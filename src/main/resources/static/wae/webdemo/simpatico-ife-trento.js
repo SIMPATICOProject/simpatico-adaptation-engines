@@ -213,7 +213,7 @@ function initFeatures() {
                   styleClassDisabled: "simp-none",
                   
                   isEnabled: function() { return authManager.getInstance().isEnabled(); },
-                  enable: function() { authManager.getInstance().enable(); },
+                  enable: function() { authManager.getInstance().enable(); updateForm(localStorage.logSessionStart); },
                   disable: function() { authManager.getInstance().disable(); }
                 },
 
@@ -457,7 +457,9 @@ document.addEventListener('DOMContentLoaded', function () {
   initFeatures();
   addSimpaticoBar("simpatico_top");
   authManager.getInstance().updateUserData();
-  
+  if (authManager.getInstance().isEnabled()) {
+    updateForm(localStorage.logSessionStart);
+  }
   
   var link = document.createElement( "link" );
   link.href = "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/css/moduli.css";
@@ -562,3 +564,10 @@ function tutorialContent(step) {
 	}
 }
 	
+function updateForm(sessionId) {
+	if (!$('#Parametri_SIMPATICOSessionID').length) {
+		$('form').append('<input type="hidden" name="Parametri_SIMPATICOSessionID" id="Parametri_SIMPATICOSessionID" value="'+sessionId+'" />');
+	} else {
+		$('#Parametri_SIMPATICOSessionID').val(sessionId);
+	}
+}

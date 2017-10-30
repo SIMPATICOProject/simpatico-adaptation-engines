@@ -40,7 +40,7 @@ var cdvUI = (function () {
 
 		var dataFields = [];
 		var cdvDashUrl = "#";
-		var informedConsentLink = "informed_consent.html";
+		this.informedConsentLink = "informed_consent.html";
 
 		/**
 		 * CURRENTLY SELECTED FIELD
@@ -65,7 +65,7 @@ var cdvUI = (function () {
 			}
 			
 			if (parameters.informedConsentLink) {
-				informedConsentLink = parameters.informedConsentLink;
+				this.informedConsentLink = parameters.informedConsentLink;
 			}
 			cdvDashUrl: parameters.cdvDashUrl
 
@@ -595,7 +595,6 @@ function showPrivacyPolicyForActivation(url, title){
 			isEnabled: function () {
 				return featureEnabled;
 			}, // Returns if the feature is enabled
-
 			//paragraphEvent: paragraphEvent
 		};
 	}
