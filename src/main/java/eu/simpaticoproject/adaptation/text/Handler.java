@@ -19,6 +19,7 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import eu.fbk.dkm.pikes.twm.MachineLinking;
 import eu.fbk.utils.core.PropertiesUtils;
+import eu.fbk.utils.corenlp.outputters.AnnotationOutputter;
 import eu.fbk.utils.corenlp.outputters.JSONOutputter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -174,7 +175,9 @@ public class Handler {
         if (annotation == null) {
             throw new OperationNotSupportedException();
         } else {
-            json = JSONOutputter.jsonPrint(annotation);
+            AnnotationOutputter.Options options = new AnnotationOutputter.Options();
+            options.includeText = true;
+            json = JSONOutputter.jsonPrint(annotation, options);
         }
         return json;
     }

@@ -47,7 +47,7 @@ public class TAEController {
 	@Autowired
 	private Handler handler;
 	
-	@RequestMapping(value = "/tae/simp", method = RequestMethod.GET)
+	@RequestMapping(value = "/tae/simp", method = RequestMethod.GET, produces = "application/json")
 	@ApiOperation(value = "Process text",
 				  response = SimpaticoOutput.class,
 				  notes = "Obtain annotations and simplifications. Two modalities supported: word simplification and sentence/paragraph simplification.")
@@ -65,7 +65,7 @@ public class TAEController {
 //		return output;
 		return json;
 	}
-	@RequestMapping(value = "/tae/simp", method = RequestMethod.POST)
+	@RequestMapping(value = "/tae/simp", method = RequestMethod.POST, produces = "application/json")
 	@ApiOperation(value = "Process text",
 	  response = SimpaticoOutput.class,
 	  notes = "Obtain text annotations and simplifications")

@@ -27,4 +27,12 @@ public class SimpaticoAnnotations {
         }
     }
 
+    @JSONLabel("syntSimplifiedVersion")
+    public static class SyntSimplifiedAnnotation implements CoreAnnotation<String> {
+
+        public Class<String> getType() {
+            return String.class;
+        }
+    }
+
 }

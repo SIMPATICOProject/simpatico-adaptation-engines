@@ -6,7 +6,7 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <title>SIMPATICO Dashboard demo</title>
+    <title>Simpatico Authoring Tool</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css">
@@ -32,7 +32,7 @@
         <div class="col-md-6">
             <h1>
                 <img src="images/noun_578426_cc.png">
-                Simpatico Dashboard
+                Simpatico Authoring Tool
             </h1>
         </div>
         <div class="col-md-6" id="headerdx">
@@ -91,7 +91,12 @@
                                 <option value="Sara Smith, a Pasadena resident, went shopping. She is 30, and has lived at 3037 N. Foothill Street since 1992. Sara has been married to John for seven years. They have two children; Bob is five years old and Nancy is three. Sara owns a 1995 four-door blue Toyola. At 9 a.m., Sara got into her car and drove to Barget, a department store a mile away. Barget was having a holiday sale. Sara bought a four-slice toaster for $29.95 plus tax. The regular price was $39.95. She paid by check. On her way home, Sara stopped at MilkPlus to buy a gallon of nonfat milk. The milk was $3.50. Sara got 50 cents back in change. Sara arrived home at 10 a.m. John and the kids were still sleeping. She woke them up and then made a hot and nutritious breakfast for everyone.">
                                     English (easy) - Sara Smith, a Pasadena resident, went shopping. [...]
                                 </option>
-
+                                <option value="Rebecca Clarke, nada o 27 de agosto de 1886 en Londres (Inglaterra) e finada o 13 de outubro de 1979 na cidade de Nova York (Estados Unidos), foi unha compositora e violista coñecida especialmente pola súa produción camerística para viola. Nada no borough londiniense de Harrow, estudou na Royal Academy of Music e no Royal College of Music de Londres, posteriormente converteuse nunha das primeiras mulleres en tocar en orquestras profesionais. Sorprendida polo inicio da Segunda Guerra Mundial nos Estados Unidos, estableceuse de xeito permanente na cidade de Nova York e casou co compositor e pianista James Friskin en 1944. Clarke morreu na súa casa de Nova York aos 93 anos de idade.">
+                                    Galician - Wikipedia - Rebecca Clarke
+                                </option>
+                                <option value="Os dous estiveron dacordo e cebaron o porco, fixeron a matanza e foron enterralo para que ninguén o vise, pero deixándolle o rabo fóra, non fose que despois non soubesen ben do sitio. Puxéronse a cavar un monte de uces. O lobo cavaba canto podía e facía moito traballo, máis o raposo, levando unha uciña de aquí para alí ou tirando da raíz dun felgo, non facía nada.">
+                                    Galician (easy) - Os dous estiveron dacordo e cebaron o porco [...]
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -111,10 +116,19 @@
     <div id="part2" class="inactive">
         <div class="row">
             <div class="col-md-6" id="l-col">
-                <div class="panel panel-success">
-                    <div class="panel-heading">Original text</div>
-                    <div class="panel-body" id="parsed-text">
-                    </div>
+                <ul id="text-tabs" class="nav nav-tabs">
+                    <li id="text-original" class="active"><a data-toggle="tab" href="#text-original-content">Original text</a></li>
+                    <li id="text-simplifications"><a data-toggle="tab" href="#text-original-simplifications">Lex Simps</a></li>
+                    <li id="text-ssimplifications"><a data-toggle="tab" href="#text-original-ssimplifications">Synt Simps</a></li>
+                    <li id="text-definitions"><a data-toggle="tab" href="#text-original-definitions">Defs</a></li>
+                    <li id="text-links"><a data-toggle="tab" href="#text-original-links">Wiki links</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="text-original-content" class="tab-pane fade in active category"></div>
+                    <div id="text-original-simplifications" class="tab-pane fade">Sim</div>
+                    <div id="text-original-ssimplifications" class="tab-pane fade">SSim</div>
+                    <div id="text-original-definitions" class="tab-pane fade">Def</div>
+                    <div id="text-original-links" class="tab-pane fade">Lin</div>
                 </div>
             </div>
             <div class="col-md-6" id="meta-text">
