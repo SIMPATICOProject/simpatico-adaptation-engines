@@ -8,6 +8,16 @@
 function isProd() {
 	return window.location.origin.indexOf('sportello.comune.trento.it') >= 0;
 }
+function isTestProd() {
+	return window.location.origin.indexOf('sportellotest.comune.trento.it') >= 0;
+}
+
+function logEnabled() {
+	return isProd() || isTestProd();
+}
+function sfEnabled() {
+	return !isProd() && !isTestProd();
+}
 
 // It inits all the enabled features of IFE 
 function initFeatures() {
@@ -35,7 +45,7 @@ function initFeatures() {
   // - endpoint: the main URL of the used LOG instance
   // - testMode: true if the data should not be sent to the LOG component
   logCORE.getInstance().init({
-	  testMode: !isProd(),
+	  testMode: !logEnabled(),
 	  endpoint: "https://simpatico.smartcommunitylab.it/simpatico-logs/api"
   });
 
@@ -177,7 +187,7 @@ function initFeatures() {
   // - apiEndpoint: the main URL of the logs API server (<site>/simpatico/api)
   // NOTE: Requires jquery-ui to work properly
   
-  if (!isProd()) {
+  if (sfEnabled()) {
 	  sfUI.getInstance().init({
 		    language: 'it',
 			buttonToShowSfId: 'SF',
