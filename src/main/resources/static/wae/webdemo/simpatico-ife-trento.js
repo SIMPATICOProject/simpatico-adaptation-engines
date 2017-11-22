@@ -223,7 +223,7 @@ function initFeatures() {
                   styleClassDisabled: "simp-none",
                   
                   isEnabled: function() { return authManager.getInstance().isEnabled(); },
-                  enable: function() { authManager.getInstance().enable(); updateForm(localStorage.logSessionStart); },
+                  enable: function() { authManager.getInstance().enable(); },
                   disable: function() { authManager.getInstance().disable(); }
                 },
 
@@ -352,6 +352,7 @@ function createButtonNode(button) {
 // It creates the configured buttons and adds them to the toolbar
 // Called one time
 function enablePrivateFeatures() {
+  updateForm(localStorage.logSessionStart);
   // Update the login button status
   var loginButton = document.getElementById(buttons[0].id);
   loginButton.childNodes[0].src = buttons[0].imageSrcEnabled;
