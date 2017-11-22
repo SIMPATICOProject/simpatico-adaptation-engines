@@ -93,6 +93,7 @@ function initFeatures() {
 	    serviceURL: window.location,
 	    dataFields: simpaticoMapping,
 	    informedConsentLink: "https://cdv.comune.trento.it/CDV/IFE/informed_consent.html",
+	    consentGiven:true,
 	    cdvColor: '#008000',
 	    dialogTitle: 'Gestione dati personali',
 	    tabPFieldsTitle: 'I miei dati',
