@@ -353,7 +353,10 @@ function createButtonNode(button) {
 // It creates the configured buttons and adds them to the toolbar
 // Called one time
 function enablePrivateFeatures() {
-  updateForm(localStorage.logSessionStart);
+	setTimeout(function(){
+		updateForm(localStorage.logSessionStart);
+	}, 5000);	
+  
   // Update the login button status
   var loginButton = document.getElementById(buttons[0].id);
   loginButton.childNodes[0].src = buttons[0].imageSrcEnabled;
@@ -577,12 +580,10 @@ function tutorialContent(step) {
 }
 	
 function updateForm(sessionId) {
-	setTimeout(function(){
-		if (!$('#Parametri_SIMPATICOSessionID').length) {
-			$('form').append('<input type="hidden" name="Parametri_SIMPATICOSessionID" id="Parametri_SIMPATICOSessionID" value="'+sessionId+'" />');
-		} else {
-			$('#Parametri_SIMPATICOSessionID').val(sessionId);
-		}
-	}, 5000);
+	if (!$('#Parametri_SIMPATICOSessionID').length) {
+		$('form').append('<input type="hidden" name="Parametri_SIMPATICOSessionID" id="Parametri_SIMPATICOSessionID" value="'+sessionId+'" />');
+	} else {
+		$('#Parametri_SIMPATICOSessionID').val(sessionId);
+	}
 	
 }
