@@ -90,7 +90,7 @@ function initFeatures() {
 	    endpoint: 'https://cdv.comune.trento.it/CDV',
 	    serviceID: simpaticoEservice,
 		serviceName: simpaticoEserviceName,
-	    serviceURL: window.location,
+	    serviceURL: window.location.href,
 	    dataFields: simpaticoMapping,
 	    informedConsentLink: "https://cdv.comune.trento.it/CDV/IFE/informed_consent.html",
 	    consentGiven:true,
