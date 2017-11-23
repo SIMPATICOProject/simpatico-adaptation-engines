@@ -202,3 +202,7 @@ form {
 #tutorialesc {
    color: #DD4039;
 } 
+
+#cdv_toolbar_buttons {
+	top: 52px !important;
+}
