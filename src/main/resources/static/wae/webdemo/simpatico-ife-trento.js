@@ -305,7 +305,7 @@ function initFeatures() {
 //                    }
              
             ];
-  if (!isProd()) {
+//  if (!isProd()) {
 	  buttons.splice(buttons.length - 1, 0, {	// CDV
     	  id: "simp-bar-sw-cdv",
           // Ad-hoc images to define the enabled/disabled images
@@ -321,7 +321,7 @@ function initFeatures() {
           disable: function() { cdvUI.getInstance().disable(); },
 //          exclusive: true
         });
-  }
+//  }
   
 }//initFeatures()
 
