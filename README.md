@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/SIMPATICOProject/aac.svg?branch=master)](https://travis-ci.org/SIMPATICOProject/simpatico-adaptation-engines)
+[![Build Status](https://travis-ci.org/SIMPATICOProject/simpatico-adaptation-engines.svg?branch=master)](https://travis-ci.org/SIMPATICOProject/simpatico-adaptation-engines)
 
-[![codecov](https://codecov.io/gh/SIMPATICOProject/aac/branch/master/graph/badge.svg)](https://codecov.io/gh/SIMPATICOProject/simpatico-adaptation-engines)
+[![codecov](https://codecov.io/gh/SIMPATICOProject/simpatico-adaptation-engines/branch/master/graph/badge.svg)](https://codecov.io/gh/SIMPATICOProject/simpatico-adaptation-engines)
 
 TAE and WAE API projects
 ===========
