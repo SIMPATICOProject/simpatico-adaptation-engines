@@ -1,16 +1,17 @@
 package eu.simpaticoproject.adaptation.text.tae;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
-import eu.fbk.dkm.pikes.twm.LinkingTag;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.languagetool.rules.DemoRule;
 import org.languagetool.rules.Rule;
 import org.languagetool.rules.RuleMatch;
 
-import java.util.*;
+import eu.fbk.dkm.pikes.twm.LinkingTag;
 
 /**
  * Created by alessio on 10/01/17.
@@ -24,9 +25,10 @@ public class SimpaticoOutput {
     List<Linking> linkings;
     List<Simplification> simplifications;
     List<String> sentenceTexts;
-    List<String> sentences;
+    List<Map<String,Object>> sentences;
 
     String simplifiedText;
+    String text, syntSimplifiedVersion;
 
     public SimpaticoReadability getReadability() {
         return readability;
@@ -76,14 +78,6 @@ public class SimpaticoOutput {
         this.sentenceTexts = sentenceTexts;
     }
 
-    public List<String> getSentences() {
-        return sentences;
-    }
-
-    public void setSentences(List<String> sentences) {
-        this.sentences = sentences;
-    }
-
     public String getSimplifiedText() {
         return simplifiedText;
     }
@@ -91,7 +85,7 @@ public class SimpaticoOutput {
     public void setSimplifiedText(String simplifiedText) {
         this.simplifiedText = simplifiedText;
     }
-
+    
     public static class Simplification extends RawSimplification {
 
         public Simplification() {
@@ -116,6 +110,10 @@ public class SimpaticoOutput {
         protected Map<String, Double> measures = new HashMap<>();
         protected Map<String, String> labels = new HashMap<>();
         protected Map<String, Object> forms = new HashMap<>();
+        protected Map<String, Object> minYellowValues = new HashMap<>();
+        protected Map<String, Object> maxYellowValues = new HashMap<>();
+        protected Map<String, Object> minValues = new HashMap<>();
+        protected Map<String, Object> maxValues = new HashMap<>();
 
         protected HashMap<String, String> genericPosDescription = new HashMap<>();
         protected HashMap<String, String> posDescription = new HashMap<>();
@@ -123,6 +121,8 @@ public class SimpaticoOutput {
         Set<Integer> tooLongSentences = new HashSet<>();
         Stats posStats = new Stats();
         Stats genericPosStats = new Stats();
+
+        private Double ttrValue, density,subordinateRatio;
 
         public Map<String, Object> getForms() {
             return forms;
@@ -268,6 +268,70 @@ public class SimpaticoOutput {
             this.genericPosStats = genericPosStats;
         }
 
+		public Map<String, String> getLabels() {
+			return labels;
+		}
+
+		public void setLabels(Map<String, String> labels) {
+			this.labels = labels;
+		}
+
+		public Double getTtrValue() {
+			return ttrValue;
+		}
+
+		public void setTtrValue(Double ttrValue) {
+			this.ttrValue = ttrValue;
+		}
+
+		public Double getDensity() {
+			return density;
+		}
+
+		public void setDensity(Double density) {
+			this.density = density;
+		}
+
+		public Double getSubordinateRatio() {
+			return subordinateRatio;
+		}
+
+		public void setSubordinateRatio(Double subordinateRatio) {
+			this.subordinateRatio = subordinateRatio;
+		}
+
+		public Map<String, Object> getMinYellowValues() {
+			return minYellowValues;
+		}
+
+		public void setMinYellowValues(Map<String, Object> minYellowValues) {
+			this.minYellowValues = minYellowValues;
+		}
+
+		public Map<String, Object> getMaxYellowValues() {
+			return maxYellowValues;
+		}
+
+		public void setMaxYellowValues(Map<String, Object> maxYellowValues) {
+			this.maxYellowValues = maxYellowValues;
+		}
+
+		public Map<String, Object> getMinValues() {
+			return minValues;
+		}
+
+		public void setMinValues(Map<String, Object> minValues) {
+			this.minValues = minValues;
+		}
+
+		public Map<String, Object> getMaxValues() {
+			return maxValues;
+		}
+
+		public void setMaxValues(Map<String, Object> maxValues) {
+			this.maxValues = maxValues;
+		}
+
     }
 
     public static class Stats {
@@ -340,11 +404,27 @@ public class SimpaticoOutput {
         }
     }
 
-    public static void main(String[] args) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        // configure mapper, if necessary, then create schema generator
-        JsonSchemaGenerator schemaGen = new JsonSchemaGenerator(mapper);
-        JsonSchema schema = schemaGen.generateSchema(SimpaticoOutput.class);
-        System.err.println(mapper.writeValueAsString(schema));
-    }
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public String getSyntSimplifiedVersion() {
+		return syntSimplifiedVersion;
+	}
+
+	public void setSyntSimplifiedVersion(String syntSimplifiedVersion) {
+		this.syntSimplifiedVersion = syntSimplifiedVersion;
+	}
+
+	public List<Map<String, Object>> getSentences() {
+		return sentences;
+	}
+
+	public void setSentences(List<Map<String, Object>> sentences) {
+		this.sentences = sentences;
+	}
 }

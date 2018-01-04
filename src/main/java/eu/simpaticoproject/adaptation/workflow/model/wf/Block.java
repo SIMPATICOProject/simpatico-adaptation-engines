@@ -76,5 +76,66 @@ public class Block {
 	public void setDescription(Map<String, String> description) {
 		this.description = description;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Block other = (Block) obj;
+		if (getBlocks() == null) {
+			if (other.blocks != null)
+				return false;
+		} else if (!blocks.equals(other.blocks))
+			return false;
+		if (getCompleted() == null) {
+			if (other.completed != null)
+				return false;
+		} else if (!completed.equals(other.completed))
+			return false;
+		if (getCondition() == null) {
+			if (other.condition != null)
+				return false;
+		} else if (!condition.equals(other.condition))
+			return false;
+		if (getDependencies() == null) {
+			if (other.dependencies != null)
+				return false;
+		} else if (!dependencies.equals(other.dependencies))
+			return false;
+		if (getDescription() == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (getFields() == null) {
+			if (other.fields != null)
+				return false;
+		} else if (!fields.equals(other.fields))
+			return false;
+		if (getId() == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (getTags() == null) {
+			if (other.tags != null)
+				return false;
+		} else if (!tags.equals(other.tags))
+			return false;
+		if (getType() == null) {
+			if (other.type != null)
+				return false;
+		} else if (!type.equals(other.type))
+			return false;
+		if (getXpath() == null) {
+			if (other.xpath != null)
+				return false;
+		} else if (!xpath.equals(other.xpath))
+			return false;
+		return true;
+	}
 	
 }

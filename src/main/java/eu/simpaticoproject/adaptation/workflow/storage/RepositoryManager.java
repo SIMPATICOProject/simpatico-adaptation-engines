@@ -5,24 +5,23 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import eu.simpaticoproject.adaptation.text.Handler;
 import eu.simpaticoproject.adaptation.workflow.model.WorkFlowModelStore;
 
+@Component
 public class RepositoryManager {
     static Logger logger = Logger.getLogger(Handler.class.getName());
 
+    @Autowired
 	private MongoTemplate mongoTemplate;
-	
-	public RepositoryManager(MongoTemplate template) {
-		this.mongoTemplate = template;
-	}
 	
 	public WorkFlowModelStore getModelByProfile(String uri, String profileType) {
 		Criteria c = new Criteria("uri").is(uri);
@@ -69,32 +68,6 @@ public class RepositoryManager {
 	public void deleteModel(String objectId) {
 		Query query =  new Query(new Criteria("objectId").is(objectId));
 		mongoTemplate.findAndRemove(query, WorkFlowModelStore.class);
-	}
-	
-	public List<?> findData(Class<?> entityClass, Criteria criteria, Sort sort, String ownerId) {
-		Query query = null;
-		if (criteria != null) {
-			query = new Query(new Criteria("ownerId").is(ownerId).andOperator(criteria));
-		} else {
-			query = new Query(new Criteria("ownerId").is(ownerId));
-		}
-		if (sort != null) {
-			query.with(sort);
-		}
-		query.limit(5000);
-		List<?> result = mongoTemplate.find(query, entityClass);
-		return result;
-	}
-
-	public <T> T findOneData(Class<T> entityClass, Criteria criteria, String ownerId)  {
-		Query query = null;
-		if (criteria != null) {
-			query = new Query(new Criteria("ownerId").is(ownerId).andOperator(criteria));
-		} else {
-			query = new Query(new Criteria("ownerId").is(ownerId));
-		}
-		T result = mongoTemplate.findOne(query, entityClass);
-		return result;
 	}
 
 	private String generateObjectId() {

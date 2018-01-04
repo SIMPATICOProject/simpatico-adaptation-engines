@@ -28,4 +28,33 @@ public class PageModel {
 	public void setContext(Map<String, Variable> context) {
 		this.context = context;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PageModel other = (PageModel) obj;
+		if (getBlocks() == null) {
+			if (other.blocks != null)
+				return false;
+		} else if (!blocks.equals(other.blocks))
+			return false;
+		if (getContext() == null) {
+			if (other.context != null)
+				return false;
+		} else if (!context.equals(other.context))
+			return false;
+		if (getFields() == null) {
+			if (other.fields != null)
+				return false;
+		} else if (!fields.equals(other.fields))
+			return false;
+		return true;
+	}
+	
+	
 }
