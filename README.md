@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/SIMPATICOProject/simpatico-adaptation-engines.svg?branch=master)](https://travis-ci.org/SIMPATICOProject/simpatico-adaptation-engines)
+
+[![codecov](https://codecov.io/gh/SIMPATICOProject/simpatico-adaptation-engines/branch/master/graph/badge.svg)](https://codecov.io/gh/SIMPATICOProject/simpatico-adaptation-engines)
+
 TAE and WAE API projects
 ===========
 
@@ -39,7 +43,7 @@ The following properties are relevant:
 
   - `server.port`: Defines the HTTP port where the engines will listen   
   - `server.contextPath`: the engine context path used for the exposed endpoint (simp-engines)
-  - `db.name`: name of the Mongo database
+  - `spring.data.mongodb.uri`: URL of the MongoDB data base (e.g., `mongodb://localhost:27017/waedb`)
   - `tae.mode.proxy.enabled`: defines whether the instance works as a proxy to a remote Text Adaptation Engine API
   or implements the functionality internally. The TAE functionality is resource consuming; if the engine works 
   in test mode or does not require instantiating this functionality set this value to true.
@@ -56,7 +60,7 @@ The API exposes the Swagger documentation at the following endpoints
 
 To run the multi-language environment, you need to implement two steps:
 - Install the [Simpatico TAE server](https://github.com/SIMPATICOProject/SimpaticoTAEServer) for lexical and syntactic simplification.
-- Edit the configuration file and add the `lex.server` and `lex.port` settings so that they point to the correct information.
+- Edit the configuration file and add the `lex.server` and `lex.port` settings in `src/main/resources/simpatico-default.props` so that they point to the correct information.
 
 Requirements
 ============

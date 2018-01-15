@@ -8,6 +8,16 @@
 function isProd() {
 	return window.location.origin.indexOf('sportello.comune.trento.it') >= 0;
 }
+function isTestProd() {
+	return window.location.origin.indexOf('sportellotest.comune.trento.it') >= 0;
+}
+
+function logEnabled() {
+	return isProd() || isTestProd();
+}
+function sfEnabled() {
+	return !isProd() && !isTestProd();
+}
 
 // It inits all the enabled features of IFE 
 function initFeatures() {
@@ -35,7 +45,7 @@ function initFeatures() {
   // - endpoint: the main URL of the used LOG instance
   // - testMode: true if the data should not be sent to the LOG component
   logCORE.getInstance().init({
-	  testMode: !isProd(),
+	  testMode: !logEnabled(),
 	  endpoint: "https://simpatico.smartcommunitylab.it/simpatico-logs/api"
   });
 
@@ -80,9 +90,10 @@ function initFeatures() {
 	    endpoint: 'https://cdv.comune.trento.it/CDV',
 	    serviceID: simpaticoEservice,
 		serviceName: simpaticoEserviceName,
-	    serviceURL: window.location,
+	    serviceURL: window.location.href,
 	    dataFields: simpaticoMapping,
 	    informedConsentLink: "https://cdv.comune.trento.it/CDV/IFE/informed_consent.html",
+	    consentGiven:true,
 	    cdvColor: '#008000',
 	    dialogTitle: 'Gestione dati personali',
 	    tabPFieldsTitle: 'I miei dati',
@@ -177,7 +188,7 @@ function initFeatures() {
   // - apiEndpoint: the main URL of the logs API server (<site>/simpatico/api)
   // NOTE: Requires jquery-ui to work properly
   
-  if (!isProd()) {
+  if (sfEnabled()) {
 	  sfUI.getInstance().init({
 		    language: 'it',
 			buttonToShowSfId: 'SF',
@@ -294,7 +305,7 @@ function initFeatures() {
 //                    }
              
             ];
-  if (!isProd()) {
+//  if (!isProd()) {
 	  buttons.splice(buttons.length - 1, 0, {	// CDV
     	  id: "simp-bar-sw-cdv",
           // Ad-hoc images to define the enabled/disabled images
@@ -310,7 +321,7 @@ function initFeatures() {
           disable: function() { cdvUI.getInstance().disable(); },
 //          exclusive: true
         });
-  }
+//  }
   
 }//initFeatures()
 
@@ -342,6 +353,10 @@ function createButtonNode(button) {
 // It creates the configured buttons and adds them to the toolbar
 // Called one time
 function enablePrivateFeatures() {
+	setTimeout(function(){
+		updateForm(localStorage.logSessionStart);
+	}, 5000);	
+  
   // Update the login button status
   var loginButton = document.getElementById(buttons[0].id);
   loginButton.childNodes[0].src = buttons[0].imageSrcEnabled;
@@ -457,7 +472,9 @@ document.addEventListener('DOMContentLoaded', function () {
   initFeatures();
   addSimpaticoBar("simpatico_top");
   authManager.getInstance().updateUserData();
-  
+  if (authManager.getInstance().isEnabled()) {
+    updateForm(localStorage.logSessionStart);
+  }
   
   var link = document.createElement( "link" );
   link.href = "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/css/moduli.css";
@@ -562,3 +579,11 @@ function tutorialContent(step) {
 	}
 }
 	
+function updateForm(sessionId) {
+	if (!$('#Parametri_SIMPATICOSessionID').length) {
+		$('form').append('<input type="hidden" name="Parametri_SIMPATICOSessionID" id="Parametri_SIMPATICOSessionID" value="'+sessionId+'" />');
+	} else {
+		$('#Parametri_SIMPATICOSessionID').val(sessionId);
+	}
+	
+}

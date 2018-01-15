@@ -200,13 +200,9 @@ public class Handler {
         pipeline.annotate(annotation);
 
         String json = "";
-        if (annotation == null) {
-            throw new OperationNotSupportedException();
-        } else {
-            AnnotationOutputter.Options options = new AnnotationOutputter.Options();
-            options.includeText = true;
-            json = JSONOutputter.jsonPrint(annotation, options);
-        }
+        AnnotationOutputter.Options options = new AnnotationOutputter.Options();
+        options.includeText = true;
+        json = JSONOutputter.jsonPrint(annotation, options);
         return json;
     }
 

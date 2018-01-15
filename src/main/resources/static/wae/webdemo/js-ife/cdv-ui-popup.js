@@ -4,7 +4,7 @@
 // which enriches the Interactive Front-End component with the features of
 // the CDV component.
 // - It uses the methods implemented in cdv-core-popup.js
-// - The Citizenpedia server side code is available in:
+// - The CDV server side code is available in:
 //              https://github.com/SIMPATICOProject/CDV
 //-----------------------------------------------------------------------------
 
@@ -13,6 +13,8 @@ var cdvUI = (function () {
 	var featureEnabled = false;
 	var consent_given=false;
     var dialog_cdv = null;
+	var informedConsentLink = "informed_consent.html";
+	
 	function Singleton() {
 
 		var colors = {
@@ -40,7 +42,7 @@ var cdvUI = (function () {
 
 		var dataFields = [];
 		var cdvDashUrl = "#";
-		var informedConsentLink = "informed_consent.html";
+													 
 
 		/**
 		 * CURRENTLY SELECTED FIELD
@@ -65,8 +67,14 @@ var cdvUI = (function () {
 			}
 			
 			if (parameters.informedConsentLink) {
-				informedConsentLink = parameters.informedConsentLink;
+				this.informedConsentLink = parameters.informedConsentLink;
 			}
+                        
+                        if (parameters.consentGiven) {
+				consent_given = parameters.consentGiven;
+			}
+
+                        
 			cdvDashUrl: parameters.cdvDashUrl
 
 			cdvCORE.getInstance().init({
@@ -85,7 +93,6 @@ var cdvUI = (function () {
 			labels.dialogSaveMessage = parameters.dialogSaveMessage || labels.dialogSaveMessage;
             labels.statusMessageNoAccount = parameters.statusMessageNoAccount || labels.statusMessageNoAccount;
             labels.statusMessageNoActive = parameters.statusMessageNoActive || labels.statusMessageNoActive;
-            
 			labels.confirmSaveDataMessage=parameters.confirmSaveDataMessage || labels.confirmSaveDataMessage;
 			labels.buttonSaveData=parameters.buttonSaveData || labels.buttonSaveData;
 			labels.buttonManageData=parameters.buttonManageData || labels.buttonManageData;
@@ -313,7 +320,7 @@ var cdvUI = (function () {
 							text: labels.buttonCreate,
 							click: function () {
 								
-								if(cdvUI.getInstance().consent_given){
+								if(consent_given){
 									var confirm = activateSLR();
 								    cdvCORE.getInstance().createAccount(confirm);
 								    dialog_cdv.dialog("destroy");
@@ -510,18 +517,13 @@ var cdvUI = (function () {
 
 		}
 		
-		
-						
-
-										
-		
 		function createDialogNoTabs(entryMessage, statusMessage){
 			dialog_cdv = $(
                         '<div id="dialog-cdv" title="' + labels.dialogTitle + '">' +
 						'			<p>' + entryMessage + '</p>' +
 						'			<br>' +
 						'			<p>' + statusMessage + '</p>' +
-						'			<hr><p style="float: right; font-style: italic;"><a onClick="showPrivacyPolicy();">Privacy Policy</a></p>' +
+						'			<hr>' +
 						'		</div>' ).dialog({
 						dialogClass: "no-close",
 						autoOpen: false,
@@ -564,7 +566,7 @@ var cdvUI = (function () {
 
 function showPrivacyPolicyForActivation(url, title){
 	var $dialog = $('<div></div>')
-			.load(cdvUI.getInstance().informedConsentLink).dialog({
+			.load(informed_consent).dialog({
 				autoOpen: false,
 				title: "Privacy Policy",
 				width: 700,
@@ -675,5 +677,6 @@ function showPrivacyPolicy(url, title){
 	$dialog.dialog('open'); 
 	
 }
+
 
 

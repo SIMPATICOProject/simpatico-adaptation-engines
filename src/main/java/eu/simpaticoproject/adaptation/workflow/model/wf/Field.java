@@ -24,4 +24,31 @@ public class Field {
 		this.mapping = mapping;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Field other = (Field) obj;
+		if (getId() == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (getMapping() == null) {
+			if (other.mapping != null)
+				return false;
+		} else if (!mapping.equals(other.mapping))
+			return false;
+		if (getXpath() == null) {
+			if (other.xpath != null)
+				return false;
+		} else if (!xpath.equals(other.xpath))
+			return false;
+		return true;
+	}
+
 }

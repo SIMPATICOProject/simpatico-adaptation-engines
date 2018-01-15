@@ -18,7 +18,6 @@ package eu.simpaticoproject.adaptation.workflow.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -68,7 +67,7 @@ public class WAEController {
 			}
 			return modelStore.getModel();
 		} else {
-			throw new EntityNotFoundException("model not found");
+			throw new Exception("model not found");
 		}
 	}
 	
