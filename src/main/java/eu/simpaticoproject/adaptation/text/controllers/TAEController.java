@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -55,27 +56,46 @@ public class TAEController {
 			@ApiParam(value = "word to be simplified, if any", required = false) @RequestParam(required = false) String word,
 			@ApiParam(value = "word position in the context, in case of word simplification", required = false) @RequestParam(required = false) Integer position,
 			@ApiParam(value = "language, as 2-letter ISO code. If not specified, derived by the tool", required = false) @RequestParam(required = false) String lang,
-			@ApiParam(value = "sentext or text to be simplified in case of syntactic simplification. Word context in case of word simplification", required = false) @RequestParam(required = false) String text) throws Exception {
+			@ApiParam(value = "text to be simplified in case of syntactic simplification, word context in case of word simplification", required = false)
+			@RequestParam(required = false) String text) throws Exception {
 		String json = handler.service(word, position, lang, text);
-//		SimpaticoOutput output = new ObjectMapper().readValue(json, SimpaticoOutput.class);
-//		if (StringUtils.isEmpty(word) && output.getSimplifiedText() == null) {
-//			output.setSimplifiedText(text);
-//		}
-//
-//		return output;
 		return json;
 	}
+
 	@RequestMapping(value = "/tae/simp", method = RequestMethod.POST, produces = "application/json")
 	@ApiOperation(value = "Process text",
 	  response = SimpaticoOutput.class,
 	  notes = "Obtain text annotations and simplifications")
 	public @ResponseBody String simp(@RequestBody SimpaticoInput input) throws Exception {
 		String json = handler.service(input.getWord(), input.getPosition(), input.getLang(), input.getText());
-//		SimpaticoOutput output = new ObjectMapper().readValue(json, SimpaticoOutput.class); 
-//		if (StringUtils.isEmpty(input.getWord()) && output.getSimplifiedText() == null) {
-//			output.setSimplifiedText(input.getText());
-//		}
-//		return output;
+		return json;
+	}
+
+	// Request for the web demo
+	@RequestMapping(value = "/tae/simpform", method = RequestMethod.POST, produces = "application/json", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@ApiOperation(value = "Process text",
+	  response = SimpaticoOutput.class,
+	  notes = "Obtain text annotations and simplifications, used for the web demo")
+	public @ResponseBody String simpform(
+			@ApiParam(value = "word to be simplified, if any", required = false) @RequestParam(required = false) String word,
+			@ApiParam(value = "word position in the context, in case of word simplification", required = false) @RequestParam(required = false) Integer position,
+			@ApiParam(value = "language, as 2-letter ISO code. If not specified, derived by the tool", required = false) @RequestParam(required = false) String lang,
+			@ApiParam(value = "text to be simplified in case of syntactic simplification. Word context in case of word simplification", required = false)
+			@RequestParam(required = false) String text) throws Exception {
+		String json = handler.service(word, position, lang, text);
+		return json;
+	}
+
+	@RequestMapping(value = "/tae/syntsimp", method = RequestMethod.POST, produces = "application/json", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@ApiOperation(value = "Process text",
+	  response = SimpaticoOutput.class,
+	  notes = "Perform syntactic simplification")
+	public @ResponseBody String syntsimp(
+			@ApiParam(value = "set to true to use the complexity checker", required = false) @RequestParam(required = false) String comp,
+			@ApiParam(value = "set to true to use the confidence model", required = false) @RequestParam(required = false) String conf,
+			@ApiParam(value = "language, as 2-letter ISO code. If not specified, derived by the tool", required = false) @RequestParam(required = false) String lang,
+			@ApiParam(value = "text to be simplified", required = false) @RequestParam(required = false) String text) throws Exception {
+		String json = handler.syntsimp(text, lang, comp, conf);
 		return json;
 	}
 

@@ -33,6 +33,8 @@ var posChartOptions = {
     }
 };
 
+var language;
+
 function escapeAttrNodeValue(value) {
     return value.replace(/(&)|(")|(\u00A0)/g, function (match, amp, quote) {
         if (amp) return "&amp;";
@@ -54,6 +56,60 @@ function addLI(ul, title, value) {
     // li.append(b);
     // li.append(" " + value);
     ul.append(li);
+}
+
+function newInput(name, checked) {
+    var input = $("<input>");
+    input.attr("type", "checkbox");
+    input.addClass("js-switch");
+    if (checked) {
+        input.attr("checked", "checked");
+    }
+    input.attr("name", name);
+    input.attr("id", "switch-" + name);
+    return input;
+}
+
+function updateSyntSimpText(i) {
+    var c = $("#switch-" + i + "-main").prop("checked");
+    var orig = $("#origsentence" + i);
+    var synt = $("#syntsentence" + i);
+    var spinner = $("#spinner-" + i);
+
+    if (c) {
+        var comp = $("#switch-" + i + "-comp").prop("checked");
+        var conf = $("#switch-" + i + "-conf").prop("checked");
+
+        var data = {
+            text: orig.html(),
+            comp: comp ? "true" : "false",
+            conf: conf ? "true" : "false",
+            lang: language
+        };
+
+        spinner.show();
+
+        $.ajax("../syntsimp", {
+            dataType: "json",
+            method: "POST",
+            data: data,
+            success: function (data) {
+                synt.removeClass();
+                spinner.hide();
+                if (data.isSyntSimplified) {
+                    synt.addClass("synt-simp-sent");
+                }
+                synt.html(data.syntSimplifiedVersion);
+
+                orig.hide();
+                synt.show();
+            }
+        });
+    }
+    else {
+        orig.show();
+        synt.hide();
+    }
 }
 
 $(function () {
@@ -81,17 +137,17 @@ $(function () {
         $(this).toggleClass('disabled');
         $('#text').attr('disabled', 'disabled');
 
-        $.ajax("../simp", {
+        $.ajax("../simpform", {
             dataType: "json",
+            method: "POST",
             data: {
                 text: text
             },
             success: function (data) {
 
-                console.log(data);
                 $("#part1").slideUp(500);
 
-                var language = data.readability.language;
+                language = data.readability.language;
                 $(".show-" + language).show();
                 // Show language
 
@@ -169,6 +225,7 @@ $(function () {
                             var end = start + element["length"];
                             var page = element.page;
                             page = page.replace(/\.dbpedia\./gi, ".wikipedia.");
+                            page = page.replace(/\/dbpedia\./gi, "/en.wikipedia.");
                             page = page.replace(/\/resource\//gi, "/wiki/");
                             page = encodeURI(page);
 
@@ -255,13 +312,75 @@ $(function () {
                     });
 
                     // Syntactic simplifications
-                    // leave here (needs #text-original-content)
-                    if (data.syntSimplifiedVersion != undefined) {
-                        $("#text-original-ssimplifications").html(data.syntSimplifiedVersion);
-                    }
-                    else {
-                        $("#text-original-ssimplifications").html($("#text-original-content").html());
-                    }
+                    $.each(data.sentences, function (i, item) {
+                        var div = $("<div></div>");
+                        var p = $("<p></p>");
+                        var hiddenp = $("<p></p>");
+                        var inputp = $("<p></p>");
+                        var spinner = $("<span></span>");
+                        spinner.addClass("synt-spinner");
+                        spinner.attr("id", "spinner-" + i);
+                        spinner.append('<i class="icon-spin icon-refresh"></i>');
+
+                        // <span class="spinner"><i class="icon-spin icon-refresh"></i></span>
+
+                        var input = newInput(i + "-main", true);
+                        var input2 = newInput(i + "-comp", false);
+                        var input3 = newInput(i + "-conf", false);
+
+                        input.change(function () {
+                            updateSyntSimpText(i);
+                        });
+                        input2.change(function () {
+                            updateSyntSimpText(i);
+                        });
+                        input3.change(function () {
+                            updateSyntSimpText(i);
+                        });
+
+                        var text = item.text;
+                        hiddenp.append(text);
+                        hiddenp.attr("id", "origsentence" + i);
+                        hiddenp.hide();
+                        if (item.isSyntSimplified) {
+                            p.addClass("synt-simp-sent");
+                            text = item.syntSimplifiedVersion;
+                        }
+
+                        // console.log(text)
+                        // console.log(item.syntSimplifiedVersion);
+                        // console.log(item.isSyntSimplified);
+                        //
+                        p.append(text);
+                        p.attr("id", "syntsentence" + i);
+                        div.addClass("sentence");
+                        div.append(p);
+
+                        inputp.append("Active: ");
+                        inputp.append(input);
+                        inputp.append(" Complexity checker: ");
+                        inputp.append(input2);
+                        inputp.append(" Confidence model: ");
+                        inputp.append(input3);
+                        inputp.append(" ");
+                        inputp.append(spinner);
+
+                        div.append(hiddenp);
+
+                        // Really bad!
+                        // if (language != "it") {
+                        //     div.append(inputp);
+                        // }
+
+                        $("#text-original-ssimplifications").append(div);
+                    });
+
+                    // if (data.syntSimplifiedVersion != undefined) {
+                    //     $("#text-original-ssimplifications").html(data.syntSimplifiedVersion.replace(/(?:\r\n|\r|\n)/g, '<br />'));
+                    // }
+                    // else {
+                    //     $("#text-original-ssimplifications").html($("#text-original-content").html());
+                    // }
 
                     $("#part2").tooltip({
                         selector: '.too-long',
@@ -321,14 +440,14 @@ $(function () {
                         var minor = data.readability.minYellowValues[name];
                         var maior = data.readability.maxYellowValues[name];
 
-                        var ratio = 100.0 / max;
-
-                        min *= ratio;
-                        max *= ratio;
-                        minor *= ratio;
-                        maior *= ratio;
-                        tick *= ratio;
-                        myValue *= ratio;
+                        // var ratio = 100.0 / max;
+                        //
+                        // min *= ratio;
+                        // max *= ratio;
+                        // minor *= ratio;
+                        // maior *= ratio;
+                        // tick *= ratio;
+                        // myValue *= ratio;
 
                         var greenFrom = min;
                         var greenTo = minor;
@@ -353,9 +472,14 @@ $(function () {
                             greenFrom: greenFrom,
                             greenTo: greenTo,
                             minorTicks: tick,
+                            min: min,
+                            max: max,
                             width: 120,
                             height: 120
                         };
+
+                        // console.log(key);
+                        // console.log(myGaugeOptions);
                         // console.log(name);
                         // console.log(myValue);
                         // console.log(myGaugeOptions);
@@ -450,9 +574,33 @@ $(function () {
                     }
                 }
 
+                // Load switchery
+                var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+                elems.forEach(function (html) {
+                    var switchery = new Switchery(html, {size: "small"});
+                });
+
+                $("#ttrValue-gauge").tooltip({
+                    title: "Type-token ratio: a percentage of new types for every n tokens"
+                });
+                $("#subordinateRatio-gauge").tooltip({
+                    title: "Ratio between subordinate and coordinate clauses"
+                });
+                $("#wordsAvg-gauge").tooltip({
+                    title: "Average number of tokens for each clause"
+                });
+                $("#propositionsAvg-gauge").tooltip({
+                    title: "Average number of clauses for each sentence"
+                });
+                $("#density-gauge").tooltip({
+                    title: "Percentage of content words in the text"
+                });
+                $("#deepAvg-gauge").tooltip({
+                    title: "Average depth of the dependency parse tree"
+                });
             }
-        })
-        ;
+        });
+
         return false;
     })
     ;
