@@ -5,7 +5,7 @@
 
 	<groupId>eu.simpaticoproject.adaptation</groupId>
 	<artifactId>simpatico-adaptation-engines</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>simpatico-adaptation-engines</name>
@@ -416,6 +416,7 @@
                 </configuration>
             </plugin>   
          </plugins>
+         <finalName>${project.artifactId}</finalName>
 	</build>
 
 
