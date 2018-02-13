@@ -1,0 +1,21 @@
+FROM openjdk:8-jdk
+
+WORKDIR /app
+
+ARG release
+
+
+# install git client
+RUN apk --update add git
+
+# clone the project
+RUN git clone https://github.com/SIMPATICOProject/simpatico-adaptation-engines.git adaptation-engines
+
+WORKDIR adaptation-engines
+
+RUN git checkout origin $release
+
+RUN cp docker-configs/application.properties src/main/resources/application.properties
+
+EXPOSE 8080
+CMD ./mvnw package -Dmaven.test.skip=true && cd target && java -jar simpatico-adaptation-engines.jar
