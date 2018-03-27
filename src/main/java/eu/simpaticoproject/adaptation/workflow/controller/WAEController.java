@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import eu.simpaticoproject.adaptation.common.Utils;
 import eu.simpaticoproject.adaptation.text.Handler;
+import eu.simpaticoproject.adaptation.workflow.model.DomainModelStore;
 import eu.simpaticoproject.adaptation.workflow.model.WorkFlowModelStore;
 import eu.simpaticoproject.adaptation.workflow.model.wf.PageModel;
 import eu.simpaticoproject.adaptation.workflow.storage.RepositoryManager;
@@ -121,6 +122,27 @@ public class WAEController {
 			logger.info(String.format("deleteModelStore: %s", objectId));
 		}
 	}
+	
+	@RequestMapping(value = "/wae/model/domain", method = RequestMethod.GET)
+	@ApiOperation(value = "Find domain model",
+	  notes = "Get a domain model with the specific URI and profile")
+	public @ResponseBody DomainModelStore getDomainModel(@RequestParam String uri,
+			@RequestParam(required=false) String idProfile,
+			HttpServletRequest request) throws Exception {
+		//TODO from idProfile to profile type?
+		String profileType = idProfile;
+		DomainModelStore modelStore = storage.getDomainModelByProfile(uri, profileType);
+		if(modelStore != null) {
+			if(logger.isInfoEnabled()) {
+				logger.info(String.format("getDomainModel: %s - %s - %s", uri, idProfile, 
+						modelStore.getObjectId()));
+			}
+			return modelStore;
+		} else {
+			throw new Exception("model not found");
+		}
+	}
+	
 	
 	@ExceptionHandler(IllegalArgumentException.class)
 	@ResponseStatus(value=HttpStatus.BAD_REQUEST)

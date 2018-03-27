@@ -14,37 +14,48 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import eu.simpaticoproject.adaptation.text.Handler;
+import eu.simpaticoproject.adaptation.workflow.model.DomainModelStore;
 import eu.simpaticoproject.adaptation.workflow.model.WorkFlowModelStore;
 
 @Component
 public class RepositoryManager {
-    static Logger logger = Logger.getLogger(Handler.class.getName());
+	static Logger logger = Logger.getLogger(Handler.class.getName());
 
-    @Autowired
+	@Autowired
 	private MongoTemplate mongoTemplate;
-	
+
+	public DomainModelStore getDomainModelByProfile(String uri, String profileType) {
+		Criteria c = new Criteria("uri").is(uri);
+		if (!StringUtils.isEmpty(profileType)) {
+			c.and("profileTypes").is(profileType);
+		}
+		Query query = new Query(c);
+		DomainModelStore result = mongoTemplate.findOne(query, DomainModelStore.class);
+		return result;
+	}
+
 	public WorkFlowModelStore getModelByProfile(String uri, String profileType) {
 		Criteria c = new Criteria("uri").is(uri);
 		if (!StringUtils.isEmpty(profileType)) {
 			c.and("profileTypes").is(profileType);
 		}
-		Query query =  new Query(c);
+		Query query = new Query(c);
 		WorkFlowModelStore result = mongoTemplate.findOne(query, WorkFlowModelStore.class);
 		return result;
 	}
-	
+
 	public List<WorkFlowModelStore> getModels(String uri) {
-		Query query =  new Query(new Criteria("uri").is(uri));
+		Query query = new Query(new Criteria("uri").is(uri));
 		List<WorkFlowModelStore> list = mongoTemplate.find(query, WorkFlowModelStore.class);
 		return list;
 	}
-	
+
 	public WorkFlowModelStore saveModel(WorkFlowModelStore model) throws IllegalArgumentException {
-		if(!StringUtils.isEmpty(model.getObjectId())) {
-			//update
-			Query query =  new Query(new Criteria("objectId").is(model.getObjectId()));
+		if (!StringUtils.isEmpty(model.getObjectId())) {
+			// update
+			Query query = new Query(new Criteria("objectId").is(model.getObjectId()));
 			WorkFlowModelStore dbModel = mongoTemplate.findOne(query, WorkFlowModelStore.class);
-			if(dbModel == null) {
+			if (dbModel == null) {
 				throw new IllegalArgumentException("entity not found");
 			}
 			Date now = new Date();
@@ -55,7 +66,7 @@ public class RepositoryManager {
 			update.set("lastUpdate", now);
 			mongoTemplate.updateFirst(query, update, WorkFlowModelStore.class);
 		} else {
-			//create
+			// create
 			Date now = new Date();
 			model.setObjectId(generateObjectId());
 			model.setCreationDate(now);
@@ -66,7 +77,7 @@ public class RepositoryManager {
 	}
 
 	public void deleteModel(String objectId) {
-		Query query =  new Query(new Criteria("objectId").is(objectId));
+		Query query = new Query(new Criteria("objectId").is(objectId));
 		mongoTemplate.findAndRemove(query, WorkFlowModelStore.class);
 	}
 

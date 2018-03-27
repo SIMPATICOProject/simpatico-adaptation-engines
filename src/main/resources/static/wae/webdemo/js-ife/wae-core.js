@@ -5,6 +5,7 @@ var waeEngine = new function() {
 	
 	var endpoint = "/wae";
 	
+	var domainModel = null;
 	var workflowModel = null;
 	var actualBlockIndex = -1;
 	var prevBlockIndex = -1;
@@ -17,6 +18,10 @@ var waeEngine = new function() {
 	var fieldMap = {};
 	var uncompletedFieldMap = {};
 	var contextVar = {};
+	var serviceDefinitionMap = {};
+	var conceptMap = {};
+	var interactionModality = "original";
+	var profile = {};
 	
 	/**
 	 * INIT THE ENGINE CONFIG. PARAMETERS:
@@ -97,19 +102,35 @@ var waeEngine = new function() {
 	this.getSimpaticoContainer = getSimpaticoContainer;
 
 	function loadModel(uri, idProfile, callback, errorCallback) {
-		var url = endpoint + "/model/page?uri=" + uri + (!!idProfile ? ("&idProfile="+idProfile) : "");
-		$.getJSON(url)
+		//TODO get profile from id
+		setEntity("urn:simpaticoproject:profile#interaction_capability", "MEDIUM");
+		var urlDomain = endpoint + "/model/domain?uri=" + uri + (!!idProfile ? ("&idProfile="+idProfile) : "");
+		var urlWorkflow = endpoint + "/model/page?uri=" + uri + (!!idProfile ? ("&idProfile="+idProfile) : "");
+		$.getJSON(urlDomain)
 	  .done(function(json) {
-	  	workflowModel = json;
-	  	json.blocks.forEach(function(b) {
-	  		blockMap[b.id] = b;
+	  	domainModel = json;
+	  	json.concepts.forEach(function(c) {
+	  		conceptMap[c.uri] = c;
 	  	});
-	  	json.fields.forEach(function(f) {
-	  		fieldMap[f.id] = f;
+	  	json.services.forEach(function(s) {
+	  		serviceDefinitionMap[s.uri] = s;
 	  	});
-	  	//console.log(JSON.stringify(json));
-	  	initModule();
-	  	if (callback) callback(blockMap);
+	  	$.getJSON(urlWorkflow)
+	  	.done(function(json) {
+		  	workflowModel = json;
+		  	json.blocks.forEach(function(b) {
+		  		blockMap[b.id] = b;
+		  	});
+		  	json.fields.forEach(function(f) {
+		  		fieldMap[f.id] = f;
+		  	});
+		  	json.services.forEach(function(s) {
+		  		s.called = false;
+		  	});
+		  	//console.log(JSON.stringify(json));
+		  	initModule();
+		  	if (callback) callback(blockMap);
+	  	})
 	  })
 	  .fail(function( jqxhr, textStatus, error) {
 	  	console.log(textStatus + ", " + error);
@@ -131,7 +152,83 @@ var waeEngine = new function() {
 		var result = eval(expression);
 		return result;
 	};
+	
+	function getEntity(entity) {
+		var origin = entity;
+		var name = "me";
+		var index = entity.indexOf("@");
+		if(index > -1) {
+			name = entity.substring(0, index);
+			entity = entity.substring(index + 1);
+		}
+		var uri = entity; 
+		var complexPath = false;
+		index = entity.indexOf("#");
+		if(index > -1) {
+			uri = entity.substring(0, index);
+			complexPath = true;
+			entity = entity.substring(index + 1);
+		}
+		if(!complexPath) {
+			return contextVar[name][uri];
+		} else {
+			var attributes = entity.split(".");
+			if(attributes.length == 1) {
+				return contextVar[name][uri][entity];
+			} else {
+				var result = contextVar[name][uri];
+				attributes.forEach((attribute) => {
+					result = result[attribute];
+				});
+				return result;
+			}
+		}
+	}
 
+	function setEntity(entity, value) {
+		var origin = entity;
+		var name = "me";
+		var index = entity.indexOf("@");
+		if(index > -1) {
+			name = entity.substring(0, index);
+			entity = entity.substring(index + 1);
+		}
+		var uri = entity;
+		var complexPath = false;
+		index = entity.indexOf("#");
+		if(index > -1) {
+			uri = entity.substring(0, index);
+			complexPath = true;
+			entity = entity.substring(index + 1);
+		} 
+		if(!contextVar[name]) {
+			contextVar[name] = {};
+		}
+		if(!complexPath) {
+			contextVar[name][uri] = value;
+		} else {
+			if(!contextVar[name][uri]) {
+				contextVar[name][uri] = {};
+			}
+			var attributes = entity.split(".");
+			if(attributes.length == 1) {
+				contextVar[name][uri][entity] = value;
+			} else {
+				var parentObject = contextVar[name][uri];
+				for(i = 0; i < (attributes.length - 1); i++) {
+					var attribute = attributes[i];
+					var childObject = parentObject[attribute];
+					if(!childObject) {
+						parentObject[attribute] = {};
+						childObject = parentObject[attribute];
+					}
+					parentObject = childObject;
+				}
+				parentObject[attributes[attributes.length - 1]] = value;
+			}
+		}
+	}
+	
 	function setActualBlock(index) {
 		prevBlockId = actualBlockId;
 		prevBlockIndex = actualBlockIndex;
@@ -197,6 +294,12 @@ var waeEngine = new function() {
 	};
 
 	function initModule() {
+		//check interaction modality
+		domainModel.modalities.forEach((modality) => {
+			if(evalContextVar(modality.condition)) {
+				interactionModality = modality.type;
+			}
+		});
 		for(var i = 0; i < workflowModel.blocks.length; i++) {
 			var block = workflowModel.blocks[i];
 			var element = document.evaluate(block.xpath, document, null, 
@@ -217,6 +320,51 @@ var waeEngine = new function() {
 				$(element).attr("data-simpatico-field-id", field.id);
 			}
 		}
+		//check services to invoke
+		if(interactionModality != "original") {
+			invokeServices();
+		}
+	};
+	
+	function invokeServices() {
+		for(var i = 0; i < workflowModel.services.length; i++) {
+			var service = workflowModel.services[i];
+			if(service.called) {
+				continue;
+			}
+			//check if exists all the input parameters
+			var invokable = true;
+			if(service.input) {
+				for(var j = 0; j < service.input.length; j++) {
+					var input = service.input[j];
+					var value = getEntity(input.type);
+					if(value == null) {
+						invokable = false;
+						break;
+					}
+				}
+			}
+			if(invokable) {
+				var serviceDefinition = serviceDefinitionMap[service.uri];
+				waeServices.invokeService(service, serviceDefinition, extServiceResult, extServiceError);
+				break;
+			}
+		}
+	};
+	
+	function extServiceResult(service, result) {
+		service.called = true;
+		var keys = Object.keys(result);
+		if(keys) {
+			keys.forEach((key) => {
+				var value = result[key];
+				setEntity(key, value);
+			});
+		}
+	};
+	
+	function extServiceError(service, error) {
+		//TODO
 	};
 
 	function setBlockVars(blockId) {

@@ -9,6 +9,9 @@ public class PageModel {
 	private Map<String, Variable> context = new HashMap<String, Variable>();
 	private List<Block> blocks = new ArrayList<Block>();
 	private List<Field> fields = new ArrayList<Field>();
+	private List<Map<String, Object>> services = new ArrayList<Map<String,Object>>();
+	private List<Map<String, Object>> questions = new ArrayList<Map<String,Object>>();
+	private List<Map<String, Object>> workflow = new ArrayList<Map<String,Object>>();
 	
 	public List<Block> getBlocks() {
 		return blocks;
@@ -54,6 +57,24 @@ public class PageModel {
 		} else if (!fields.equals(other.fields))
 			return false;
 		return true;
+	}
+	public List<Map<String, Object>> getServices() {
+		return services;
+	}
+	public void setServices(List<Map<String, Object>> services) {
+		this.services = services;
+	}
+	public List<Map<String, Object>> getQuestions() {
+		return questions;
+	}
+	public void setQuestions(List<Map<String, Object>> questions) {
+		this.questions = questions;
+	}
+	public List<Map<String, Object>> getWorkflow() {
+		return workflow;
+	}
+	public void setWorkflow(List<Map<String, Object>> workflow) {
+		this.workflow = workflow;
 	}
 	
 	

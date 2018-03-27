@@ -174,7 +174,7 @@ function initFeatures() {
   // - errorLabel: map with blockId - error message in case of block precondition fails
   waeUI.getInstance().init({
 		lang: 'it',
-	  	endpoint: 'https://simpatico.smartcommunitylab.it/simp-engines/wae',
+		endpoint: 'http://localhost:6080/simp-engines/wae',
 		prevButtonLabel: 'Precedente',
 		nextButtonLabel: 'Successivo',
 		lastButtonLabel: 'Fine',
