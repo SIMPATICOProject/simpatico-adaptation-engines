@@ -129,6 +129,10 @@ var waeEngine = new function() {
 		  	});
 		  	//console.log(JSON.stringify(json));
 		  	initModule();
+				//check services to invoke
+				if(interactionModality != "original") {
+					invokeServices();
+				}
 		  	if (callback) callback(blockMap);
 	  	})
 	  })
@@ -161,6 +165,9 @@ var waeEngine = new function() {
 			name = entity.substring(0, index);
 			entity = entity.substring(index + 1);
 		}
+		if(!contextVar[name]) {
+			return null;
+		}
 		var uri = entity; 
 		var complexPath = false;
 		index = entity.indexOf("#");
@@ -168,6 +175,9 @@ var waeEngine = new function() {
 			uri = entity.substring(0, index);
 			complexPath = true;
 			entity = entity.substring(index + 1);
+		}
+		if(!contextVar[name][uri]) {
+			return null;
 		}
 		if(!complexPath) {
 			return contextVar[name][uri];
@@ -320,10 +330,6 @@ var waeEngine = new function() {
 				$(element).attr("data-simpatico-field-id", field.id);
 			}
 		}
-		//check services to invoke
-		if(interactionModality != "original") {
-			invokeServices();
-		}
 	};
 	
 	function invokeServices() {
@@ -346,27 +352,28 @@ var waeEngine = new function() {
 			}
 			if(invokable) {
 				var serviceDefinition = serviceDefinitionMap[service.uri];
-				waeServices.invokeService(service, serviceDefinition, extServiceResult, extServiceError);
+				waeServices.invokeService(service, serviceDefinition,
+					function(serviceCalled, result) {
+						console.log("called service:" + serviceCalled.uri);
+						serviceCalled.called = true;
+						var keys = Object.keys(result);
+						if(keys) {
+							keys.forEach((key) => {
+								var value = result[key];
+								setEntity(key, value);
+							});
+						}
+						invokeServices();
+					}, 
+					function(serviceCalled, error) {
+						//TODO
+					}
+				);
 				break;
 			}
-		}
+		}			
 	};
 	
-	function extServiceResult(service, result) {
-		service.called = true;
-		var keys = Object.keys(result);
-		if(keys) {
-			keys.forEach((key) => {
-				var value = result[key];
-				setEntity(key, value);
-			});
-		}
-	};
-	
-	function extServiceError(service, error) {
-		//TODO
-	};
-
 	function setBlockVars(blockId) {
 		var block = blockMap[blockId];
 		if(block != null) {
