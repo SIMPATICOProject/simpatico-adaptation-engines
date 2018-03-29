@@ -1059,179 +1059,283 @@
 		"fields": [
 			{
 				"id": "AventeTitolo_CodiceFiscale",
-				"entity": "http://simpatico.org/domain/trento/fiscalid",
 				"xpath": "//*[@id=\"AventeTitolo_CodiceFiscale\"]",
-				"required": "true"
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/fiscalid",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_Cognome",
-				"entity": "http://simpatico.org/domain/trento/citizena#surname",
-				"xpath": "//*[@id=\"AventeTitolo_Cognome\"]"
+				"xpath": "//*[@id=\"AventeTitolo_Cognome\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#surname",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_Nome",
-				"entity": "http://simpatico.org/domain/trento/citizen#name",
-				"xpath": "//*[@id=\"AventeTitolo_Nome\"]"
+				"xpath": "//*[@id=\"AventeTitolo_Nome\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#name",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_DataNascita",
-				"entity": "http://simpatico.org/domain/trento/citizen#bith_date",
-				"xpath": "//*[@id=\"AventeTitolo_DataNascita\"]"
+				"xpath": "//*[@id=\"AventeTitolo_DataNascita\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#bith_date",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_Sesso",
-				"entity": "http://simpatico.org/domain/trento/citizen#gender",
-				"xpath": "//*[@id=\"AventeTitolo_Sesso\"]"
+				"xpath": "//*[@id=\"AventeTitolo_Sesso\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#gender",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_Nazionalita",
-				"entity": "http://simpatico.org/domain/trento/citizen#nationality",
-				"xpath": "//*[@id=\"AventeTitolo_Nazionalita\"]"
+				"xpath": "//*[@id=\"AventeTitolo_Nazionalita\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#nationality",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_LuogoNascita",
-				"entity": "http://simpatico.org/domain/trento/citizen#bith_place",
-				"xpath": "//*[@id=\"AventeTitolo_LuogoNascita\"]"
+				"xpath": "//*[@id=\"AventeTitolo_LuogoNascita\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#bith_place",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_ProvinciaResidenza",
-				"entity": "http://simpatico.org/domain/trento/address#province",
-				"xpath": "//*[@id=\"AventeTitolo_ProvinciaResidenza\"]"
+				"xpath": "//*[@id=\"AventeTitolo_ProvinciaResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/address#province",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_ComuneResidenza",
-				"entity": "http://simpatico.org/domain/trento/address#city",
-				"xpath": "//*[@id=\"AventeTitolo_ComuneResidenza\"]"
+				"xpath": "//*[@id=\"AventeTitolo_ComuneResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/address#city",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_ViaResidenza",
-				"entity": "http://simpatico.org/domain/trento/address#street",
-				"xpath": "//*[@id=\"AventeTitolo_ViaResidenza\"]"
+				"xpath": "//*[@id=\"AventeTitolo_ViaResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/address#street",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_CivicoResidenza",
-				"entity": "http://simpatico.org/domain/trento/address#number",
-				"xpath": "//*[@id=\"AventeTitolo_CivicoResidenza\"]"
+				"xpath": "//*[@id=\"AventeTitolo_CivicoResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/address#number",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_BarraResidenza",
-				"entity": "http://simpatico.org/domain/trento/address#bar",
-				"xpath": "//*[@id=\"AventeTitolo_BarraResidenza\"]"
+				"xpath": "//*[@id=\"AventeTitolo_BarraResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/address#bar",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_CAPResidenza",
-				"entity": "http://simpatico.org/domain/trento/address#cap",
-				"xpath": "//*[@id=\"AventeTitolo_CAPResidenza\"]"
+				"xpath": "//*[@id=\"AventeTitolo_CAPResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/address#cap",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_Telefono",
-				"entity": "http://simpatico.org/domain/trento/contacts#phone",
-				"xpath": "//*[@id=\"AventeTitolo_Telefono\"]"
+				"xpath": "//*[@id=\"AventeTitolo_Telefono\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/contacts#phone",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_Fax",
-				"entity": "http://simpatico.org/domain/trento/contacts#fax",
-				"xpath": "//*[@id=\"AventeTitolo_Fax\"]"
+				"xpath": "//*[@id=\"AventeTitolo_Fax\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/contacts#fax",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_EMail",
-				"entity": "http://simpatico.org/domain/trento/contacts#email",
-				"xpath": "//*[@id=\"AventeTitolo_EMail\"]"
+				"xpath": "//*[@id=\"AventeTitolo_EMail\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/contacts#email",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "AventeTitolo_EMailPEC",
-				"entity": "http://simpatico.org/domain/trento/contacts#email_pec",
-				"xpath": "//*[@id=\"AventeTitolo_EMailPEC\"]"
+				"xpath": "//*[@id=\"AventeTitolo_EMailPEC\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/contacts#email_pec",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_CodiceFiscale",
-				"entity": "beneficiary@http://simpatico.org/domain/trento/fiscalid",
-				"xpath": "//*[@id=\"Bambino_CodiceFiscale\"]"
+				"xpath": "//*[@id=\"Bambino_CodiceFiscale\"]",
+				"mapping": {
+					"key": "beneficiary@http://simpatico.org/domain/trento/fiscalid",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_Cognome",
-				"entity": "child@http://simpatico.org/domain/trento/citizena#surname",
-				"xpath": "//*[@id=\"Bambino_Cognome\"]"
+				"xpath": "//*[@id=\"Bambino_Cognome\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizena#surname",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_Nome",
-				"entity": "child@http://simpatico.org/domain/trento/citizen#name",
-				"xpath": "//*[@id=\"Bambino_Nome\"]"
+				"xpath": "//*[@id=\"Bambino_Nome\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#name",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_DataNascita",
-				"entity": "child@http://simpatico.org/domain/trento/citizen#bith_date",
-				"xpath": "//*[@id=\"Bambino_DataNascita\"]"
+				"xpath": "//*[@id=\"Bambino_DataNascita\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#bith_date",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_Sesso",
-				"entity": "child@http://simpatico.org/domain/trento/citizen#gender",
-				"xpath": "//*[@id=\"Bambino_Sesso\"]"
+				"xpath": "//*[@id=\"Bambino_Sesso\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#gender",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_Nazionalita",
-				"entity": "beneficiary@http://simpatico.org/domain/trento/citizen#nationality",
-				"xpath": "//*[@id=\"Bambino_Nazionalita\"]"
+				"xpath": "//*[@id=\"Bambino_Nazionalita\"]",
+				"mapping": {
+					"key": "beneficiary@http://simpatico.org/domain/trento/citizen#nationality",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_LuogoNascita",
-				"entity": "child@http://simpatico.org/domain/trento/citizen#bith_place",
-				"xpath": "//*[@id=\"Bambino_LuogoNascita\"]"
+				"xpath": "//*[@id=\"Bambino_LuogoNascita\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#bith_place",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_ProvinciaResidenza",
-				"entity": "child@http://simpatico.org/domain/trento/address#province",
-				"xpath": "//*[@id=\"Bambino_ProvinciaResidenza\"]"
+				"xpath": "//*[@id=\"Bambino_ProvinciaResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/address#province",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_ComuneResidenza",
-				"entity": "child@http://simpatico.org/domain/trento/address#city",
-				"xpath": "//*[@id=\"Bambino_ComuneResidenza\"]"
+				"xpath": "//*[@id=\"Bambino_ComuneResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/address#city",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_ViaResidenza",
-				"entity": "child@http://simpatico.org/domain/trento/address#street",
-				"xpath": "//*[@id=\"Bambino_ViaResidenza\"]"
+				"xpath": "//*[@id=\"Bambino_ViaResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/address#street",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_CivicoResidenza",
-				"entity": "child@http://simpatico.org/domain/trento/address#number",
-				"xpath": "//*[@id=\"Bambino_CivicoResidenza\"]"
+				"xpath": "//*[@id=\"Bambino_CivicoResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/address#number",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_BarraResidenza",
-				"entity": "child@http://simpatico.org/domain/trento/address#bar",
-				"xpath": "//*[@id=\"Bambino_BarraResidenza\"]"
+				"xpath": "//*[@id=\"Bambino_BarraResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/address#bar",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Bambino_CAPResidenza",
-				"entity": "child@http://simpatico.org/domain/trento/address#cap",
-				"xpath": "//*[@id=\"Bambino_CAPResidenza\"]"
+				"xpath": "//*[@id=\"Bambino_CAPResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/address#cap",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Parametri_CoefficenteICEF",
-				"entity": "http://simpatico.org/domain/trento/icef#value",
-				"xpath": "//*[@id=\"Parametri_CoefficenteICEF\"]"
+				"xpath": "//*[@id=\"Parametri_CoefficenteICEF\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/icef#value",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Parametri_DataCalcolo",
-				"entity": "http://simpatico.org/domain/trento/icef#date",
-				"xpath": "//*[@id=\"Parametri_DataCalcolo\"]"
+				"xpath": "//*[@id=\"Parametri_DataCalcolo\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/icef#date",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Parametri_CognomeDichiaranteICEF",
-				"entity": "http://simpatico.org/domain/trento/icef#surname",
-				"xpath": "//*[@id=\"Parametri_CognomeDichiaranteICEF\"]"
+				"xpath": "//*[@id=\"Parametri_CognomeDichiaranteICEF\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/icef#surname",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Parametri_NomeDichiaranteICEF",
-				"entity": "http://simpatico.org/domain/trento/icef#name",
-				"xpath": "//*[@id=\"Parametri_NomeDichiaranteICEF\"]"
+				"xpath": "//*[@id=\"Parametri_NomeDichiaranteICEF\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/icef#name",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Parametri_CFDichiaranteICEF",
-				"entity": "http://simpatico.org/domain/trento/icef#fiscalid",
-				"xpath": "//*[@id=\"Parametri_CFDichiaranteICEF\"]"
+				"xpath": "//*[@id=\"Parametri_CFDichiaranteICEF\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/icef#fiscalid",
+					"binding": "IN"
+				}
 			},
 			{
 				"id": "Tassonomia_FullTime",

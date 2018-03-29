@@ -131,9 +131,12 @@ var waeEngine = new function() {
 		  	initModule();
 				//check services to invoke
 				if(interactionModality != "original") {
-					invokeServices();
+					invokeServices().then(function() {
+						if (callback) callback(blockMap);
+					});
+				} else {
+					if (callback) callback(blockMap);
 				}
-		  	if (callback) callback(blockMap);
 	  	})
 	  })
 	  .fail(function( jqxhr, textStatus, error) {
@@ -333,45 +336,58 @@ var waeEngine = new function() {
 	};
 	
 	function invokeServices() {
-		for(var i = 0; i < workflowModel.services.length; i++) {
-			var service = workflowModel.services[i];
-			if(service.called) {
-				continue;
-			}
-			//check if exists all the input parameters
-			var invokable = true;
-			if(service.input) {
-				for(var j = 0; j < service.input.length; j++) {
-					var input = service.input[j];
-					var value = getEntity(input.type);
-					if(value == null) {
-						invokable = false;
-						break;
+		return new Promise(function(resolve, reject) {
+			var invocableService = false;
+			for(var i = 0; i < workflowModel.services.length; i++) {
+				var service = workflowModel.services[i];
+				if(service.called) {
+					continue;
+				}
+				//check if exists all the input parameters
+				var invokable = true;
+				if(service.input) {
+					for(var j = 0; j < service.input.length; j++) {
+						var input = service.input[j];
+						var value = getEntity(input.type);
+						if(value == null) {
+							invokable = false;
+							break;
+						}
 					}
 				}
-			}
-			if(invokable) {
-				var serviceDefinition = serviceDefinitionMap[service.uri];
-				waeServices.invokeService(service, serviceDefinition,
-					function(serviceCalled, result) {
-						console.log("called service:" + serviceCalled.uri);
-						serviceCalled.called = true;
-						var keys = Object.keys(result);
-						if(keys) {
-							keys.forEach((key) => {
-								var value = result[key];
-								setEntity(key, value);
+				if(invokable) {
+					invocableService = true;
+					var serviceDefinition = serviceDefinitionMap[service.uri];
+					invocableService = true;
+					waeServices.invokeService(service, serviceDefinition).
+					then(function ok(result) {
+							console.log("called service:" + result.service.uri);
+							result.service.called = true;
+							var keys = Object.keys(result.varMap);
+							if(keys) {
+								keys.forEach((key) => {
+									var value = result.varMap[key];
+									setEntity(key, value);
+								});
+							}
+							invokeServices().then(function(result) {
+								resolve();
 							});
 						}
-						invokeServices();
-					}, 
-					function(serviceCalled, error) {
-						//TODO
-					}
-				);
-				break;
+					)
+					.catch(function notOk(err) {
+						console.error(err);
+						invokeServices().then(function(result) {
+							resolve();
+						});
+					});
+					break;
+				}
+			}	
+			if(!invocableService) {
+				resolve();
 			}
-		}			
+		});
 	};
 	
 	function setBlockVars(blockId) {
@@ -385,11 +401,7 @@ var waeEngine = new function() {
 						var element = getSimpaticoFieldElement(field.id);
 						if(element != null) {
 							var value = getInputValue(element);
-							if(!!value) {
-								contextVar[field.mapping.key] = value;
-							} else {
-								delete contextVar[field.mapping.key];
-							}
+							setEntity(field.mapping.key, value);
 						}
 					}
 				}
@@ -414,7 +426,7 @@ var waeEngine = new function() {
 		//TODO reset form?
 		if(actualBlockId) {
 			delete blockCompiledMap[actualBlockId];
-			revertBlockVars(actualBlockId);
+			//revertBlockVars(actualBlockId);
 		}
 		getPrevBlock();
 		var actions = {};
@@ -484,7 +496,7 @@ var waeEngine = new function() {
 				var field = fieldMap[fieldId];
 				if(field != null) {
 					if(field.mapping.binding == "IN" || field.mapping.binding == "INOUT") {
-						var value = contextVar[field.mapping.key];
+						var value = getEntity(field.mapping.key);
 						var element = this.getSimpaticoFieldElement(field.id);
 						if(element != null) {
 							setElementValue(element, value);
