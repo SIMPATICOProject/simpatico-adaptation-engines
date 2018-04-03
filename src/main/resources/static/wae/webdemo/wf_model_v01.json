@@ -244,15 +244,13 @@
 				"type": "BLOCK",
 				"xpath": "(//*[contains(@class, 'simpatico-block')])[2]",
 				"tags": [],
-				"fields": [
-					"me@"
-				],
+				"fields": ["AventeTitolo_RuoloRichiedente"],
 				"blocks": [],
 				"dependencies": [
 					"block1"
 				],
 				"condition": null,
-				"completed": "context['AventeTitolo_RuoloRichiedente'] != null",
+				"completed": "context['me']['AventeTitolo_RuoloRichiedente'] != null",
 				"annotations": [
 					{
 						"condition": null,
@@ -274,7 +272,7 @@
 				"dependencies": [
 					"block2"
 				],
-				"condition": "context['AventeTitolo_RuoloRichiedente']=='affidatario' || context['AventeTitolo_RuoloRichiedente']=='preadottivo'|| context['AventeTitolo_RuoloRichiedente']=='tutore'",
+				"condition": "context['me']['AventeTitolo_RuoloRichiedente']=='affidatario' || context['me']['AventeTitolo_RuoloRichiedente']=='preadottivo'|| context['me']['AventeTitolo_RuoloRichiedente']=='tutore'",
 				"completed": null,
 				"annotations": [
 					{
@@ -297,8 +295,8 @@
 				],
 				"blocks": [],
 				"dependencies": [],
-				"condition": "context['AventeTitolo_RuoloRichiedente']=='affidatario' || context['AventeTitolo_RuoloRichiedente']=='preadottivo'|| context['AventeTitolo_RuoloRichiedente']=='padre'|| context['AventeTitolo_RuoloRichiedente']=='madre'|| context['AventeTitolo_RuoloRichiedente']=='tutore'",
-				"completed": "context['Tassonomia_CF1'] != null || context['Tassonomia_CF2'] != null || context['Tassonomia_CF3'] != null",
+				"condition": "context['me']['AventeTitolo_RuoloRichiedente']=='affidatario' || context['me']['AventeTitolo_RuoloRichiedente']=='preadottivo'|| context['me']['AventeTitolo_RuoloRichiedente']=='padre'|| context['me']['AventeTitolo_RuoloRichiedente']=='madre'|| context['me']['AventeTitolo_RuoloRichiedente']=='tutore'",
+				"completed": "context['me']['Tassonomia_CF1'] != null || context['me']['Tassonomia_CF2'] != null || context['me']['Tassonomia_CF3'] != null",
 				"annotations": [
 					{
 						"condition": null,
@@ -408,7 +406,7 @@
 					"block8"
 				],
 				"condition": null,
-				"completed": "context['Tassonomia_ICEF1']=='1' || context['Tassonomia_ICEF2']=='2'",
+				"completed": "context['me']['Tassonomia_ICEF1']=='1' || context['me']['Tassonomia_ICEF2']=='2'",
 				"annotations": [
 					{
 						"condition": null,
@@ -431,7 +429,7 @@
 				"dependencies": [
 					"block9"
 				],
-				"condition": "context['Tassonomia_ICEF1']=='1'",
+				"condition": "context['me']['Tassonomia_ICEF1']=='1'",
 				"completed": null,
 				"annotations": [
 					{
@@ -456,7 +454,7 @@
 					"block9"
 				],
 				"condition": null,
-				"completed": "context['Tassonomia_FullTime']=='FT' || context['Tassonomia_PartTime']=='PT'",
+				"completed": "context['me']['Tassonomia_FullTime']=='FT' || context['me']['Tassonomia_PartTime']=='PT'",
 				"annotations": [
 					{
 						"condition": null,
@@ -480,7 +478,7 @@
 				"dependencies": [
 					"block11"
 				],
-				"condition": "context['Tassonomia_FullTime']=='FT' && (context['Tassonomia_ICEF1']=='1' || context['Tassonomia_ICEF2']=='2')",
+				"condition": "context['me']['Tassonomia_FullTime']=='FT' && (context['me']['Tassonomia_ICEF1']=='1' || context['me']['Tassonomia_ICEF2']=='2')",
 				"completed": null,
 				"annotations": [
 					{
@@ -503,7 +501,7 @@
 				"dependencies": [
 					"block11"
 				],
-				"condition": "context['Tassonomia_PartTime']=='PT' && (context['Tassonomia_ICEF1']=='1' || context['Tassonomia_ICEF2']=='2')",
+				"condition": "context['me']['Tassonomia_PartTime']=='PT' && (context['me']['Tassonomia_ICEF1']=='1' || context['me']['Tassonomia_ICEF2']=='2')",
 				"completed": null,
 				"annotations": [
 					{
@@ -522,7 +520,7 @@
 				"fields": [],
 				"blocks": [],
 				"dependencies": [],
-				"condition": "context['Tassonomia_TipoFrequenza1']=='FT' || context['Tassonomia_TipoFrequenza2']=='PT'",
+				"condition": "context['me']['Tassonomia_TipoFrequenza1']=='FT' || context['me']['Tassonomia_TipoFrequenza2']=='PT'",
 				"completed": null,
 				"annotations": [
 					{
@@ -784,8 +782,8 @@
 				"dependencies": [
 					"block24"
 				],
-				"condition": "context['AventeTitolo_RuoloRichiedente']=='padre' || (context['AventeTitolo_RuoloRichiedente']=='madre' && context['Tassonomia_TipoNucleo2']==null)",
-				"completed": "context['Tassonomia_TipoLavoroPadre3']=='3' || context['Tassonomia_TipoLavoroPadre2']=='2' || context['Tassonomia_TipoLavoroPadre1']=='1'",
+				"condition": "context['me']['AventeTitolo_RuoloRichiedente']=='padre' || (context['me']['AventeTitolo_RuoloRichiedente']=='madre' && context['me']['Tassonomia_TipoNucleo2']==null)",
+				"completed": "context['me']['Tassonomia_TipoLavoroPadre3']=='3' || context['me']['Tassonomia_TipoLavoroPadre2']=='2' || context['me']['Tassonomia_TipoLavoroPadre1']=='1'",
 				"annotations": [
 					{
 						"condition": null,
@@ -807,7 +805,7 @@
 				"dependencies": [
 					"block26"
 				],
-				"condition": "context['Tassonomia_TipoLavoroPadre3']=='3'",
+				"condition": "context['me']['Tassonomia_TipoLavoroPadre3']=='3'",
 				"completed": null,
 				"annotations": [
 					{
@@ -830,7 +828,7 @@
 				"dependencies": [
 					"block26"
 				],
-				"condition": "context['Tassonomia_TipoLavoroPadre2']=='2'",
+				"condition": "context['me']['Tassonomia_TipoLavoroPadre2']=='2'",
 				"completed": null,
 				"annotations": [
 					{
@@ -853,7 +851,7 @@
 				"dependencies": [
 					"block26"
 				],
-				"condition": "context['Tassonomia_TipoLavoroPadre1']=='1'",
+				"condition": "context['me']['Tassonomia_TipoLavoroPadre1']=='1'",
 				"completed": null,
 				"annotations": [
 					{
@@ -879,7 +877,7 @@
 				"dependencies": [
 					"block23"
 				],
-				"condition": "context['Tassonomia_TipoLavoroPadre3']=='3' || context['Tassonomia_TipoLavoroPadre2']=='2' || context['Tassonomia_TipoLavoroPadre1']=='1' || context['Tassonomia_NoPadre'] == '1'",
+				"condition": "context['me']['Tassonomia_TipoLavoroPadre3']=='3' || context['me']['Tassonomia_TipoLavoroPadre2']=='2' || context['me']['Tassonomia_TipoLavoroPadre1']=='1' || context['me']['Tassonomia_NoPadre'] == '1'",
 				"completed": null,
 				"annotations": [
 					{
@@ -902,7 +900,7 @@
 				"dependencies": [
 					"block30"
 				],
-				"condition": "(context['AventeTitolo_RuoloRichiedente']=='padre' && context['Tassonomia_TipoNucleo2'])",
+				"condition": "(context['me']['AventeTitolo_RuoloRichiedente']=='padre' && context['me']['Tassonomia_TipoNucleo2'])",
 				"completed": null,
 				"annotations": [
 					{
@@ -927,8 +925,8 @@
 				"dependencies": [
 					"block30"
 				],
-				"condition": "context['AventeTitolo_RuoloRichiedente']=='madre' || (context['AventeTitolo_RuoloRichiedente']=='padre' && context['Tassonomia_TipoNucleo2']==null)",
-				"completed": "context['Tassonomia_TipoLavoroMadre3'] =='3' || context['Tassonomia_TipoLavoroMadre2'] =='2' || context['Tassonomia_TipoLavoroMadre1'] =='1'",
+				"condition": "context['me']['AventeTitolo_RuoloRichiedente']=='madre' || (context['me']['AventeTitolo_RuoloRichiedente']=='padre' && context['me']['Tassonomia_TipoNucleo2']==null)",
+				"completed": "context['me']['Tassonomia_TipoLavoroMadre3'] =='3' || context['me']['Tassonomia_TipoLavoroMadre2'] =='2' || context['me']['Tassonomia_TipoLavoroMadre1'] =='1'",
 				"annotations": [
 					{
 						"condition": null,
@@ -950,7 +948,7 @@
 				"dependencies": [
 					"block30"
 				],
-				"condition": "context['Tassonomia_TipoLavoroMadre3']=='3'",
+				"condition": "context['me']['Tassonomia_TipoLavoroMadre3']=='3'",
 				"completed": null,
 				"annotations": [
 					{
@@ -973,7 +971,7 @@
 				"dependencies": [
 					"block30"
 				],
-				"condition": "context['Tassonomia_TipoLavoroMadre2']=='2'",
+				"condition": "context['me']['Tassonomia_TipoLavoroMadre2']=='2'",
 				"completed": null,
 				"annotations": [
 					{
@@ -996,7 +994,7 @@
 				"dependencies": [
 					"block30"
 				],
-				"condition": "context['Tassonomia_TipoLavoroMadre1']=='1'",
+				"condition": "context['me']['Tassonomia_TipoLavoroMadre1']=='1'",
 				"completed": null,
 				"annotations": [
 					{
@@ -1023,7 +1021,7 @@
 				"dependencies": [
 					"block23"
 				],
-				"condition": "context['Tassonomia_TipoLavoroMadre3'] =='3' || context['Tassonomia_TipoLavoroMadre2'] =='2' || context['Tassonomia_TipoLavoroMadre1'] =='1' || context['Tassonomia_NoMadre'] == '1' || context['Tassonomia_NoPadre'] == '1'",
+				"condition": "context['me']['Tassonomia_TipoLavoroMadre3'] =='3' || context['me']['Tassonomia_TipoLavoroMadre2'] =='2' || context['me']['Tassonomia_TipoLavoroMadre1'] =='1' || context['me']['Tassonomia_NoMadre'] == '1' || context['me']['Tassonomia_NoPadre'] == '1'",
 				"completed": null,
 				"annotations": [
 					{
@@ -1062,7 +1060,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_CodiceFiscale\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/fiscalid",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1070,7 +1068,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_Cognome\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/citizen#surname",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1078,7 +1076,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_Nome\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/citizen#name",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1086,7 +1084,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_DataNascita\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/citizen#bith_date",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1094,7 +1092,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_Sesso\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/citizen#gender",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1102,7 +1100,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_Nazionalita\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/citizen#nationality",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1110,7 +1108,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_LuogoNascita\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/citizen#bith_place",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1118,7 +1116,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_ProvinciaResidenza\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/address#province",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1126,7 +1124,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_ComuneResidenza\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/address#city",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1134,7 +1132,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_ViaResidenza\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/address#street",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1142,7 +1140,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_CivicoResidenza\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/address#number",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1150,7 +1148,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_BarraResidenza\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/address#bar",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1158,7 +1156,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_CAPResidenza\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/address#cap",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1166,7 +1164,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_Telefono\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/contacts#phone",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1174,7 +1172,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_Fax\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/contacts#fax",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1182,7 +1180,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_EMail\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/contacts#email",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1190,7 +1188,7 @@
 				"xpath": "//*[@id=\"AventeTitolo_EMailPEC\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/contacts#email_pec",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1198,7 +1196,7 @@
 				"xpath": "//*[@id=\"Bambino_CodiceFiscale\"]",
 				"mapping": {
 					"key": "beneficiary@http://simpatico.org/domain/trento/fiscalid",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1206,7 +1204,7 @@
 				"xpath": "//*[@id=\"Bambino_Cognome\"]",
 				"mapping": {
 					"key": "child@http://simpatico.org/domain/trento/citizena#surname",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1214,7 +1212,7 @@
 				"xpath": "//*[@id=\"Bambino_Nome\"]",
 				"mapping": {
 					"key": "child@http://simpatico.org/domain/trento/citizen#name",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1222,7 +1220,7 @@
 				"xpath": "//*[@id=\"Bambino_DataNascita\"]",
 				"mapping": {
 					"key": "child@http://simpatico.org/domain/trento/citizen#bith_date",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1230,7 +1228,7 @@
 				"xpath": "//*[@id=\"Bambino_Sesso\"]",
 				"mapping": {
 					"key": "child@http://simpatico.org/domain/trento/citizen#gender",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1238,7 +1236,7 @@
 				"xpath": "//*[@id=\"Bambino_Nazionalita\"]",
 				"mapping": {
 					"key": "beneficiary@http://simpatico.org/domain/trento/citizen#nationality",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1246,7 +1244,7 @@
 				"xpath": "//*[@id=\"Bambino_LuogoNascita\"]",
 				"mapping": {
 					"key": "child@http://simpatico.org/domain/trento/citizen#bith_place",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1254,7 +1252,7 @@
 				"xpath": "//*[@id=\"Bambino_ProvinciaResidenza\"]",
 				"mapping": {
 					"key": "child@http://simpatico.org/domain/trento/address#province",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1262,7 +1260,7 @@
 				"xpath": "//*[@id=\"Bambino_ComuneResidenza\"]",
 				"mapping": {
 					"key": "child@http://simpatico.org/domain/trento/address#city",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1270,7 +1268,7 @@
 				"xpath": "//*[@id=\"Bambino_ViaResidenza\"]",
 				"mapping": {
 					"key": "child@http://simpatico.org/domain/trento/address#street",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1278,7 +1276,7 @@
 				"xpath": "//*[@id=\"Bambino_CivicoResidenza\"]",
 				"mapping": {
 					"key": "child@http://simpatico.org/domain/trento/address#number",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1286,7 +1284,7 @@
 				"xpath": "//*[@id=\"Bambino_BarraResidenza\"]",
 				"mapping": {
 					"key": "child@http://simpatico.org/domain/trento/address#bar",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1294,7 +1292,7 @@
 				"xpath": "//*[@id=\"Bambino_CAPResidenza\"]",
 				"mapping": {
 					"key": "child@http://simpatico.org/domain/trento/address#cap",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1302,7 +1300,7 @@
 				"xpath": "//*[@id=\"Parametri_CoefficenteICEF\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/icef#value",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1310,7 +1308,7 @@
 				"xpath": "//*[@id=\"Parametri_DataCalcolo\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/icef#date",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1318,7 +1316,7 @@
 				"xpath": "//*[@id=\"Parametri_CognomeDichiaranteICEF\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/icef#surname",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1326,7 +1324,7 @@
 				"xpath": "//*[@id=\"Parametri_NomeDichiaranteICEF\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/icef#name",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1334,7 +1332,7 @@
 				"xpath": "//*[@id=\"Parametri_CFDichiaranteICEF\"]",
 				"mapping": {
 					"key": "http://simpatico.org/domain/trento/icef#fiscalid",
-					"binding": "IN"
+					"binding": "INOUT"
 				}
 			},
 			{
@@ -1371,8 +1369,11 @@
 			},
 			{
 				"id": "AventeTitolo_RuoloRichiedente",
-				"entity": "http://simpatico.org/domain/trento/parent_role",
-				"xpath": "//*[@id=\"AventeTitolo_RuoloRichiedente\"]"
+				"xpath": "//*[@id=\"AventeTitolo_RuoloRichiedente\"]",
+				"mapping": {
+					"key": "AventeTitolo_RuoloRichiedente",
+					"binding": "OUT"
+				}
 			},
 			{
 				"id": "Tassonomia_ICEF1",
