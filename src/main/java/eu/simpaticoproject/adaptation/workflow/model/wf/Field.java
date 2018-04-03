@@ -1,6 +1,7 @@
 package eu.simpaticoproject.adaptation.workflow.model.wf;
 
 public class Field {
+	@org.springframework.data.mongodb.core.mapping.Field("id")
 	private String id;
 	private String xpath;
 	private Mapping mapping;

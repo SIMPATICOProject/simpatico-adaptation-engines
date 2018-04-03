@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.mongodb.core.mapping.Field;
+
 public class Block {
+	@Field("id")
 	private String id;
 	private String type;
 	private String xpath;
