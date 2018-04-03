@@ -18,6 +18,7 @@ var waeEngine = new function() {
 	var fieldMap = {};
 	var uncompletedFieldMap = {};
 	var contextVar = {};
+	var backupContextVar = null;
 	var serviceDefinitionMap = {};
 	var conceptMap = {};
 	var interactionModality = "original";
@@ -32,19 +33,19 @@ var waeEngine = new function() {
 		if (config.endpoint) {
 			endpoint = config.endpoint;
 		}
-	}
+	};
 	
 	/**
 	 * Return if the model is already loaded and initialized (i.e., compillation in progress)
 	 */
 	this.isLoaded = function() {
-		return workflowModel != null;
-	}
+		return workflowModel !== null;
+	};
 	
 	/**
 	 * Reset the module to the initial state
 	 */
-	this.reset = function(){
+	this.reset = function() {
 		actualBlockIndex = -1;
 		prevBlockIndex = -1;
 		actualBlockId = null;
@@ -53,7 +54,7 @@ var waeEngine = new function() {
 		blockCompiledMap = {};
 		uncompletedFieldMap = {};
 		contextVar = {};
-	}
+	};
 	
 	function getActualBlockIndex() {
 		return actualBlockIndex;
@@ -71,7 +72,8 @@ var waeEngine = new function() {
 	
 	function getBlocksNum() {
 		return workflowModel.blocks.length;
-	}; 
+	};
+	 
 	/**
 	 * RETURN NUMBER OF BLOCKS
 	 */
@@ -81,6 +83,7 @@ var waeEngine = new function() {
 		var element = $("[data-simpatico-block-id='" + simpaticoId + "']");
 		return element;
 	};
+	
 	/**
 	 * RETURN DOM NODE CORRESPONDING TO THE SPECIFIED BLOCK
 	 */
@@ -90,6 +93,7 @@ var waeEngine = new function() {
 		var element = $("[data-simpatico-field-id='" + simpaticoId + "']");
 		return element;
 	};
+
 	/**
 	 * RETURN DOM NODE CORRESPONDING TO THE SPECIFIED FIELD
 	 */
@@ -98,7 +102,7 @@ var waeEngine = new function() {
 	function getSimpaticoContainer() {
 		var container = $("[data-simpatico-id='simpatico_edit_block']");
 		return container;
-	};
+	}
 	this.getSimpaticoContainer = getSimpaticoContainer;
 
 	function loadModel(uri, idProfile, callback, errorCallback) {
@@ -160,7 +164,13 @@ var waeEngine = new function() {
 		return result;
 	};
 	
-	function getEntity(entity) {
+	function getEntity(entity, useBackup) {
+		var context = null;
+		if(useBackup) {
+			context = backupContextVar;
+		} else {
+			context = contextVar;
+		}
 		var origin = entity;
 		var name = "me";
 		var index = entity.indexOf("@");
@@ -168,7 +178,7 @@ var waeEngine = new function() {
 			name = entity.substring(0, index);
 			entity = entity.substring(index + 1);
 		}
-		if(!contextVar[name]) {
+		if(!context[name]) {
 			return null;
 		}
 		var uri = entity; 
@@ -179,24 +189,24 @@ var waeEngine = new function() {
 			complexPath = true;
 			entity = entity.substring(index + 1);
 		}
-		if(!contextVar[name][uri]) {
+		if(!context[name][uri]) {
 			return null;
 		}
 		if(!complexPath) {
-			return contextVar[name][uri];
+			return context[name][uri];
 		} else {
 			var attributes = entity.split(".");
 			if(attributes.length == 1) {
-				return contextVar[name][uri][entity];
+				return context[name][uri][entity];
 			} else {
-				var result = contextVar[name][uri];
+				var result = context[name][uri];
 				attributes.forEach((attribute) => {
 					result = result[attribute];
 				});
 				return result;
 			}
 		}
-	}
+	};
 
 	function setEntity(entity, value) {
 		var origin = entity;
@@ -240,7 +250,7 @@ var waeEngine = new function() {
 				parentObject[attributes[attributes.length - 1]] = value;
 			}
 		}
-	}
+	};
 	
 	function setActualBlock(index) {
 		prevBlockId = actualBlockId;
@@ -333,10 +343,43 @@ var waeEngine = new function() {
 				$(element).attr("data-simpatico-field-id", field.id);
 			}
 		}
-	};
+	}
 	
-	function invokeServices() {
-		return new Promise(function(resolve, reject) {
+	function checkInputParams(service, modifiedVarList) {
+		if(service.input) {
+			for(var j = 0; j < service.input.length; j++) {
+				var input = service.input[j].type;
+				for(var i = 0; i < modifiedVarList.length; i++) {
+					var key = modifiedVarList[i];
+					//check default name
+					var index = key.indexOf("@");
+					if(index == -1) {
+						key = "me@" + key;
+					} 
+					if(key == input) {
+						var oldValue = getEntity(key, true);
+						var newValue = getEntity(input);
+						if(oldValue != newValue) {
+							return true;
+						} 
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	function invokeServices(modifiedVarList) {
+		return new Promise(function(resolve, reject) {		
+			if(modifiedVarList) {
+				for(var i = 0; i < workflowModel.services.length; i++) {
+					var service = workflowModel.services[i];
+					//check if some input parameters are changed
+					if(checkInputParams(service, modifiedVarList)) {
+						service.called = false;
+					}
+				}
+			}
 			var invocableService = false;
 			for(var i = 0; i < workflowModel.services.length; i++) {
 				var service = workflowModel.services[i];
@@ -349,7 +392,7 @@ var waeEngine = new function() {
 					for(var j = 0; j < service.input.length; j++) {
 						var input = service.input[j];
 						var value = getEntity(input.type);
-						if(value == null) {
+						if(value === null) {
 							invokable = false;
 							break;
 						}
@@ -388,38 +431,43 @@ var waeEngine = new function() {
 				resolve();
 			}
 		});
-	};
+	}
 	
 	function setBlockVars(blockId) {
+		backupContextVar = JSON.parse(JSON.stringify(contextVar));
+		var modifiedVarList = [];
 		var block = blockMap[blockId];
-		if(block != null) {
+		if(block) {
 			block.fields.forEach(function(f) {
 				var fieldId = f;
 				var field = fieldMap[fieldId];
-				if(field != null) {
+				if(field) {
 					if(field.mapping.binding == "OUT" || field.mapping.binding == "INOUT") {
 						var element = getSimpaticoFieldElement(field.id);
-						if(element != null) {
+						if(element !== null) {
 							var value = getInputValue(element);
 							setEntity(field.mapping.key, value);
+							modifiedVarList.push(field.mapping.key);
 						}
 					}
 				}
 			});
 		}
+		return modifiedVarList;
 	};
 
 	function revertBlockVars(blockId) {
-		var block = blockMap[blockId];
-		if(block != null) {
+		contextVar = JSON.parse(JSON.stringify(backupContextVar));
+		/*var block = blockMap[blockId];
+		if(block !== null) {
 			block.fields.forEach(function(f) {
 				var fieldId = f;
 				var field = fieldMap[fieldId];
-				if(field != null) {
+				if(field !== null) {
 					delete contextVar[field.mapping.key];
 				}
 			});	
-		}
+		}*/
 	};
 
 	function prevBlock(callback, errorCallback) {
@@ -434,7 +482,7 @@ var waeEngine = new function() {
 			callback(actions);
 			return;
 		}
-		if(prevBlockId != null) {
+		if(prevBlockId !== null) {
 			actions[prevBlockId] = "HIDE";
 		}
 		actions[actualBlockId] = "SHOW";
@@ -446,15 +494,22 @@ var waeEngine = new function() {
 	this.prevBlock = prevBlock;
 
 	function nextBlock(callback, errorCallback) {
+		var modifiedVarList = null;
 		if(actualBlockId) {
-			setBlockVars(actualBlockId);
+			modifiedVarList = setBlockVars(actualBlockId);
 			if(isBlockCompleted(actualBlockId)) {
 				blockCompiledMap[actualBlockId] = true;
 			} else {
 				delete blockCompiledMap[actualBlockId];
 				revertBlockVars(actualBlockId);
 				errorCallback(JSON.stringify(uncompletedFieldMap));
+				return;
 			}
+		}
+		if(modifiedVarList !== null) {
+			invokeServices(modifiedVarList).then(function() {
+				//TODO
+			});
 		}
 		getNextBlock();
 		var actions = {};
@@ -462,7 +517,7 @@ var waeEngine = new function() {
 			callback(actions);
 			return;
 		}
-		if(prevBlockId != null) {
+		if(prevBlockId !== null) {
 			actions[prevBlockId] = "HIDE";
 		}
 		fillBlock();
@@ -481,37 +536,37 @@ var waeEngine = new function() {
 		if (!!workflowModel && !!workflowModel.blocks && workflowModel.blocks[actualBlockIndex]) {
 			return workflowModel.blocks[actualBlockIndex].description;
 		}
-	}
+	};
 	
 	this.restartBlock = function(callback, errorCallback) {
 		setActualBlock(actualBlockIndex -1);
 		this.nextBlock(callback,errorCallback);
-	}
+	};
 	
 	function fillBlock() {
 		var block = blockMap[actualBlockId];
-		if(block != null) {
+		if(block) {
 			block.fields.forEach(function(f) {
 				var fieldId = f;
 				var field = fieldMap[fieldId];
-				if(field != null) {
+				if(field) {
 					if(field.mapping.binding == "IN" || field.mapping.binding == "INOUT") {
 						var value = getEntity(field.mapping.key);
-						var element = this.getSimpaticoFieldElement(field.id);
-						if(element != null) {
+						var element = getSimpaticoFieldElement(field.id);
+						if(element !== null) {
 							setElementValue(element, value);
 						}
 					}
 				}
 			});	
 		}
-	}
+	};
 
 	function isBlockCompleted(blockId) {
 		uncompletedFieldMap = {};
 		var result = true;
 		var block = blockMap[blockId];
-		if(block != null) {
+		if(block) {
 			if(block.completed) {
 				var completedCondition = evalContextVar(block.completed);
 				if(!completedCondition) {
@@ -521,7 +576,7 @@ var waeEngine = new function() {
 			}
 		}
 		return result;
-	} 
+	}; 
 
 	function getInputValue(element) {
 		//TODO get input value
@@ -537,10 +592,10 @@ var waeEngine = new function() {
 			return $(element).val();
 		}
 		return null;
-	}
+	};
 
 	function setElementValue(element, value) {
 		$(element).val(value);
-	}
+	};
 	
 }
