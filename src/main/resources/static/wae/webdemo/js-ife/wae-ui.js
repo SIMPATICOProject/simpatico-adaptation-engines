@@ -126,8 +126,12 @@ var waeUI = (function () {
 	
 	function showElement(simpaticoId, state) {
 		var element = waeEngine.getSimpaticoBlockElement(simpaticoId);
-		if(element != null) {
+		if(element !== null) {
 			if(state == "SHOW") {
+				if(waeEngine.getInteractionModality() == "question") {
+					var questions = waeEngine.getSimpaticoQuestions(simpaticoId);
+					//console.log(questions);
+				}
 				element.fadeTo("fast", 1);
 				element.removeClass('wae-disabled');
 				//$(element).children().prop('disabled', false);

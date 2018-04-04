@@ -56,6 +56,14 @@ var waeEngine = new function() {
 		contextVar = {};
 	};
 	
+	function getInteractionModality() {
+		return interactionModality;
+	}
+ 	/**
+ 	 * RETURN INTERACTION MODALITY 
+ 	 */
+	this.getInteractionModality = getInteractionModality;
+	
 	function getActualBlockIndex() {
 		return actualBlockIndex;
  	}; 	
@@ -104,10 +112,55 @@ var waeEngine = new function() {
 		return container;
 	}
 	this.getSimpaticoContainer = getSimpaticoContainer;
+	
+	function getSimpaticoQuestions(simpaticoId) {
+		var result = [];
+		var block = blockMap[simpaticoId];
+		if(block.fields) {
+			block.fields.forEach(function(fieldId) {
+				var field = fieldMap[fieldId];
+				if(field) {
+					var value = getEntity(field.mapping.key);
+					if (typeof value === undefined || value === null) {
+						var question = getQuestion(field.mapping.key);
+						if(question !== null) {
+							var item = {};
+							item.mapping = field.mapping;
+							item.question = question;
+							result.push(item);
+						}
+					}
+				}
+			});
+		}
+		return result;
+	}
+	//RETURN QUESTIONS FOR UNDEFINED VARIABLES RELATED TO A SPECIFIC BLOCK
+	this.getSimpaticoQuestions = getSimpaticoQuestions;
+	
+	function getQuestion(entity) {
+		var key = getEntityKey(entity); 
+		for(var i = 0; i < workflowModel.questions.length; i++) {
+			var question = workflowModel.questions[i];
+			if(question.entity == key) {
+				return question;
+			}
+		}
+		return null;
+	}
+	
+	function getEntityKey(entity) {
+		var key = entity;
+		var index = entity.indexOf("@");
+			if(index == -1) {
+				key = "me@" + key;
+		}
+		return key;
+	}
 
 	function loadModel(uri, idProfile, callback, errorCallback) {
 		//TODO get profile from id
-		setEntity("urn:simpaticoproject:profile#interaction_capability", "MEDIUM");
+		setEntity("urn:simpaticoproject:profile#interaction_capability", "LOW");
 		var urlDomain = endpoint + "/model/domain?uri=" + uri + (!!idProfile ? ("&idProfile="+idProfile) : "");
 		var urlWorkflow = endpoint + "/model/page?uri=" + uri + (!!idProfile ? ("&idProfile="+idProfile) : "");
 		$.getJSON(urlDomain)
@@ -351,11 +404,7 @@ var waeEngine = new function() {
 				var input = service.input[j].type;
 				for(var i = 0; i < modifiedVarList.length; i++) {
 					var key = modifiedVarList[i];
-					//check default name
-					var index = key.indexOf("@");
-					if(index == -1) {
-						key = "me@" + key;
-					} 
+					key = getEntityKey(key); 
 					if(key == input) {
 						var oldValue = getEntity(key, true);
 						var newValue = getEntity(input);
@@ -506,23 +555,20 @@ var waeEngine = new function() {
 				return;
 			}
 		}
-		if(modifiedVarList !== null) {
-			invokeServices(modifiedVarList).then(function() {
-				//TODO
-			});
-		}
-		getNextBlock();
-		var actions = {};
-		if(!moveToBlock) {
+		invokeServices(modifiedVarList).then(function() {
+			getNextBlock();
+			var actions = {};
+			if(!moveToBlock) {
+				callback(actions);
+				return;
+			}
+			if(prevBlockId !== null) {
+				actions[prevBlockId] = "HIDE";
+			}
+			fillBlock();
+			actions[actualBlockId] = "SHOW";
 			callback(actions);
-			return;
-		}
-		if(prevBlockId !== null) {
-			actions[prevBlockId] = "HIDE";
-		}
-		fillBlock();
-		actions[actualBlockId] = "SHOW";
-		callback(actions);
+		});
 	};
 	/**
 	 * MOVE TO THE NEXT BLOCK

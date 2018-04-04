@@ -80,10 +80,11 @@
 		],
 		"questions": [
 			{
-				"entity" : "child@http://simpatico.org/domain/trento/fiscalid",
-				"input" : ["me@http://simpatico.org/domain/trento/family"], 
-				"output": "child@http://simpatico.org/domain/trento/fiscalid", 
-				"implementation": "{//visualizza un form cge permette di selezionare un membro della famiglia}"
+				"entity" : "me@http://simpatico.org/domain/trento/contacts#phone",
+				"text" : {
+					"it" : "inserisci il telefono",
+					"en" : "phone number"
+				}
 			},
 			{
 				"entity" : "child@http://simpatico.org/domain/trento/fiscalid",
