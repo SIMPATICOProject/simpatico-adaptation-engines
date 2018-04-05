@@ -578,11 +578,26 @@ var waeEngine = new function() {
 	/**
 	 * RETURN BLOCK DESCRIPTION
 	 */
-	this.getBlockDescription = function() {
+	function getBlockDescription() {
+		var result = []; 
 		if (!!workflowModel && !!workflowModel.blocks && workflowModel.blocks[actualBlockIndex]) {
-			return workflowModel.blocks[actualBlockIndex].description;
+			var block = workflowModel.blocks[actualBlockIndex];
+			if(block.annotations) {
+				for(var i = 0; i < block.annotations.length; i++) {
+					var annotation = block.annotations[i];
+					if(annotation.condition) {
+						if(evalContextVar(annotation.condition)) {
+							result.push(annotation);
+						}
+					} else {
+						result.push(annotation);
+					}
+				}
+			}
 		}
+		return result;
 	};
+	this.getBlockDescription = getBlockDescription;
 	
 	this.restartBlock = function(callback, errorCallback) {
 		setActualBlock(actualBlockIndex -1);

@@ -128,10 +128,6 @@ var waeUI = (function () {
 		var element = waeEngine.getSimpaticoBlockElement(simpaticoId);
 		if(element !== null) {
 			if(state == "SHOW") {
-				if(waeEngine.getInteractionModality() == "question") {
-					var questions = waeEngine.getSimpaticoQuestions(simpaticoId);
-					//console.log(questions);
-				}
 				element.fadeTo("fast", 1);
 				element.removeClass('wae-disabled');
 				//$(element).children().prop('disabled', false);
@@ -156,6 +152,10 @@ var waeUI = (function () {
 	function editBlock(simpaticoId) {
 		var element = waeEngine.getSimpaticoBlockElement(simpaticoId);
 		if(element != null) {
+			if(waeEngine.getInteractionModality() == "question") {
+				var questions = waeEngine.getSimpaticoQuestions(simpaticoId);
+				//console.log(questions);
+			}
 			element.wrap("<div data-simpatico-id='simpatico_edit_block' class='block_edited_wrapper'><div  class='block_edited'></div></div>" );
 			var container = waeEngine.getSimpaticoContainer();
 			var containerInt = $(container).find(".block_edited");
@@ -177,13 +177,16 @@ var waeUI = (function () {
 					var position = offset.top - topBarHeight;
 					$('html, body').animate({scrollTop: position}, 200);
 				}
-				var description = waeEngine.getBlockDescription();
-				if (description && description[lang]) {
-					description = description[lang];
-				} else {
-					description = "";
+				var descriptions = waeEngine.getBlockDescription();
+				var message = "";
+				if(descriptions) {
+					descriptions.forEach(function(description) {
+						if(description.text[lang]) {
+							message = message + "<p>" + description.text[lang] + "</p>";
+						}
+					});
 				}
-				$(container).append(createDescription(description));
+				$(container).append(createDescription(message));
 			}
 		}
 	};

@@ -17,7 +17,7 @@ public class Block {
 	private List<String> dependencies = new ArrayList<String>();
 	private String condition;
 	private String completed;
-	private Map<String,String> description;
+	private List<Map<String, Object>> annotations = new ArrayList<Map<String,Object>>();
 	
 	public String getId() {
 		return id;
@@ -73,12 +73,6 @@ public class Block {
 	public void setXpath(String xpath) {
 		this.xpath = xpath;
 	}
-	public Map<String, String> getDescription() {
-		return description;
-	}
-	public void setDescription(Map<String, String> description) {
-		this.description = description;
-	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -108,11 +102,6 @@ public class Block {
 				return false;
 		} else if (!dependencies.equals(other.dependencies))
 			return false;
-		if (getDescription() == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
 		if (getFields() == null) {
 			if (other.fields != null)
 				return false;
@@ -139,6 +128,12 @@ public class Block {
 		} else if (!xpath.equals(other.xpath))
 			return false;
 		return true;
+	}
+	public List<Map<String, Object>> getAnnotations() {
+		return annotations;
+	}
+	public void setAnnotations(List<Map<String, Object>> annotations) {
+		this.annotations = annotations;
 	}
 	
 }
