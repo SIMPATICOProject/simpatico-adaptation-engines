@@ -225,14 +225,14 @@
 				"completed": null,
 				"annotations": [
 					{
-						"condition": "context['me']['urn:simpaticoproject:profile']['interaction_capability'] === 'MEDIUM'",
+						"condition": "context['me']['urn:simpaticoproject:profile']['interaction_capability'] === 'LOW'",
 						"text": {
 							"it": "Una volta effettuato l’accesso con la carta dei servizi, premendo il pulsante <i>“Carica dati personali”</i> le informazioni anagrafiche verranno caricate automaticamente.<br>Verificare i dati e compilare eventuali voci mancanti.<br>NOTA: Se il richiedente non risiede nell'Unione Europea, selezionare come provincia di residenza l'opzione <i>“EE”</i> e inserire la nazione di residenza nel campo “Comune”.<br><br><b>ATTENZIONE! I campi evidenziati in arancione sono obbligatori.</b><br><br>Una volta compilati tutti i campi premere il pulsante <i>“SUCCESSIVO”</i> per proseguire.",
 							"en": "English version complex"
 						}
 					},
 					{
-						"condition": "context['me']['urn:simpaticoproject:profile']['interaction_capability'] === 'LOW'",
+						"condition": "context['me']['urn:simpaticoproject:profile']['interaction_capability'] === 'MEDIUM'",
 						"text": {
 							"it": "Una volta effettuato l’accesso con la carta dei servizi, e <i>“Carica dati personali”</i>.<br>Verificare i dati e compilare eventuali voci mancanti.<br>NOTA: Se il richiedente non risiede nell'Unione Europea, selezionare come provincia di residenza l'opzione <i>“EE”</i> e inserire la nazione di residenza nel campo “Comune”.</b><br><br>Premere il pulsante <i>“SUCCESSIVO”</i> per proseguire.",
 							"en": "English version simple"
@@ -251,7 +251,7 @@
 					"block1"
 				],
 				"condition": null,
-				"completed": "context['me']['AventeTitolo_RuoloRichiedente'] != null",
+				"completed": "(context['me']['AventeTitolo_RuoloRichiedente'] !== null) && (context['me']['AventeTitolo_RuoloRichiedente'] != '')",
 				"annotations": [
 					{
 						"condition": null,
