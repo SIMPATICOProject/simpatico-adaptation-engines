@@ -520,54 +520,58 @@ var waeEngine = new function() {
 	};
 
 	function prevBlock(callback, errorCallback) {
-		//TODO reset form?
-		if(actualBlockId) {
-			delete blockCompiledMap[actualBlockId];
-			//revertBlockVars(actualBlockId);
-		}
-		getPrevBlock();
-		var actions = {};
-		if(!moveToBlock) {
-			callback(actions);
-			return;
-		}
-		if(prevBlockId !== null) {
-			actions[prevBlockId] = "HIDE";
-		}
-		actions[actualBlockId] = "SHOW";
-		callback(actions);
+		return new Promise(function(resolve, reject) {
+			//TODO reset form?
+			if(actualBlockId) {
+				delete blockCompiledMap[actualBlockId];
+				//revertBlockVars(actualBlockId);
+			}
+			getPrevBlock();
+			var actions = {};
+			if(!moveToBlock) {
+				resolve(actions);
+				return;
+			}
+			if(prevBlockId !== null) {
+				actions[prevBlockId] = "HIDE";
+			}
+			actions[actualBlockId] = "SHOW";
+			resolve(actions);		
+		});
 	};
 	/**
 	 * MOVE TO THE PREVIOUS BLOCK
 	 */
 	this.prevBlock = prevBlock;
 
-	function nextBlock(callback, errorCallback) {
-		var modifiedVarList = null;
-		if(actualBlockId) {
-			modifiedVarList = setBlockVars(actualBlockId);
-			if(isBlockCompleted(actualBlockId)) {
-				blockCompiledMap[actualBlockId] = true;
-			} else {
-				delete blockCompiledMap[actualBlockId];
-				revertBlockVars(actualBlockId);
-				errorCallback(JSON.stringify(uncompletedFieldMap));
-				return;
+	function nextBlock() {
+		return new Promise(function(resolve, reject) {
+			var modifiedVarList = null;
+			if(actualBlockId) {
+				modifiedVarList = setBlockVars(actualBlockId);
+				if(isBlockCompleted(actualBlockId)) {
+					blockCompiledMap[actualBlockId] = true;
+				} else {
+					delete blockCompiledMap[actualBlockId];
+					revertBlockVars(actualBlockId);
+					reject(JSON.stringify(uncompletedFieldMap));
+					return;
+				}
 			}
-		}
-		invokeServices(modifiedVarList).then(function() {
-			getNextBlock();
-			var actions = {};
-			if(!moveToBlock) {
-				callback(actions);
-				return;
-			}
-			if(prevBlockId !== null) {
-				actions[prevBlockId] = "HIDE";
-			}
-			fillBlock();
-			actions[actualBlockId] = "SHOW";
-			callback(actions);
+			invokeServices(modifiedVarList).then(function() {
+				getNextBlock();
+				var actions = {};
+				if(!moveToBlock) {
+					resolve(actions);
+					return;
+				}
+				if(prevBlockId !== null) {
+					actions[prevBlockId] = "HIDE";
+				}
+				fillBlock();
+				actions[actualBlockId] = "SHOW";
+				resolve(actions);
+			});		
 		});
 	};
 	/**

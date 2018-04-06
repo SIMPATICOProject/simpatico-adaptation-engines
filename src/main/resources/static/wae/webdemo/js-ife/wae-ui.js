@@ -116,8 +116,16 @@ var waeUI = (function () {
 			}
 		}
 		logger().logWae(simpaticoEservice);
-		waeEngine.nextBlock(doActions, moduleErrorMsg);
-		logger().logBlockStart(simpaticoEservice, waeEngine.getActualBlockId());
+		showLoader();
+		waeEngine.nextBlock().then(
+			function(result) {
+				doActions(result);
+				logger().logBlockStart(simpaticoEservice, waeEngine.getActualBlockId());
+			},
+			function(error) {
+				moduleErrorMsg(error);
+			}
+		);
 	};
 	
 	function moduleLoadError(text) {
@@ -192,6 +200,7 @@ var waeUI = (function () {
 	};
 	
 	function doActions(actions) {
+		hideLoader();
 		moduleErrorMessage = "";
 		for(var blockId in actions) {
 			var state = actions[blockId];
@@ -211,6 +220,7 @@ var waeUI = (function () {
 	};
 	
 	function moduleErrorMsg(text) {
+		hideLoader();
 		var keyNames = Object.keys(JSON.parse(text));
 		var blockId = keyNames[0];
 		moduleErrorMessage = errorLabel[blockId];
@@ -249,8 +259,16 @@ var waeUI = (function () {
 	
 	function nextBlock() {
 		if (waeEngine.getActualBlockId()) logger().logBlockEnd(simpaticoEservice, waeEngine.getActualBlockId());
-		waeEngine.nextBlock(doActions, moduleErrorMsg);
-		if (waeEngine.getActualBlockId()) logger().logBlockStart(simpaticoEservice, waeEngine.getActualBlockId());
+		showLoader();
+		waeEngine.nextBlock().then(
+			function(result) {
+				doActions(result);
+				if (waeEngine.getActualBlockId()) logger().logBlockStart(simpaticoEservice, waeEngine.getActualBlockId());
+			},
+			function(error) {
+				moduleErrorMsg(error);
+			}
+		);
 	};
 	function lastBlock() {
 		instance.reset(true);
@@ -267,9 +285,32 @@ var waeUI = (function () {
 	
 	function prevBlock() {
 		if (waeEngine.getActualBlockId()) logger().logBlockEnd(simpaticoEservice, waeEngine.getActualBlockId());
-		waeEngine.prevBlock(doActions, moduleErrorMsg);
-		if (waeEngine.getActualBlockId()) logger().logBlockStart(simpaticoEservice, waeEngine.getActualBlockId());
+		showLoader();
+		waeEngine.prevBlock().then(
+			function(result) {
+				doActions(result);
+				if (waeEngine.getActualBlockId()) logger().logBlockStart(simpaticoEservice, waeEngine.getActualBlockId());
+			},
+			function(error) {
+				moduleErrorMsg(error);
+			}
+		);
 	};
+	
+	function showLoader() {
+		var element = $("#sim-cover");
+		if(element !== null) {
+			element.show();
+		}
+	};
+	
+	function hideLoader() {
+		var element = $("#sim-coverr");
+		if(element !== null) {
+			element.hide();
+		}
+	};
+	
   }
   return {
     	getInstance: function() {
