@@ -62,7 +62,15 @@ var waeUI = (function () {
 		if (!!idProfile) {
 			this.idProfile = idProfile;
 		}
-		waeEngine.loadModel(moduleUri, this.idProfile, moduleLoaded, moduleLoadError);
+		showLoader();
+		waeEngine.loadModel(moduleUri, this.idProfile).then(
+			function(result) {
+				moduleLoaded(result);
+			},
+			function(error) {
+				moduleLoadError(error);
+			}
+		);
 	};
 
     this.isEnabled = function(){
@@ -116,7 +124,6 @@ var waeUI = (function () {
 			}
 		}
 		logger().logWae(simpaticoEservice);
-		showLoader();
 		waeEngine.nextBlock().then(
 			function(result) {
 				doActions(result);
@@ -298,14 +305,14 @@ var waeUI = (function () {
 	};
 	
 	function showLoader() {
-		var element = $("#sim-cover");
+		var element = $("#sim-loader");
 		if(element !== null) {
 			element.show();
 		}
 	};
 	
 	function hideLoader() {
-		var element = $("#sim-coverr");
+		var element = $("#sim-loader");
 		if(element !== null) {
 			element.hide();
 		}

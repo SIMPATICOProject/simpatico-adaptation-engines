@@ -158,48 +158,54 @@ var waeEngine = new function() {
 		return key;
 	}
 
-	function loadModel(uri, idProfile, callback, errorCallback) {
-		//TODO get profile from id
-		setEntity("urn:simpaticoproject:profile#interaction_capability", "LOW");
-		var urlDomain = endpoint + "/model/domain?uri=" + uri + (!!idProfile ? ("&idProfile="+idProfile) : "");
-		var urlWorkflow = endpoint + "/model/page?uri=" + uri + (!!idProfile ? ("&idProfile="+idProfile) : "");
-		$.getJSON(urlDomain)
-	  .done(function(json) {
-	  	domainModel = json;
-	  	json.concepts.forEach(function(c) {
-	  		conceptMap[c.uri] = c;
-	  	});
-	  	json.services.forEach(function(s) {
-	  		serviceDefinitionMap[s.uri] = s;
-	  	});
-	  	$.getJSON(urlWorkflow)
-	  	.done(function(json) {
-		  	workflowModel = json;
-		  	json.blocks.forEach(function(b) {
-		  		blockMap[b.id] = b;
-		  	});
-		  	json.fields.forEach(function(f) {
-		  		fieldMap[f.id] = f;
+	function loadModel(uri, idProfile) {
+		return new Promise(function(resolve, reject) {
+			//TODO get profile from id
+			setEntity("urn:simpaticoproject:profile#interaction_capability", "LOW");
+			var urlDomain = endpoint + "/model/domain?uri=" + uri + (!!idProfile ? ("&idProfile="+idProfile) : "");
+			var urlWorkflow = endpoint + "/model/page?uri=" + uri + (!!idProfile ? ("&idProfile="+idProfile) : "");
+			$.getJSON(urlDomain)
+		  .done(function(json) {
+		  	domainModel = json;
+		  	json.concepts.forEach(function(c) {
+		  		conceptMap[c.uri] = c;
 		  	});
 		  	json.services.forEach(function(s) {
-		  		s.called = false;
+		  		serviceDefinitionMap[s.uri] = s;
 		  	});
-		  	//console.log(JSON.stringify(json));
-		  	initModule();
-				//check services to invoke
-				if(interactionModality != "original") {
-					invokeServices().then(function() {
-						if (callback) callback(blockMap);
-					});
-				} else {
-					if (callback) callback(blockMap);
-				}
-	  	})
-	  })
-	  .fail(function( jqxhr, textStatus, error) {
-	  	console.log(textStatus + ", " + error);
-	  	if (errorCallback) errorCallback(textStatus + ", " + error);
-	  });
+		  	$.getJSON(urlWorkflow)
+		  	.done(function(json) {
+			  	workflowModel = json;
+			  	json.blocks.forEach(function(b) {
+			  		blockMap[b.id] = b;
+			  	});
+			  	json.fields.forEach(function(f) {
+			  		fieldMap[f.id] = f;
+			  	});
+			  	json.services.forEach(function(s) {
+			  		s.called = false;
+			  	});
+			  	//console.log(JSON.stringify(json));
+			  	initModule();
+					//check services to invoke
+					if(interactionModality != "original") {
+						invokeServices().then(function() {
+							resolve(blockMap);
+						});
+					} else {
+						resolve(blockMap);
+					}
+		  	})
+		  	.fail(function( jqxhr, textStatus, error) {
+		  		//console.log(textStatus + ", " + error);
+		  		reject(textStatus + ", " + error);
+		  	});
+		  })
+		  .fail(function( jqxhr, textStatus, error) {
+		  	//console.log(textStatus + ", " + error);
+		  	reject(textStatus + ", " + error);
+		  });		
+		});
 	};
 	/**
 	 * LOAD ADAPTED WORKFLOW MODEL FOR THE SPECIFIED FORM AND USER
@@ -208,7 +214,7 @@ var waeEngine = new function() {
 
 	function evalBlockEdited(blockId) {
 		var blockEdited = blockCompiledMap[blockId];
-		return (blockEdited != null);
+		return (blockEdited !== null);
 	};
 
 	function evalContextVar(expression) {
