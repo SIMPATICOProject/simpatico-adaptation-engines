@@ -15,9 +15,12 @@ form {
   top: 50%;
   z-index: 10;
   margin: -75px 0 0 -75px;
-  border: 16px solid #f3f3f3;
+  border: 16px solid #24BCDA;
   border-radius: 50%;
-  border-top: 16px solid #3498db;
+  border-top: 16px solid #FCC800;
+ 	border-right: 16px solid #CE453E;
+ 	border-bottom: 16px solid #379E4C;
+ 	border-left: 16px solid #24BCDA;  
   width: 75px;
   height: 75px;
   -webkit-animation: spin 2s linear infinite;
