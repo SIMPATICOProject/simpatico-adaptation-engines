@@ -39,6 +39,16 @@ public class RepositoryManager {
 		return list;
 	}
 	
+	/**
+	 * @param eServiceId
+	 * @return
+	 */
+	public List<WorkFlowModelStore> getModelsByESeerviceId(String eServiceId) {
+		Query query =  new Query(new Criteria("eServiceId").is(eServiceId));
+		List<WorkFlowModelStore> list = mongoTemplate.find(query, WorkFlowModelStore.class);
+		return list;
+	}
+
 	public WorkFlowModelStore saveModel(WorkFlowModelStore model) throws IllegalArgumentException {
 		if(!StringUtils.isEmpty(model.getObjectId())) {
 			//update
