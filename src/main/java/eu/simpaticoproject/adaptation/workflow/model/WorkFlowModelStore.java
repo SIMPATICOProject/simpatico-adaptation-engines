@@ -7,7 +7,7 @@ import eu.simpaticoproject.adaptation.workflow.model.wf.PageModel;
 
 public class WorkFlowModelStore extends BaseObject {
 	private String uri;
-	private String eServiceId;
+	private String eserviceId;
 	private List<String> profileTypes = new ArrayList<String>();
 	private PageModel model;
 	
@@ -29,10 +29,10 @@ public class WorkFlowModelStore extends BaseObject {
 	public void setModel(PageModel model) {
 		this.model = model;
 	}
-	public String getEServiceId() {
-		return eServiceId;
+	public String getEserviceId() {
+		return eserviceId;
 	}
-	public void setEServiceId(String eServiceId) {
-		this.eServiceId = eServiceId;
+	public void setEserviceId(String eserviceId) {
+		this.eserviceId = eserviceId;
 	}
 }

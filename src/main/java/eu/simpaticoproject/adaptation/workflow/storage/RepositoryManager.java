@@ -44,7 +44,7 @@ public class RepositoryManager {
 	 * @return
 	 */
 	public List<WorkFlowModelStore> getModelsByESeerviceId(String eServiceId) {
-		Query query =  new Query(new Criteria("eServiceId").is(eServiceId));
+		Query query =  new Query(new Criteria("eserviceId").is(eServiceId));
 		List<WorkFlowModelStore> list = mongoTemplate.find(query, WorkFlowModelStore.class);
 		return list;
 	}
@@ -60,6 +60,7 @@ public class RepositoryManager {
 			Date now = new Date();
 			Update update = new Update();
 			update.set("uri", model.getUri());
+			update.set("eserviceId", model.getEserviceId());
 			update.set("profileTypes", model.getProfileTypes());
 			update.set("model", model.getModel());
 			update.set("lastUpdate", now);
