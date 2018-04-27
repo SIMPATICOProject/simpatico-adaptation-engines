@@ -84,7 +84,7 @@ public class WAEController {
 	}
 
 	
-	@RequestMapping(value = "/wae/eservice/{eServiceId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/wae/eservice", method = RequestMethod.GET)
 	@ApiOperation(value = "Get models by eServiceId",
 	  notes = "Get models matching the specific eServiceID")
 	public @ResponseBody List<WorkFlowModelStore> getModelStoreByEServiceId(@RequestParam String eServiceId,
