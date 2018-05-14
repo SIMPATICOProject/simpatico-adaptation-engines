@@ -54,6 +54,7 @@ var waeEngine = new function() {
 		blockCompiledMap = {};
 		uncompletedFieldMap = {};
 		contextVar = {};
+		backupContextVar = {};
 	};
 	
 	function getInteractionModality() {
@@ -609,9 +610,8 @@ var waeEngine = new function() {
 	};
 	this.getBlockDescription = getBlockDescription;
 	
-	this.restartBlock = function(callback, errorCallback) {
+	this.restartBlock = function() {
 		setActualBlock(actualBlockIndex -1);
-		this.nextBlock(callback,errorCallback);
 	};
 	
 	function fillBlock() {

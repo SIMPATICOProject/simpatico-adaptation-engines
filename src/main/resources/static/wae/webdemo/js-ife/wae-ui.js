@@ -83,9 +83,19 @@ var waeUI = (function () {
     				showElement(key, "HIDE");
     			}
     		}
-    		waeEngine.restartBlock(doActions, moduleErrorMsg);    		
+    		waeEngine.restartBlock();
+				waeEngine.nextBlock().then(
+					function(result) {
+						doActions(result);
+						if (waeEngine.getActualBlockId()) logger().logBlockStart(simpaticoEservice, waeEngine.getActualBlockId());
+					},
+					function(error) {
+						moduleErrorMsg(error);
+					}
+				);
     	} else {
-        	this.loadModel(idProfile);
+    		var moduleUri = $("[data-simpatico-workflow]").attr('data-simpatico-workflow');
+        this.loadModel(moduleUri, idProfile);
     	}
 		logCORE.getInstance().startActivity('wae', 'simplification');
 		instance.active = true;
