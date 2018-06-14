@@ -210,34 +210,34 @@ form {
 /** CUSTOM WAE STYLING IN CASE OF DIALOG   **/
 /********************************/
 
-.modulo-html-dialog #div_simpatico_block_description,
-.modulo-html-dialog .simp-ctz-ui-qb {
+#modulo-html-dialog #div_simpatico_block_description,
+#modulo-html-dialog .simp-ctz-ui-qb {
 	right: inherit!important;
 	left: calc(100% + 1cm - 3px) !important;
     width: calc(50vw - 50% - 1.5cm + 3px) !important;
     top: 0px !important;
 }
-.modulo-html-dialog .simp-ctz-ui-qb {
+#modulo-html-dialog .simp-ctz-ui-qb {
     right: inherit!important;
     left: calc(100% + 1cm + 3px) !important;
     width: calc(50vw - 50% - 1.5cm - 3px) !important;
     top: 0px !important;
 }
 
-.modulo-html-dialog .div_simpatico_block_description .div_simpatico_block_description_content, 
-.modulo-html-dialog .div_simpatico_block_description > h5 {
+#modulo-html-dialog .div_simpatico_block_description .div_simpatico_block_description_content, 
+#modulo-html-dialog .div_simpatico_block_description > h5 {
 	padding: 4px;
 }
 
-.modulo-html-dialog .block_edited {
+#modulo-html-dialog .block_edited {
 	width: calc(100% + 6px) !important;
 	margin-left: -3px !important;
 }
 
-.modulo-html-dialog .simp-paragraph-active::before {
+#modulo-html-dialog .simp-paragraph-active::before {
 	border-left: 0!important;
 }
 
 .ui-dialog {
-	z-index: 100000;
+	z-index: 100000 !important;
 }
