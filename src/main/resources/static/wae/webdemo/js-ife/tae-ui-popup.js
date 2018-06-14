@@ -274,6 +274,8 @@ var taeUIPopup = (function () {
 		function setInnerText(target) {
 			var targetElement = document.getElementById(target);
 			return function(text, syntSimplified) {
+				if (!text) return;
+				
 				targetElement.innerHTML = '<p>' + text + '</p>';
 //				$('#'+target).html('<p>' + text + '</p>');
 				if (syntSimplified) {
