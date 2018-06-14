@@ -241,3 +241,6 @@ form {
 .ui-dialog {
 	z-index: 100000 !important;
 }
+#cdv_toolbar_buttons {
+    z-index: 100000 !important;
+}
