@@ -239,6 +239,6 @@ form {
     z-index: 100000 !important;
 }
 
-ngdialog-theme-modulo {
+.ngdialog-theme-modulo {
 	margin-top: 52px;
 }

@@ -58,6 +58,8 @@ var taeUIPopup = (function () {
 			_instance.labels.notextMessage = config.notextMessage || _instance.labels.notextMessage;
 			_instance.colors.simplify = config.simplifyColor || _instance.colors.simplify;
 	
+			if (document.getElementById('dialog-simplify')) return;
+			
 			_instance.dialog_simplify = $(
 					'<div id="dialog-simplify" title="'+_instance.labels.dialogTitle+'">'+
 					'	<div id="tabs">'+
@@ -273,6 +275,7 @@ var taeUIPopup = (function () {
 			var targetElement = document.getElementById(target);
 			return function(text, syntSimplified) {
 				targetElement.innerHTML = '<p>' + text + '</p>';
+//				$('#'+target).html('<p>' + text + '</p>');
 				if (syntSimplified) {
 					$('#tab-synt-simp-tab').show();
 				} else {
