@@ -16,7 +16,7 @@ function logEnabled() {
 	return isProd() || isTestProd();
 }
 function sfEnabled() {
-	return !isProd() && !isTestProd();
+	return !isProd();
 }
 
 // It inits all the enabled features of IFE 
@@ -255,39 +255,39 @@ function initFeatures() {
                   enable: function() { citizenpediaUI.getInstance().enable(); },
                   disable: function() { citizenpediaUI.getInstance().disable(); }
                 },
-                {	// TAE
-                    id: "simp-bar-sw-tae-popup",
-                    // Ad-hoc images to define the enabled/disabled images
-                    imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/enrich.png",
-                    imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/enrich.png",
-                    alt: "Semplificazione del testo selezionato",
-                    // Ad-hoc css classes to define the enabled/disabled styles
-                    styleClassEnabled: "simp-bar-btn-active",
-                    styleClassDisabled: "simp-bar-btn-inactive",
-                    label: 'Semplificazione testo',
-                    isEnabled: function() { return false; },
-                    enable: function() { 
-                    	console.log(window.getSelection().toString().trim());
-                    	taeUIPopup.getInstance().showDialog(); 
-                    },
-                    disable: function() { 
-                    	taeUIPopup.getInstance().hideDialog(); 
-                    },
-                    exclusive: true
-                  },
-                    { // CPD: procedure model
-                        id: 'process',
-                        imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
-                        imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
-                        alt: "Procedura amministrativa",
-                        // Ad-hoc css classes to define the enabled/disabled styles
-                        styleClassEnabled: "simp-bar-btn-active",
-                        styleClassDisabled: "simp-bar-btn-inactive",
-                        label: 'Procedura',
-                        isEnabled: function() { return false; },
-                        enable: function() { citizenpediaUI.getInstance().openDiagram(); },
-                        disable: function() {  }
-                      },                    
+//                {	// TAE
+//                    id: "simp-bar-sw-tae-popup",
+//                    // Ad-hoc images to define the enabled/disabled images
+//                    imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/enrich.png",
+//                    imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/enrich.png",
+//                    alt: "Semplificazione del testo selezionato",
+//                    // Ad-hoc css classes to define the enabled/disabled styles
+//                    styleClassEnabled: "simp-bar-btn-active",
+//                    styleClassDisabled: "simp-bar-btn-inactive",
+//                    label: 'Semplificazione testo',
+//                    isEnabled: function() { return false; },
+//                    enable: function() { 
+//                    	console.log(window.getSelection().toString().trim());
+//                    	taeUIPopup.getInstance().showDialog(); 
+//                    },
+//                    disable: function() { 
+//                    	taeUIPopup.getInstance().hideDialog(); 
+//                    },
+//                    exclusive: true
+//                  },
+//                    { // CPD: procedure model
+//                        id: 'process',
+//                        imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
+//                        imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
+//                        alt: "Procedura amministrativa",
+//                        // Ad-hoc css classes to define the enabled/disabled styles
+//                        styleClassEnabled: "simp-bar-btn-active",
+//                        styleClassDisabled: "simp-bar-btn-inactive",
+//                        label: 'Procedura',
+//                        isEnabled: function() { return false; },
+//                        enable: function() { citizenpediaUI.getInstance().openDiagram(); },
+//                        disable: function() {  }
+//                      },                    
 
 //                  { // SF: session feedback
 //                      id: 'sf',
