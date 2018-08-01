@@ -110,7 +110,7 @@ form {
 /***************************/
 .session-feedback-comments {
 	margin: 0;
-	padding: 0 6%;
+	padding: 0;
 }
 .session-feedback-comments textarea {
 	width: calc(100% - 6px);
@@ -121,21 +121,33 @@ form {
 	margin: 0;
 }
 
-#slider-session-feedback-content {
-    width: 100% !important;
-    margin: 10px 0 !important;	
+.slider-session-feedback-content, .session-feedback-content, .session-feedback-radio, #faces-session-feedback-content {
+    padding: 5px 6% !important;
+    margin-top: 25px;
+    border: 1px solid #ccc;
+    border-radius: 5px;	
 }
 
-#slider-session-feedback-content form {
+.slider-session-feedback-content form {
 	padding: 0;
-	margin: 10px 6%;
+	text-align: center;
+}
+
+.slider {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.session-feedback-radio .form-group {
+	display: inline-block;
+	padding: 0 20px 10px 20px; 
+}
+.session-feedback-radio {
 	text-align: center;
 }
 
 .mensaje {
 	padding-bottom: 10px;
-	margin-left: 6%;
-    margin-right: 6%;
 	font-weight: bold;
 }
 
@@ -143,6 +155,7 @@ form {
 	margin: 20px 6%;
 	padding-top: 0 !important;
 	padding-bottom: 0 !important;
+	height: 30px;
 }
 
 #buttons_session_feedback a {
@@ -153,6 +166,7 @@ form {
 	margin-left: 0 !important;
     display: inline;
     background-color: #d3d3d6 !important;
+    margin-top: 6px;
 }
 
 #button_send_session_feedback_a {
