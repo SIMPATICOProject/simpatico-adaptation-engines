@@ -16,7 +16,7 @@ function logEnabled() {
 	return isProd() || isTestProd();
 }
 function sfEnabled() {
-	return !isProd();
+	return true;
 }
 
 // It inits all the enabled features of IFE 

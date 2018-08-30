@@ -52,7 +52,8 @@ var sfCORE = (function () {
             showFeedbackDialog(json, lang);
           } else {
             console.log("No questions for this eservice");
-            window.location = simpaticoEservice + "_end.html"; // TODO: ??
+//            window.location = simpaticoEservice + "_end.html"; // TODO: ??
+            if (!!listener) listener();
           }
         });
     }
