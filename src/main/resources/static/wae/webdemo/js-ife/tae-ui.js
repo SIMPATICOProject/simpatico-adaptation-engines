@@ -40,6 +40,7 @@ var taeUI = (function () {
       wordPropertiesClassName = parameters.wordPropertiesClassName;
       synonymLabel = parameters.synonymLabel || 'Synonyms';
       definitionLabel = parameters.definitionLabel || 'Definitions';
+      wikipediaLabel = parameters.wikipediaLabel || 'Wikipedia';
       emptyText = parameters.emptyText || 'no simplification found for the text';
       
       taeCORE.getInstance().init({
@@ -61,16 +62,16 @@ var taeUI = (function () {
       var paragrapId = 1;
       var paragraphName = '';
       for (var i = 0, len = paragraphs.length; i < len; i++) {
+    	  if (paragraphs[i].className.indexOf(elementsToEnhanceClassName + "-active") < 0) paragraphs[i].className += ' '+elementsToEnhanceClassName + "-active";
+        paragraphName = "taeParagraph" + paragrapId;
         // Store original style
-        originalStyles[i] = paragraphs[i].style;
-
-        paragraphName = "Paragraph" + paragrapId;
-        paragraphs[i].style.position = 'relative';
-        paragraphs[i].style.borderLeft = "12px solid " + primaryColor;
-        paragraphs[i].style.borderRadius = "16px";
-
-        paragraphs[i].style.padding = '0px 0px 0px 8px';
-        paragraphs[i].style.margin = '0px 0px 8px 0px';
+//        originalStyles[i] = paragraphs[i].style;
+//        paragraphs[i].style.position = 'relative';
+//        paragraphs[i].style.borderLeft = "12px solid " + primaryColor;
+//        paragraphs[i].style.borderRadius = "16px";
+//
+//        paragraphs[i].style.padding = '0px 0px 0px 8px';
+//        paragraphs[i].style.margin = '0px 0px 8px 0px';
 
         paragraphs[i].setAttribute("id", paragraphName);
         paragraphs[i].setAttribute("onclick", 
@@ -99,6 +100,8 @@ var taeUI = (function () {
       for (var i = 0, len = paragraphs.length; i < len; i++) {
         // Restore the original style
         paragraphs[i].style = originalStyles[i];
+        paragraphs[i].className = paragraphs[i].className.replace(elementsToEnhanceClassName + "-active", "");
+
         // Remove the onclick event to enhance the paragraph
         paragraphs[i].removeAttribute("onclick");
       }
@@ -219,6 +222,8 @@ var taeUI = (function () {
                   .termDefinition(paragraphId, wordHTMLelement.innerHTML);
       var synonyms = taeCORE.getInstance()
                   .termSynonyms(paragraphId, wordHTMLelement.innerHTML);
+      var wiki = taeCORE.getInstance()
+      .termWikipedia(paragraphId, wordHTMLelement.innerHTML);
       
       // Update the content
       currentBox.innerHTML = '<b>' + wordHTMLelement.innerText + '</b></br>';
@@ -228,7 +233,8 @@ var taeUI = (function () {
                                 + '</br>';
       if (synonyms != null) // If the word has synonyms show them
         currentBox.innerHTML += '<i>' + synonymLabel +':' + '</i>' + synonyms;
-
+      if (wiki != null) // If the word has a wikipedia link
+          currentBox.innerHTML += '<br/><i>' + wikipediaLabel +':' + '</i><a target="_blank" href="'+wiki+'">' + wiki +':' + '<a/>';
       logger().logWord(simpaticoEservice, wordHTMLelement.innerHTML);
     }
 

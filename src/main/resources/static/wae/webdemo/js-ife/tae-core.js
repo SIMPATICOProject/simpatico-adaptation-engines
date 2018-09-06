@@ -33,6 +33,7 @@ var taeCORE = ( function () {
     var words = {};
     var definitionsKey = 'definition';
     var synonymsKey = 'synonyms';
+    var wikiKey = 'wiki';
 
     //In inits the main used variables (e.g. The URLs used)
     function initComponent(parameters) {
@@ -99,6 +100,11 @@ var taeCORE = ( function () {
         wordsContainer[jsonResponse.simplifications[i].originalValue] = newWord;
         newWord = {}
       }
+      for (var i = jsonResponse.linkings.length -1; i >= 0; i--) {
+    	  newWord = wordsContainer[jsonResponse.linkings[i].originalText] || {};
+          newWord[wikiKey] = jsonResponse.linkings[i].page;
+          wordsContainer[jsonResponse.linkings[i].originalText] = newWord;
+        }
       words[paragraphID] = wordsContainer;
     }
 
@@ -118,11 +124,20 @@ var taeCORE = ( function () {
       return words[paragraphID][term][synonymsKey];
     }
 
+    // It returns the wikipedia link of the word passed as parameter caontained 
+    // in the paragraph passed as parameter
+    // - paragraphID: the id of the paragraph
+    // - term: the word which has synonyms 
+    function getTermWikipedia(paragraphID, term) {
+      return words[paragraphID][term][wikiKey];
+    }
+    
     return {
         init: initComponent,
         simplifyText: getSimplifiedText,
         termDefinition: getTermDefinition,
-        termSynonyms: getTermSynonyms
+        termSynonyms: getTermSynonyms,
+        termWikipedia: getTermWikipedia
       };
   }  
   return {
