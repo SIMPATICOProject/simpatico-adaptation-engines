@@ -1,0 +1,1220 @@
+/* CSS Document improved by Alama | www.alama.it */
+* { margin:0; /*padding:0;*/}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+	.front .min-width {width:1010px!important; margin:0 auto;}
+	.front #social .ind {margin: 0!important;}
+	#block-views-slider-block_1 {margin-left: -177px!important;}
+}
+
+body#body{ 
+	font-family: Open Sans, Arial, sans-serif;
+	font-size:12px;
+	background: #fff;
+	color:#535353;
+	background: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/body.png) repeat-x 0 0 #fff;
+}
+
+#body.front{ 
+	font-family: Open Sans, Arial, sans-serif;
+	font-size:12px;
+	background: #fff;
+	color:#535353;
+	background: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/bodyh.png) repeat-x 0 0 #fff;
+	margin:0 auto!important;
+}
+
+ul, ul li { list-style:none; list-style-image:none; list-style-type:none;}
+#cont-col .content ul, #cont-col .content ul li { padding-left:20px;margin-left: 0 !important;}
+div.admin-panel ul.menu { padding-left:10px;}
+div.admin-panel ul.menu li a { background: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a1.png) no-repeat scroll 0 3px transparent;
+    color: #F68B33;
+    font-weight: normal;
+    padding-left: 15px;
+}
+
+table {border-collapse:collapse; border:0px; width: 100%; margin: 15px 0; color:#535353;}
+thead { background:#d3dee9;}
+tbody { border:none;}
+
+td { vertical-align:top; padding: 3px 5px; }
+
+table#gestione_moduli_result thead { border: 1px solid #D2D2D2; }
+
+table#gestione_moduli_result th, table#gestione_moduli_result td { border:none!important; }
+
+table#gestione_moduli_result tr.even, table#gestione_moduli_result tr.odd { border-bottom: 1px solid #D2D2D2; }
+
+a{ color:#154885; outline:none; text-decoration: none;}
+a:hover{text-decoration:underline; }
+img, a img { border:0;}
+
+dd { padding-bottom:10px;}
+
+.clear { clear:both;}
+
+fieldset { border:1px solid #d2d2d2; overflow:hidden; position:relative; padding:10px;}
+fieldset legend { color:#154885;}
+html.js fieldset.collapsed legend {}
+/*html.js fieldset.collapsible legend a { background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a5.gif) no-repeat 5px 7px;}
+html.js fieldset.collapsed legend a { background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a4.gif) no-repeat 5px 6px;}*/
+
+fieldset a { color:#154885;}
+fieldset .tips { font-size:10px;}
+
+.front .min-width {width:1366px!important; margin:0 auto;}
+.min-width {width:1010px; margin:0 auto;}
+#main { margin:0 auto; width:100%; position:relative; z-index:20; background: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/eagle2.jpg) no-repeat scroll center 182px transparent;}
+.front #main { margin:0 auto; width:100%; position:relative; z-index:20; background: none;}
+
+table.system-status-report th, thead th { border-bottom:1px solid #6b6b6b; color:#154885; /*font-size:13px;*/ }
+thead th, th, tr.even, tr.odd { padding: 5px; }
+tr, tr.even, tr.odd { border:1px solid #D2D2D2;}
+
+.profile dl { margin: 10px 0;}
+
+/*------HEADER------*/
+
+#header { padding:0px; overflow:hidden; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/head.png) no-repeat top center transparent;}
+
+.head-row1 { overflow:hidden; height:auto; width:1010px; margin:10px auto 11px;}
+.head-row1 .col1 { float:left; position:relative; width:auto; z-index:10;}
+.head-row1 .col2 { float: right; width: auto; margin-right:0px; }
+
+.head-row2 { height:200px;}
+
+.head-row3 {
+}
+
+.logo { margin:5px 0; height:110px;}
+h1.site-name { display:none; font-size:32px; padding:40px 10px 0px 30px; font-family:Open Sans; text-transform:none; font-weight:bold;}
+h1.site-name a { color:#FFFFFF; text-decoration:none; font-weight:normal; line-height:30px;}
+.slogan { padding:4px 0px 0px 12px; color:#FFFFFF; font-size:12px; text-transform:none; float:left;}
+.slogan-img { margin:42px 30px 0px 0px; float:right;}
+
+/*----Breadcrumb-----*/
+.breadcrumb { padding:20px 55px 2px 28px; color:#484848; font-size:14px; font-weight:normal; text-align:left;}
+.breadcrumb a { color:#484848; text-decoration:none; padding:0px 2px 0px 2px; text-transform:none; vertical-align:middle; font-weight:normal;}
+.breadcrumb a:hover { text-decoration:underline; color:#000;}
+
+/* footer */
+#footer { }
+.foot { text-align:center; margin:0 auto; overflow:hidden;}
+#footer span a { color:#232325 !important; text-decoration:none;}
+#footer a:hover{ text-decoration:underline;}
+#footer .foot span { padding-left:0px;}
+/* footer end */
+
+h4#welcome_user { border-bottom: 1px dotted #fff!important; color:#434343!important;}
+
+/*------CORNERS------*/
+div.block { margin-bottom:20px; color:#535353; position:relative; overflow:hidden;}
+#left-col div.block { border-bottom:1px solid #fff; padding-bottom:5px;}
+.block .content { overflow:hidden; padding:0 0 10px; border-top:0;}
+.clear-block { padding:0px 20px 0px 18px;}
+.admin .clear-block { padding:0px;}
+
+.post-box { border:1px solid #eaeaea; background:#f8f8f8; padding:17px 25px 28px 20px;}
+
+.blocks { overflow:hidden; width:100%; padding-top:30px;}
+.blocks div { background:none; width:209px; float:left; overflow:hidden;}
+.blocks div h4 {adding:12px 0px 30px 45px;}
+.blocks div .inner{ padding:18px 0px 35px 15px;}
+.blocks div a { color:#1579d9;}
+.list, .list2 { margin-right:3px;}
+.blocks div ul { margin-left:6px; margin-bottom:30px;}
+
+.blocks2 { overflow:hidden; width:100%;}
+.blocks2 .inner { padding:0px 0px 15px 0px;}
+.blocks2 div.list, .blocks2 div.list2 { float:left; width:200px;}
+.blocks2 div.list3 { width:170px; float:left;}
+.blocks2 div ul { margin-left:6px;}
+
+.events { width:100%; overflow:hidden; padding-bottom:20px;}
+.events .list { float:left; width:288px;}
+
+.list-col { float:left; margin-right:30px;}
+a.cont-more { font-size:14px !important; font-weight:bold !important;}
+
+.aboutus .columns { width:100%; overflow:hidden;}
+.aboutus .column-left { width:45%; float:left;}
+.aboutus .column-right { width:45%; float:right;}
+.aboutus span { font-weight:bold; font-size:12px !important; color:#F68B33}
+
+.solutions .list-left { float:left; margin-right:20px;}
+
+.links-content .columns { width:100%; overflow:hidden; padding-bottom:20px;}
+.links-content .column-left { width:45%; float:left;}
+.links-content .column-right { width:45%; float:right;}
+
+.services .columns { width:100%; overflow:hidden; padding-bottom:20px;}
+.services .column-left { width:40%; float:left; margin:0}
+.services .column-right { width:55%; float:right; margin:0}
+
+.faq span { font-weight:bold; font-size:14px !important;}
+
+
+.links-indent { padding:0; overflow:hidden;}
+.links-indent ul.links li { float:left; padding:10px 0 0 0!important; margin: 0;}
+.links-indent ul.links li a { display:block; text-decoration:none; color:#154885; text-transform:none; font-size:12px; font-weight:bold; padding-right:50px; }
+.links-indent ul.links li a:hover { text-decoration:none;}
+
+li.flag-preferiti a { background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/star-icon.png) no-repeat center left; padding-left:20px; eight:16px; FONT-SIZE:12PX; font-weight:bold;}
+li.flag-preferiti a:hover { text-decoration:none;}
+div.links-indent { margin-top:20px; border-top:1px solid #d2d2d2; float:left; width:100%;}
+.front div.links-indent { display:none;}
+div.actions { margin-top:20px; border-top:1px solid #d2d2d2; padding-top:10px;}
+li.print_pdf {}
+
+/*-----------------*/
+
+#cont { width:100%; background:none; padding-top:0; }
+.front #cont { width:100%; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/eagle.jpg) no-repeat top center; padding-top:25px;}
+.cont-inner {overflow:auto; width:1010px; margin:20px auto 0; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/left.png) repeat-y 0 0;}
+
+#left-col {
+    float: left;
+    width: 240px;
+	min-height:300px;
+	margin-bottom:20px;
+	background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/white2.png) no-repeat 0 0 #d3dee9;}
+
+#left-col .ind {padding: 20px;}
+
+.width { width:100%;}
+
+#cont-col { float:right; height:1%; margin:0; width:730px; overflow:hidden; padding:0 20px 20px;}
+.front #cont-col { padding-bottom:0;}
+
+#right-col { display:none; float: right; width: 220px; min-height: 300px;}
+#right-col .ind { padding:0 20px 20px; }
+
+/**************---TITLES---**************/
+h1 { font-size:26px; padding:20px 0px 7px; color:#154885; font-weight:normal;}
+
+h2.title { background:none; color:#154885 !important; padding-bottom:10px; font-size:24px; font-weight:normal;}
+h2 { font-size:22px; color:#154885; padding:0px 0px 10px; text-transform:none; width:100%; font-weight:normal;}
+h2.with-tabs {padding-top:0; color:#154885; }
+.block h2 { display:block; border-bottom:#bcbcbc 1px solid; color:#444b4e; font-size:12px; line-height:22px; margin:0; margin-top:20px; margin-bottom:7px; padding:0;}
+
+h3 { color:#154885; padding:15px 0 2px; font-size: 20px; font-weight:normal;}
+h3 a {color:#154885; text-decoration:none; font-size: 20px; }
+
+h4 {color:#535353; font-size:14px; font-weight:normal; padding:15px 0 2px;}
+h4 a {color:#535353; text-decoration:none; font-size: 14px; }
+
+h5 {color:#535353; font-size:14px; font-weight:normal; padding:10px 0 0px;}
+h5 a {color:#535353; text-decoration:none; font-size: 14px; }
+
+#tasti .block .title h3, #copyright .block .title h3 { border-bottom: none!important;}
+.block .title h3 { color:#154885; font-size:20px; font-weight:normal; padding:0px 0px 7px 3px; text-transform:none;}
+.title h3 { color:#154885; font-size:20px; font-weight:normal; padding:0px 0px 7px 11px; text-transform:none;}
+.block ul.menu { padding-left:0!important; }
+.block li.leaf { border-bottom: 1px dotted #fff;
+    list-style: none outside none !important;
+    margin-left: 0 !important;
+    padding: 3px 5px 2px;}
+.block a { color:#535353; text-decoration:none;}
+.block a:hover { color:#535353; text-decoration:none;}
+
+div#left-col .block a { color:#535353; text-decoration:none;}
+div#left-col .block a:hover { text-decoration:none;}
+
+.admin-panel h3 { color:#000; font-size:18px;}
+
+.submit { padding:0px 0px 8px 7px; overflow:hidden; border-bottom:1px solid #d1d1d1}
+.submitted, .submit .submitted{ color:#f8a13c; font-size:12px; line-height:normal; font-weight:normal;}
+.submitted a { color:#f8a13c;}
+
+#menu { width:1010px; height:35px; background:#154885; margin-top:20px; margin-bottom:20px;}
+
+/***************/
+
+.comment { padding:10px 0px 10px 20px;}
+.comment h3 { background:none;}
+.comment h3 a{ color:#2a2a2a; font-size:15px;}
+.comment .title { padding-left:0px; padding-bottom:10px;}
+.comment .submitted { margin-left:0px; padding-bottom:10px; color:#000;}
+.comment .submitted a{ color:#000;}
+
+.content { padding:0px 10px 0px 0px; color:#313131; line-height:18px; font-size:12px;}
+.node .content a { }
+.node .content strong { }
+.content a:hover{ }
+
+.node { width:100%; padding-bottom:15px;}
+.node .content, #contact-mail-page { padding:0px 0px 0px 0px; /*overflow:hidden; overflow:hidden;*/}
+.node div.links { padding-top:5px; padding-bottom:2px; text-align:left;}
+.node .title {padding:0px 15px 4px 6px;}
+/*---------------------*/
+
+
+
+/*----NAVIGATION----*/
+div#block-user-0 { margin-bottom:0;}
+#block-user-1 { background-color: none;}
+#block-user-1 h3 { color:#F68B33; font-size:20px; font-weight:normal; padding:0px 0px 5px 10px; text-transform:capitalize;margin-left: 0px;}
+#block-user-1 .content { padding-top:5px;}
+#block-user-1 .content ul.menu { padding-left:0px; padding-bottom:0px; width:100%;}
+#block-user-1 .content ul.menu li ul.menu { padding-left:15px; width:auto;}
+#block-user-1 .content ul.menu li { padding:0px; list-style-image:none; list-style:none; margin:0; line-height:normal;line-height:20px; overflow:hidden; border:none!important;}
+#block-user-1 .content ul.menu li a { background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a1.png) no-repeat 5px 6px; color:#535353; font-size:13px; text-decoration:none; padding-left:20px; overflow:hidden; display:block;}
+#block-user-1 .content ul.menu li a:hover{ text-decoration:underline;}
+#block-user-1 .content ul.menu li.expanded { padding-bottom:0px;}
+#block-user-1 .content ul.menu li.expanded ul { padding-top:1px;}
+#block-user-1 .content ul.menu li:hover{ background:none!important; }
+
+#block-sportello_telematico-1 .description { color:#535353; }
+
+/*------Custom Login-Form------*/
+.userlogin { font-size:15px; color:#313030; padding:0px 0px 0px 28px; margin-left:18px; margin-top:20px; font-weight:bold;}
+#user-login .description {font-size: 0.85em;padding-top: 25px;}
+#user-bar { font-size:11px; font-weight:bold; padding:4px 0px 0px 0px;}
+#user-bar .user-info { padding-bottom:5px; color:#9df46e; padding-top:10px;}
+#user-bar p a { color:#FFF;}
+#user-bar .item-list li { list-style:none; list-style-image:none; line-height:10px;}
+#user-bar .item-list li a{ font-weight:normal; font-size:10px; color:#b8e836;}
+#user-bar .item-list li a:hover {color:#FFF;}
+
+/*----Login-form----*/
+#user-login-form { text-align:left; color:#FFF; font-size:12px; width:100%; overflow:hidden;}
+#user-login-form input#edit-name, #user-login-form input#edit-name-1,
+#user-login-form input#edit-pass, #user-login-form input#edit-pass-1 { width:180px; font-size:12px; color:#8d8d8e; background:#fff; border:1px solid #bfbfbf; padding:3px 0px 5px 5px; line-height:normal;}
+#user-login-form label { color:#8d8d8e; font-size:12px; padding:0px 0px 0px 0px; font-weight:normal;}
+#user-login-form .form-required { color:#484848; display:none;}
+#user-login-form .description a { color:#47a4bb;}
+#user-login-form .item-list ul { padding:11px 0px 0px 0px; margin:0;}
+#user-login-form .item-list li{ line-height:22px; list-style:none; list-style-image:none; margin:0px; padding:0px; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a1.gif) no-repeat 0 5px; padding-left:26px;}
+#user-login-form .item-list li a{ font-weight:normal; color:#8d8d8e; text-decoration:underline; font-size:13px;}
+#user-login-form .item-list li a:hover{text-decoration:none;}
+
+#user-login-form .form-submit{ }
+
+#user-login-form .form-item { margin-top:0px; margin-bottom:12px;}
+
+form#user-login { overflow:auto;}
+#user-login input#edit-submit { float:left!important; margin-left: 0;}
+
+input#edit-name, input#edit-pass { float:left!important; width:170px!important;}
+#edit-name-wrapper, #edit-pass-wrapper { overflow:auto;}
+
+/*-------------------------*/
+
+#block-crs_info-0 { padding-top: 0;}
+#block-crs_info-0 .title { display: none;}
+#block-crs_info-0 .content { padding: 0;}
+
+#block-user_idpc-0 .content { padding-top: 0px;}
+#block-user_idpc-0 .content a { font-size:12px; padding-right:10px; text-decoration:underline; color:#154885;}
+#block-user_idpc-0 .title { display:none; }
+
+#block-mettiamoci_la_faccia-0 { width: 100%; padding-top: 3px; padding-right:0;}
+#block-mettiamoci_la_faccia-0 .title { display: none;}
+#block-mettiamoci_la_faccia-0 .content { padding-top: 0; margin-top: -3px;}
+
+
+/*----POLL----*/
+.poll .percent, .poll .text { color:#585c5c; font-size:13px;}
+.poll .title { color:#585c5c; font-size:13px; font-weight:normal; padding-bottom:10px; background:none; padding-left:0px;}
+.poll .total { font-weight:normal; color:#585c5c; font-size:12px; text-align:left;}
+.poll .bar {background:#FFFFFF; font-size:1px; height:5px; border:1px solid #dadada; padding:1px;}
+.poll .bar .foreground { background:#F68B33; font-size:1px; height:5px;}
+
+#block-poll-0 li{ background:none; padding:0;}
+#block-poll-0 ul.links li { background:none; padding:0px; background:none;}
+#block-poll-0 ul.links li a { color:#F68B33; font-weight:bold; font-size:12px; text-decoration:none; background:none; text-transform:none;}
+#block-poll-0 ul.links li a:hover { text-decoration:underline;}
+#block-poll-0 .bar { background:#FFFFFF; font-size:1px; height:5px; border:1px solid #dadada; padding:1px;}
+#block-poll-0 .bar .foreground { background:#ed8b00; font-size:1px; height:5px;}
+#block-poll-0 .percent, #block-poll-0 .text { color:#323232; font-size:12px; font-weight:normal; line-height:normal;}
+#block-poll-0 .poll .title { color:#323232; font-size:12px; font-weight:normal; padding-top:0px; background:none; padding-left:0px; border:0;}
+#block-poll-0 .total { font-weight:bold; color:#323232; font-size:12px;}
+.form-item label { color:#000;}
+#block-poll-0 ul.links { padding-left:0px;}
+#block-poll-0 ul.links .first{ padding:0px;}
+#cont #block-poll-0 ul.links li{ background:none;}
+
+/*----Who's Online----*/
+#block-user-3 .content { font-size:12px; color:#8d8d8e; font-weight:normal;}
+#block-user-3 .item-list h3 { color:#8d8d8e; font-size:13px; font-weight:bold; text-transform:none; padding-top:15px; padding-bottom:3px;}
+#block-user-3 .item-list ul { margin:0; padding:0;}
+#block-user-3 .item-list ul li{ list-style-8d8d8e:none; list-style:none; margin:0; line-height:18px; }
+#block-user-3 .item-list ul li a{ color:#F68B33; font-size:13px; font-weight:normal; text-decoration:underline;}
+#block-user-3 .item-list ul li a:hover { text-decoration:none;}
+#block-user-3 em { color:#F68B33; font-weight:normal; font-size:13px;}
+
+
+/*-----Recent blog posts-------*/
+#block-blog-0 .item-list ul { padding-left:0px; width:100%;}
+#block-blog-0 .item-list ul li{ background:none; padding:4px 0px 4px 0px; list-style-image:none; list-style:none; margin:0; line-height:19px;}
+#block-blog-0 .item-list ul li a{ background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 7px; color:#8d8d8e; font-weight:normal; text-decoration:none; padding-left:10px; font-size:13px; display:block; line-height:19px;}
+#block-blog-0 .item-list ul li a:hover { text-decoration:underline;}
+#block-blog-0 .more-link a{ color:#F68B33; font-size:11px; font-weight:bold; text-decoration:none;}
+#block-blog-0 .more-link a:hover{ text-decoration:underline;}
+
+
+/*----SEARCH FORM----*/
+.form-submit { background:#c2c2c2; vertical-align:middle; color:#404042; font-size:11px; font-weight:normal; border:0px solid #000; padding:4px 5px 4px 5px; text-transform:uppercase; cursor:pointer; margin:5px; height:24px;}
+.form-submit:hover { background:#154885; color:#fff;}
+
+#registrati { background:#c2c2c2; vertical-align:middle; color:#404042; font-size:11px; font-weight:normal; border:0px solid #000; padding:4px 5px 0px 5px; text-transform:uppercase; cursor:pointer; margin-top:5px; float:left!important; height:20px;}
+#registrati:hover { background:#154885; color:#fff; text-decoration:none;}
+
+form#search-block-form .form-submit { margin-top:0;}
+
+.search-box { padding:8px 0px 0px 13px; font-size:0; text-align:right; position:absolute;}
+.search-box a { color:#00c6ff; font-size:10px; text-transform:uppercase;}
+.search-box input { font-size:12px; vertical-align:middle}
+
+#search-theme-form {padding:0px;}
+#search-theme-form label { display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/bg-label.gif) repeat 0 0; width:59px; height:24px; float:left;}
+
+#search-theme-form .form-submit { 
+background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/search.gif) top left no-repeat;
+border:none;
+width:19px;
+height:24px;
+vertical-align:middle;
+}
+#search-theme-form .form-text { width:148px; font-size:12px; color:#131f29; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/bg-search-input.gif) no-repeat 0 0; border:0px solid #c6c6c6; padding:4px 0px 5px 5px; line-height:normal;}
+
+/*-----Recent comments-------*/
+#block-comment-0 .item-list ul { padding-left:0px; width:100% !important;}
+#block-comment-0 .item-list ul li{ background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 5px; padding:0px 0px 10px 12px; list-style-image:none; list-style:none; margin-bottom:7px; line-height:16px; color:#F68B33; font-size:12px; margin-left:0px; text-transform:none; font-weight:normal;}
+#block-comment-0 .item-list ul li a{ background:none; color:#8d8d8e; font-weight:bold; text-transform:none; text-decoration:underline; font-size:13px; padding-left:0px;}
+#block-comment-0 .item-list ul li a:hover{ text-decoration:none;}
+
+
+/*----Who's New----*/
+#block-user-2 .item-list ul { padding-left:0px;}
+#block-user-2 .item-list ul li{ background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 10px; color:#8d8d8e; padding:0 0 0 10px; list-style-image:none; list-style:none; margin:0; line-height:25px;}
+#block-user-2 .item-list ul li a{ background:none; color:#8d8d8e; padding:0px;  font-size:12px; font-weight:normal; text-decoration:underline;}
+#block-user-2 .item-list ul li a:hover { text-decoration:none;}
+
+/*----Primary Links----*/
+#block-menu-primary-links{ float:right; margin-top:40px;}
+#block-menu-primary-links .content { padding:0px;}
+#block-menu-primary-links .content ul.menu { padding:0px;}
+#block-menu-primary-links .content ul.menu li { background:none; padding:0px; display:inline; margin:0; border:0;}
+#block-menu-primary-links .content ul.menu li a { font-size:15px; padding-left:20px; color:#fff; font-weight:lighter; font-family:Open Sans, Arial, sans-serif; text-decoration:none;}
+#block-menu-primary-links .content ul.menu li a:hover{ color:#ce868a; }
+
+/*----SEARCH_BLOCK----*/
+
+#block-user_idpc-0 a:hover {text-decoration:underline!important;}
+
+#block-search-0 { float:left!important; margin-top:9px; margin-left:10px; margin-bottom:0; *float:left!important;}
+#block-search-0 label, #block-search-0 h3 {display:none;  }
+#block-search-0 .title {display:none;}
+
+#block-search-0 .content { font-size:13px; padding:0; }
+#block-search-0 #edit-search-block-form-1 {
+    border: 1px solid #cecece;
+    float: left;
+    height: 12px;
+    margin-left: 5px;
+    padding: 4px;
+    vertical-align: middle;
+    width: 100px;
+	color:#535353;
+	border-radius:3px;
+}
+#block-search-0 .form-submit {
+    background: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/search.png) no-repeat scroll center 2px transparent;
+	*background: none;
+    color: #fff;
+    float: right;
+    height: 24px;
+    margin: -2px 0 0 !important;
+    padding: 12px;
+    text-indent: -80px;
+}
+
+#block-views-news-block_1 { background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/news.png) no-repeat 0 0 #f8eded; padding:15px;}
+
+/*----New forum topics----*/
+#block-forum-1 .item-list ul { padding:0px; margin-bottom:10px;}
+#block-forum-1 .item-list ul li{ background:none; padding:0px; list-style-image:none; list-style:none; margin:0; line-height:20px;}
+#block-forum-1 .item-list ul li a{ background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 5px; padding-left:10px; color:#8d8d8e; font-weight:normal; text-decoration:none; font-size:13px;}
+#block-forum-1 .item-list a:hover{ text-decoration:underline;}
+#block-forum-1 .more-link a{ color:#F68B33; font-size:12px; font-weight:bold; text-transform:none; text-decoration:none; }
+#block-forum-1 .more-link a:hover{ text-decoration:underline;}
+
+/*----Active forum topics----*/
+#block-forum-0 .item-list ul { padding-left:0px; margin-bottom:10px;}
+#block-forum-0 .item-list ul li{ background:none; padding:0px; list-style-image:none; list-style:none; margin:0; line-height:20px;}
+#block-forum-0 .item-list ul li a{ background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 5px; padding-left:10px; color:#8d8d8e; font-weight:normal; text-decoration:none; font-size:13px;}
+#block-forum-0 .item-list a:hover{ text-decoration:underline;}
+#block-forum-0 .more-link a{ color:#F68B33; font-size:12px; font-weight:bold; text-transform:none; text-decoration:none;}
+#block-forum-0 .more-link a:hover{ text-decoration:underline;}
+
+/*----Languages----*/
+#block-locale-0 .content ul { padding-left:0px; margin-bottom:10px;}
+#block-locale-0 .content ul li{ background:none; padding:0px; list-style-image:none; list-style:none; margin:0; line-height:20px;}
+#block-locale-0 .content ul li a{ background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 5px; padding-left:10px; color:#8d8d8e; font-weight:normal; text-decoration:none; font-size:13px;}
+#block-locale-0 .content a:hover{ text-decoration:underline;}
+
+/*----Syndicate----*/
+#block-node-0 {  overflow:hidden;}
+
+/*----Secondary Links----*/
+#block-menu-secondary-links ul { padding-left:0px; width:100%; overflow:hidden;}
+#block-menu-secondary-links ul li{ background:none; padding:0 0 1px 0; list-style-image:none; list-style:none; margin:0; line-height:20px;}
+#block-menu-secondary-links ul li a{ background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 7px; padding-left:11px; color:#8d8d8e; font-weight:normal; text-decoration:none; font-size:13px; display:block;}
+#block-menu-secondary-links a:hover{ text-decoration:underline;}
+
+/*----Book Links----*/
+#block-book-0 ul { padding-left:0px; margin-bottom:10px; width:100%;}
+#block-book-0 ul li{ background:none; padding:0 0 1px 0; list-style-image:none; list-style:none; margin:0; line-height:20px;}
+#block-book-0 ul li a{ background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 7px; padding-left:11px; color:#8d8d8e; font-weight:normal; text-decoration:none; font-size:13px; display:block;}
+#block-book-0 a:hover{ text-decoration:underline;}
+
+
+/*----Admin-Panel List & Admin-Panel List without descriptions----*/
+.body ul.menu li, .body .item-list ul li{ background:none; padding:0px; list-style-image:none; list-style:none; margin:0; line-height:20px;}
+.body ul.menu li a, .body .item-list ul li a { background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 5px; padding-left:10px; color:#F68B33; font-weight:normal;}
+.body .item-list ul li a:hover{ text-decoration:none;}
+
+/*-------------------------*/
+
+#social { padding:0px; overflow:hidden; background-color:#000; height:40px; border-bottom: 1px solid #fff;}
+.front #social .ind { padding:0px; width:1010px; margin:0 170px!important;}
+#social .ind { padding:0px; width:1010px; margin:0;}
+#block-block-52, #block-block-51 {
+    float: right !important;
+    margin-bottom: 0;
+    margin-right: 25px;
+}
+#block-block-52 .content, #block-block-51 .content {
+    margin-top: 4px;
+	color:#cecece;
+}
+#block-block-52 a, #block-block-51 a{
+    color:#fff; text-decoration:none; font-weight:lighter; font-size:13px;
+}
+#block-block-52 a:hover, #block-block-51 a:hover{
+    text-decoration:underline;
+}
+
+#block-block-53 {
+    float: right;
+    margin: 8px 0 0;
+    padding-bottom: 0 !important;
+    width: 70px;
+}
+#block-block-53 a.twitter {display:block; width:24px; height:24px; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/twitter.png) no-repeat 0 0 transparent; float:left;}
+#block-block-53 a.twitter:hover {display:block; width:24px; height:24px; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/twitter2.png) no-repeat 0 0 transparent; float:left;}
+#block-block-53 a.facebook {display:block; width:24px; height:24px; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/facebook.png) no-repeat 0 0 transparent; margin-right:10px; float:left;}
+#block-block-53 a.facebook:hover {display:block; width:24px; height:24px; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/facebook2.png) no-repeat 0 0 transparent; margin-right:10px; float:left;}
+
+/*------------------CUSTOM BLOCKS---------------------*/
+/*------Styles for Custom Region------*/
+#custom {
+	margin:0 auto;
+	padding: 0;
+    text-align: center;
+	overflow: auto;
+	/*background:#ce868a;
+	border-bottom: 1px solid #ce868a;
+    border-top: 1px solid #ce868a;*/
+}
+
+#custom .ind { padding:0px;}
+#custom .block { float:left; position: relative; z-index: 1;}
+#custom .block .content { padding:0px; color:#7d7d7d; font-size:12px; line-height:18px;}
+#custom .title h3 { padding:0; border:0;}
+#custom a.readmore { display:inline-block; float: right; width:17px; height:17px; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a1.gif) no-repeat 0 0; vertical-align:middle; margin-left:5px;}
+#custom a.readmore:hover { background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a2.gif) no-repeat 0 0; color:#fff;}
+#custom a.readmore2 { display:inline-block; float: right; width:17px; height:17px; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a1.gif) no-repeat 0 0; vertical-align:middle; margin-left:5px; margin-top:18px;}
+#custom a.readmore2:hover { background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a2.gif) no-repeat 0 0; color:#fff;}
+#custom .item-list { display:none;}
+
+#tastih {
+    background: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/white3.png) repeat scroll 0 0 transparent;
+    margin: -160px auto 29px;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    z-index: 999;}
+#tastih .ind {
+    padding: 10px 0 15px 0;
+    width: 1010px;
+	margin:0 auto;}
+
+#tasti {
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    z-index: 999;}
+#tasti .ind {
+    padding: 15px 0 22px;
+    width: 1010px;
+	margin:0 auto;}
+
+#block-block-54 { margin-bottom: 0px; position: relative;
+    z-index: 999;}
+#block-block-54 div.content {padding: 0;}
+
+#block-block-54 a.tasto1 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu2.png) no-repeat 0 0; margin-right:10px; float:left; }
+#block-block-54 a.tasto1:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu2b.png) no-repeat 0 0; margin-right:10px; }
+#block-block-54 a.tasto2 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu12.png) no-repeat 0 0; margin-right:10px; float:left; }
+#block-block-54 a.tasto2:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu12b.png) no-repeat 0 0; margin-right:10px; }
+#block-block-54 a.tasto3 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu3.png) no-repeat 0 0; margin-right:10px; float:left;}
+#block-block-54 a.tasto3:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu3b.png) no-repeat 0 0; margin-right:10px;}
+#block-block-54 a.tasto4 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu10.png) no-repeat 0 0; margin-right:10px; float:left;}
+#block-block-54 a.tasto4:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu10b.png) no-repeat 0 0; margin-right:10px;}
+#block-block-54 a.tasto5 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu11.png) no-repeat 0 0; margin-right:10px; float:left;}
+#block-block-54 a.tasto5:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu11b.png) no-repeat 0 0; margin-right:10px;}
+#block-block-54 a.tasto6 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu1.png) no-repeat 0 0; margin-right:0px; float:left; }
+#block-block-54 a.tasto6:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu1b.png) no-repeat 0 0; margin-right:0px; }
+
+#block-block-57 { margin-bottom: 0px; margin-top:10px;  position: relative;
+    z-index: 999;}
+#block-block-57 div.content {padding: 0;}
+
+#block-block-57 a.tasto1 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu3.png) no-repeat 0 0; margin-right:10px; float:left; }
+#block-block-57 a.tasto1:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu3b.png) no-repeat 0 0; margin-right:10px; }
+#block-block-57 a.tasto2 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu6.png) no-repeat 0 0; margin-right:10px; float:left; }
+#block-block-57 a.tasto2:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu6b.png) no-repeat 0 0; margin-right:10px; }
+#block-block-57 a.tasto3 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu5.png) no-repeat 0 0; margin-right:10px; float:left;}
+#block-block-57 a.tasto3:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu5b.png) no-repeat 0 0; margin-right:10px;}
+#block-block-57 a.tasto4 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu7.png) no-repeat 0 0; margin-right:10px; float:left;}
+#block-block-57 a.tasto4:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu7b.png) no-repeat 0 0; margin-right:10px;}
+#block-block-57 a.tasto5 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu4.png) no-repeat 0 0; margin-right:10px; float:left;}
+#block-block-57 a.tasto5:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu4b.png) no-repeat 0 0; margin-right:10px;}
+#block-block-57 a.tasto6 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu11.png) no-repeat 0 0; margin-right:0px; float:left;}
+#block-block-57 a.tasto6:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu11b.png) no-repeat 0 0; margin-right:0px;}
+
+
+#block-block-45 { margin-bottom: 0px; position: relative;
+    z-index: 999;}
+#block-block-45 div.content {padding: 0;}
+
+#block-block-45 a.tasto1 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu2.png) no-repeat 0 0 #fff; margin-right:10px; float:left; }
+#block-block-45 a.tasto1:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu2b.png) no-repeat 0 0 #fff; margin-right:10px; }
+#block-block-45 a.tasto2 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu12.png) no-repeat 0 0 #fff; margin-right:10px; float:left; }
+#block-block-45 a.tasto2:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu12b.png) no-repeat 0 0 #fff; margin-right:10px; }
+#block-block-45 a.tasto3 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu3.png) no-repeat 0 0 #fff; margin-right:10px; float:left;}
+#block-block-45 a.tasto3:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu3b.png) no-repeat 0 0 #fff; margin-right:10px;}
+#block-block-45 a.tasto4 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu10.png) no-repeat 0 0 #fff; margin-right:10px; float:left;}
+#block-block-45 a.tasto4:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu10b.png) no-repeat 0 0 #fff; margin-right:10px;}
+#block-block-45 a.tasto5 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu11.png) no-repeat 0 0 #fff; margin-right:10px; float:left;}
+#block-block-45 a.tasto5:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu11b.png) no-repeat 0 0 #fff; margin-right:10px;}
+#block-block-45 a.tasto6 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu1.png) no-repeat 0 0 #fff; margin-right:0px; float:left; }
+#block-block-45 a.tasto6:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu1b.png) no-repeat 0 0 #fff; margin-right:0px; }
+
+#block-block-60 { margin-bottom: 0px; margin-top:10px;  position: relative;
+    z-index: 999;}
+#block-block-60 div.content {padding: 0;}
+
+#block-block-60 a.tasto1 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu3.png) no-repeat 0 0 #fff; margin-right:10px; float:left; }
+#block-block-60 a.tasto1:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu3b.png) no-repeat 0 0 #fff; margin-right:10px; }
+#block-block-60 a.tasto2 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu6.png) no-repeat 0 0 #fff; margin-right:10px; float:left; }
+#block-block-60 a.tasto2:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu6b.png) no-repeat 0 0 #fff; margin-right:10px; }
+#block-block-60 a.tasto3 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu5.png) no-repeat 0 0 #fff; margin-right:10px; float:left;}
+#block-block-60 a.tasto3:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu5b.png) no-repeat 0 0 #fff; margin-right:10px;}
+#block-block-60 a.tasto4 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu7.png) no-repeat 0 0 #fff; margin-right:10px; float:left;}
+#block-block-60 a.tasto4:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu7b.png) no-repeat 0 0 #fff; margin-right:10px;}
+#block-block-60 a.tasto5 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu4.png) no-repeat 0 0 #fff; margin-right:10px; float:left;}
+#block-block-60 a.tasto5:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu4b.png) no-repeat 0 0 #fff; margin-right:10px;}
+#block-block-60 a.tasto6 { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu11.png) no-repeat 0 0 #fff; margin-right:0px; float:left;}
+#block-block-60 a.tasto6:hover { width:160px; height:100px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/stu11b.png) no-repeat 0 0 #fff; margin-right:0px;}
+
+
+
+#block-block-53 div.content  { padding:0;}
+
+#block-block-53 div.title  { display:none;}
+
+#block-block-55 { margin-bottom: 0px; margin-top:10px;  position: relative;
+    z-index: 999; float:right;}
+#block-block-55 div.content {padding: 0;}
+
+#block-block-55 a.menu1 { width:65px; height:95px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/menu1.png) no-repeat 0 0; margin-right:20px; float:left; }
+#block-block-55 a.menu2 { width:71px; height:95px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/menu2.png) no-repeat 0 0; margin-right:0px; float:left; }
+#block-block-55 a.menu3 { width:73px; height:95px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/menu3.png) no-repeat 0 0; margin-right:15px; float:left;}
+#block-block-55 a.menu4 { width:73px; height:95px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/menu4.png) no-repeat 0 0; margin-right:15px; float:left;}
+#block-block-55 a.menu5 { width:65px; height:95px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/menu5.png) no-repeat 0 0; margin-right:20px; float:left;}
+#block-block-55 a.menu6 { width:119px; height:95px; display:block; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/gea.png) no-repeat 0 0; margin-right:15px; float:left;}
+
+#copy-cont {width: 1010px; margin-left:auto; margin-right:auto;}
+
+#copyright {
+    background-color: #FFFFFF;
+    border: 1px solid #D2D2D2;
+    float: right;
+    margin-bottom: 0px;
+    margin-right: 20px;
+    margin-top: -175px;
+    overflow: hidden;
+    position: relative;
+    z-index: 99;
+	width:500px;
+}
+
+#copyright .ind {padding-top: 0px;}
+#copyright a {color: #154885;}
+
+#custom_bot #block-block-50 {float: right; margin-right: 15px; width: 65px; margin-left:0px; margin-top:15px;}
+#custom_bot #block-block-50 a { background: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/banner-act.png) no-repeat scroll center center transparent; display: block; height: 100px; margin-left: auto; margin-right: auto;}
+
+#custom_bot #block-block-41 {float: right; margin-right: 20px; width: 85px; margin-top:15px;}
+#custom_bot #block-block-41 a { background: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/banner2-act.png) no-repeat scroll center center transparent; display: block; height: 100px; margin-left: auto; margin-right: auto;}
+
+#custom_bot #block-block-42 {float: right; margin-right: 10px; width: 85px; margin-top:15px;}
+#custom_bot #block-block-42 a { background: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/banner3-act.png) no-repeat scroll center center transparent; display: block; height: 100px; margin-left: auto; margin-right: auto;}
+
+#custom_bot #block-block-43 {float: right; margin-right: 10px; width: 65px; margin-top:15px;}
+#custom_bot #block-block-43 a { background: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/banner4-act.png) no-repeat scroll center center transparent; display: block; height: 100px; margin-left: auto; margin-right: auto;}
+
+#custom_bot #block-block-39 {float: left; margin-top:10px;}
+#custom_bot #block-block-39 a {
+    background: transparent url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/banner5.png) no-repeat scroll center center;
+    display: block;
+    height: 100px;
+    margin-left: 20px;
+    margin-right: 15px;
+    width: 68px;
+}
+
+#banners { width:100%; overflow:hidden; padding-top:0px; padding-bottom:0px; background: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/pattern.png) repeat 0 0; margin-bottom:0px; position:relative;}
+#banners .block { margin:0;}
+#banners .title h3 { padding:0; border:0;}
+#banners .content { padding:0;}
+
+#block-block-37 { float:left; padding-bottom:10px; margin-bottom:0; text-align:left; margin-top:10px!important;}
+#block-block-37 .content { font-size:12px; color:#fff;}
+#block-block-37 strong { color:#89b6dc;}
+#block-block-37 a { color:#89b6dc; text-decoration:underline;}
+#block-block-37 a:hover { color:#89b6dc; text-decoration:none;}
+
+#custom_bot {
+    height: auto;
+    margin-top: 20px !important;
+    overflow: hidden;
+    width: 100%;
+	margin-bottom:0px;
+	background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/footer.png) repeat bottom #154885;
+}
+#custom_bot .block { margin:0;}
+#custom_bot .ind { }
+
+span.mailto { background:none;}
+
+/*---*/
+
+/*-----LISTS-----*/
+/*---nonNumeric Lists without links---*/
+#cont-col .content ul li{ background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 5px; padding-left:17px; list-style-image:none; list-style:none; line-height:22px;}
+#cont-col .content ul li ul{ margin-left:15px;}
+#cont-col .content ul li ol {margin-left:20px;}
+#cont-col .content ul li ol li{ list-style-type:decimal;}
+
+/*---Numeric Lists without links---*/
+#cont-col .content Ol { padding-left:2px;}
+#cont-col .content Ol li{ background:none; padding:0px; margin-left:20px;}
+#cont-col .content Ol li ul li {background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 8px; padding-left:17px; font-weight:normal;}
+
+/*---nonNumeric Lists---*/
+#cont-col .content ul li{ list-style-image:none; list-style:none; line-height:18px;}
+#cont-col .content ul li a { color:#154885; font-weight:normal; text-decoration:none;}
+#cont-col .content ul li a:hover{ text-decoration:underline; }
+#cont-col .content ul li ul{ margin-left:15px;}
+#cont-col .content ul li ol {margin-left:20px;}
+#cont-col .content ul li ol li{ list-style-type:decimal; color:#154885}
+#cont-col .content ul li ol li a { background:none;}
+
+/*---Numeric Lists---*/
+#cont-col .content Ol { padding-left:2px; font-size:13px;}
+#cont-col .content Ol li{ background:none; /*padding:5px 0px 5px 0px;*/ margin-left:20px;}
+#cont-col .content Ol li a { padding-left:0px; font-weight:normal; font-size:13px;}
+#cont-col .content Ol li a:hover{ text-decoration:underline; }
+#cont-col .content Ol li ul li a { font-weight:normal; text-decoration:none;}
+#cont-col .content Ol li ul li a:hover {text-decoration:underline;}
+
+
+/*---Paragraph Style---*/
+#cont-col .content p { padding-bottom:2px; padding-top:2px; text-align: justify;}
+#cont-col .content blockquote { border:1px solid #d2d2d2; padding:5px; margin:10px 0px 10px 0px; text-align: justify; box-shadow: 0 0 2px rgba(0, 0, 0, 0.2); padding-left:35px; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/info-icon.png) no-repeat 5px center #F6F6F6;}
+
+.item-list ul li { list-style-image:none; list-style:none;}
+#cont-col .item-list ul li { margin: 0 !important; padding-bottom: 3px; padding-left: 15px; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 3px; }
+
+#profile-admin-overview ul li{ background:none; padding:0px; list-style-image:none; list-style:none; margin:0; line-height:20px;}
+#profile-admin-overview ul li a { background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a1.gif) no-repeat 0 5px; padding-left:10px; color:#505050; font-weight:normal;}
+#profile-admin-overview ul li a:hover{ text-decoration:none; color:#ce2a11;}
+
+.password-description ul {margin-left:5px;}
+.password-description ul li{ background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a1.gif) no-repeat 0 7px; padding-left:10px; list-style-image:none; list-style:none; margin:0; line-height:12px;}
+
+#node-admin-content ul {margin-left:5px;}
+#node-admin-content  ul li{ padding-left:10px; list-style-image:none; list-style:none; margin:0; line-height:17px;}
+
+/*ul.menu li { line-height:20px; font-size:11px; font-weight:normal; list-style:none; list-style-image:none;}
+ul.menu li.leaf a{ color:#52a1d6;}
+*/
+/*.links { font-size:10px; color:#d7d7d7;}
+.links li a{ color:#d7d7d7; font-weight:bold; text-decoration:none; font-size:12px; text-transform:none; padding-left:0px;}
+.links li a:hover{ text-decoration:underline; color:#FFF;}*/
+
+ul.links.inline { padding-right:0px;}
+
+
+.cent ul.links li a { color:#104d0c; font-weight:normal; font-size:11px; text-transform:none; background:none; text-decoration:none; padding:0px;}
+.cent ul.links li a:hover { text-decoration:underline;}
+#comments ul.links li a { color:#F68B33;}
+
+
+.taxonomy ul.links li a, #forum ul.links li a { color:#F68B33}
+
+/*------END LIST------*/
+
+
+ul.primary, ul.primary li, ul.secondary, ul.secondary li{
+  border: 0;
+  background:none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.primary li a{
+	border:none !important;
+}
+ul.primary li a:hover{
+	background:none;
+	border: 0;
+}
+
+ul.primary li.active a{
+	border:none;
+	color:#232325 !important;
+	font-weight:bold;
+	background:#c2c2c2;
+}
+
+
+ul.tabs li	{
+	display:block;
+	margin-right:2px;
+	float:left;
+}
+
+ul.tabs li span	{
+	display:block;
+}
+ul.tabs	li span span {
+	text-align:center;
+	display:block;
+}
+
+ul.tabs	li a {
+	color:#242424 !important;
+	font-size:14px;
+	font-weight:normal;
+	background:none;
+	padding:5px 17px 5px 17px;
+	margin:0px;
+	display:block;
+}
+ul.tabs	li a:hover {
+	color:#232325 !important;
+	margin:0px;
+	border:none;
+	background:#c2c2c2;
+}
+
+#tabs-wrapper {
+  margin:0px 0px 5px 0px;
+  padding:0;
+  border-bottom:1px solid #d5d3c3;
+}
+ul.primary {
+  padding:0px;
+  margin:0px;}
+
+/*----------------------------*/
+
+/*----FROUM----*/
+#forum	{
+	padding:10px 0px 0px 1px;
+}
+#forum ul.links {
+	padding:0px 0px 5px 0px;
+}
+#forum table {
+	border:1px solid #d1d1d1;
+	border-right:none;
+}
+#forum th	{
+	padding:4px 0px 4px 3px;
+	border-right:1px solid #d1d1d1;
+}
+#forum th a	{
+	color:#fff;
+}
+#forum td	{
+	padding-top:4px; 
+	padding-bottom:4px;
+}
+#forum .description { color:#3c3c3c} /*Forum Container description*/
+
+#forum .forum .description { color:#3c3c3c; font-size:11px;} /*Forum description*/
+
+#forum td.container	{
+	border-right:1px solid #d1d1d1;
+	border-bottom:1px solid #d1d1d1;
+}
+#forum td.container	a{
+	color:#ed8b00; 
+	padding:0px 0px 0px 10px;
+}
+
+#forum td.forum,
+#forum td.topics,
+#forum td.posts,
+#forum td.last-reply,
+#forum td.icon,
+#forum td.title,
+#forum td.replies,
+#forum td.created {
+	border-right:1px solid #d1d1d1;
+	border-bottom:1px solid #d1d1d1;
+}
+#forum .last-reply,
+#forum .title,
+#forum .created,
+#forum .icon  {
+	padding-left:5px
+}
+#forum .odd	{
+	border-bottom:1px solid #d1d1d1;
+	border-top:1px solid #d1d1d1;
+	background:#f8f7f2
+}
+#forum div.indent	{
+	margin-left:5px}
+
+#forum .odd, #forum .even { border-bottom:1px solid #d1d1d1; }
+#forum thead th { border-bottom:1px solid #d1d1d1; background:#fde9d2; color:#232325;}
+/*----------------------------*/
+
+/*-----GENERAL-----*/
+
+.node .taxonomy { padding-top:0px;}
+
+div.error { margin-top:5px; padding:5px;}
+
+.block-region { background:#d6e6cc; text-align:center; border:1px dashed #618749; color:#618749; margin-bottom:0px; clear:both;}
+
+
+div.admin .left { margin:0px;}
+#book-outline { min-width:0px;}
+#permissions, #blocks, #forum table, .sticky-enabled  { width:100%;}
+.node-unpublished { background:none;}
+.odd td { vertical-align:middle; padding-left:px; line-height:21px; background:#f8f8f8; /*font-size:12px;*/ padding: 5px;}  /* odd_row BACKGROUND*/
+.even td { vertical-align:middle; padding-left:px; line-height:21px; background:#ececec; /*font-size:12px;*/ padding:5px;} /* even_row BACKGROUND*/
+.profile h3 { border-bottom:1px solid #cfcdcd; color:#F68B33}
+
+img.alignleft{ float:left; margin-right:16px;}
+img.alignright{ float:right; margin-left:25px; }
+
+
+#first-time a { color:#F68B33; text-decoration:none}
+#first-time a:hover{  text-decoration:underline;}
+#first-time ol { margin-left:20px;}
+
+
+.theme-info { padding-left:px;}
+
+
+.admin-list a { color:#F68B33; line-height: 20px;}
+.tabs a { color:#395c14}
+.node-type-list a { color:#154885;} /* Create content */
+.collapse-processed a { color:#154885; font-weight:bold;}
+.even a { color:#000000; text-decoration: none;}
+.even a:hover { color:#000000; text-decoration: underline;}
+.blog a { color:#F68B33;}
+.odd a { color:#000000; text-decoration: none;}
+.odd a:hover { color:#000000; text-decoration: underline;}
+
+.field-item a { color:#154885 !important; text-decoration: none;}
+.field-item a:hover  { color:#154885 !important; text-decoration: underline;}
+
+.check-manually a{ color:#161616;}
+
+.compact-link a { color:#F68B33;}
+
+
+.sticky-table { line-height:24px;}
+/*.sticky-table th { text-align:center;}*/
+
+.more-help-link a { color:#7d7d7d;}
+
+.help { font-size:11px; padding:3px 10px 0px 20px; text-align:justify;}
+.help a { color:#F68B33; font-size:11px;}
+
+.help-items a{ color:#154885; line-height:21px;}
+.help-items ul { list-style:none; line-height:18px;}
+
+.description a { color:#dc1b1d;}
+/*---------------------*/
+
+#blocks tr.region-message { color:#9298a3;}
+
+.theme-info { padding-left:10px;}
+
+.box { padding-left:0px;}
+.box h2.title { padding-left:0px; background:none;}
+
+.box div.links { background:none; padding:0px;}
+.box .bg-links, .box .links-left, .box .links-right { background:none;}
+
+#cont ul.links li { background:none;}
+/*#cont ul.links li span { color:#575859;}*/
+
+#system-modules div { padding-bottom:10px;}
+
+#forum-confirm-delete a { color:#6d94ac;}
+
+/*.form-checkboxes { width:100px;}*/
+
+.search-form input { vertical-align:middle}
+
+#forum ul.links { margin-bottom:10px;}
+
+dl .title { background:none; padding:0px;}
+dl.search-results .title { border-top:1px solid #d2d2d2; padding-top:10px;}
+
+ul.links li.comment_forbidden { padding:0px;}
+
+#comments, #node-form { width:100%;}
+
+#comment-form { padding-bottom:20px;}
+
+.preview .node { background:none;}
+
+#cont-col .content .comment_add a { color:#457299; text-transform:none; font-weight:bold;}
+
+html.js fieldset.collapsible .fieldset-wrapper { width:100%; overflow:hidden;}
+
+.search-advanced .action { float:none;}
+
+/*Status Report*/
+.system-status-report td { padding-left:5px;}
+
+table.system-status-report tr.info th{ color:#002200;}
+table.system-status-report tr.error th{ color:#220000;}
+table.system-status-report tr.ok th { color:#002200;}
+table.system-status-report tr.warning th{ color:#222200;}
+
+tr.merge-down { border-bottom:none;}
+tr.ok td { background:#DDFFDD;}
+tr.error td { background:#FFCCCC;}
+tr.warning td { background:#FFFFDD;}
+/*-------------*/
+
+.admin-panel dd { padding-bottom:10px;}
+
+div.admin-dependencies, div.admin-required { color:#000;}
+
+#block-admin-display-form div { overflow:hidden;}
+table.sticky-header { background:#FFFFFF; overflow:hidden; position:relative;}
+/*table.sticky-header th { text-align:center;}*/
+
+.item-list .pager li { padding:0;}
+#cont-col .content ul.pager li { background:#f5f4ed; border:1px solid #cbc9b8; padding:1px 5px; margin:0px 1px; color:#7c7c7c;}
+#cont-col .content ul.pager li.pager-current,
+#cont-col .content ul.pager li:hover{ background:#f0ece3; border:1px solid #cbc9b8;}
+#cont-col .content ul.pager li a{ color:#1a2023; text-decoration:none;}
+#cont-col .content ul.pager li a:hover { color:#000}
+
+/***************************************************/
+
+div#twitter {
+	margin-bottom: 2em;
+	-moz-border-radius: 10px; /* Firefox */
+	-webkit-border-radius: 10px; /* Safari, Chrome */
+	-khtml-border-radius: 10px; /* KHTML */
+	border-radius: 10px; /* CSS3 */
+	font-style:italic;
+	color:#211f21;
+	background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/bg-twitter.jpg) no-repeat 173px bottom #fff;
+	padding-bottom:20px;
+	padding-top:15px;
+	line-height:22px;
+}
+div#twitter h2 {
+	display:none;
+}
+p#preloader {
+	margin: 0;
+	padding: 1em 1em 1em 3em;
+
+}
+ul#twitter_update_list {
+	margin: 0;
+	padding: 0 1em 0.5em 1em;
+	list-style-type: none;
+}
+ul#twitter_update_list li {
+	margin: 0;
+	padding: 0.8em 0 1em 0;
+	border-bottom:1px solid #ccc;
+}
+ul#twitter_update_list li a {
+	/* timestamp link */
+	color: #211f21;
+	font-style:italic;
+}
+ul#twitter_update_list li span {
+	display: block;
+}
+ul#twitter_update_list li span a {
+	/* links in tweet */
+	color: #e75d4d;
+}
+ul#twitter_update_list li.firstTweet {
+}
+ul#twitter_update_list li.lastTweet {
+	border-bottom: none;
+}
+a#profileLink {
+	display: block;
+	padding:40px 17px 40px 17px;
+	color: #fff;
+	background-color: #888;
+}
+
+/*----------More---------*/
+
+#left-col li.leaf {list-style-image: url("https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif");}
+#left-col li.collapsed {list-style-image: url("https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3b.gif");}
+#left-col li.expanded {list-style-image: url("https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3c.gif");}
+
+.print-pdf {display: inline;}
+
+#block-views-Slider-block_1 {position: relative !important; z-index: 10 !important;overflow:hidden;float:right!important;height:280px; margin-bottom:0;}
+
+.nivoSlider {
+    padding: 0 !important;
+	margin:0 auto!important;
+}
+
+.item-list .pager {margin-top: 10px; border:1px solid #154885; padding-bottom: 2px; padding-top: 2px;}
+.item-list .pager li {background:none!important;}
+
+th.active img {padding-left: 5px;}
+
+div.messages { font-weight: normal; margin-bottom: 20px; margin-top:10px;}
+
+#help {
+  font-size: 0.9em;
+  margin-bottom: 1em;
+}
+.status {
+  color: #264409;
+  background: #fefff2;
+   border:1px solid #d2d2d2;
+	text-align: justify;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+div.error { 
+  background: #FBE3E4 no-repeat 12px center; 
+}
+div.notice { 
+  color: #514721; 
+  background: #FFF6BF no-repeat 12px center; 
+  border-color: #FFD324; 
+}
+div.warning, tr.warning {
+  border: 1px solid #F0C020;
+  background: #FFFFDD no-repeat 12px center;
+	margin: 0 0 1em;
+}
+.error a    { color: #8a1f11; text-decoration: underline; }
+.notice a   { color: #514721; text-decoration: underline; }
+.success a  { color: #264409; text-decoration: underline; }
+
+span.admin-disabled {
+  color: #DC1000;
+}
+div.messages.success {
+  color: #55872E;
+  background: #F1F8EB;
+  border: 1px solid #7AC142; 
+}
+div.messages ul {
+  margin-bottom: 0; padding-left:15px;
+}
+
+#edit-field-ae-modulo-nid-nid {width: 95%;}
+
+#edit-field-ae-allegati-nid-nid {width: 95%;}
+
+.views-vTicker-item-news {background: none !important;}
+
+#-user-idpc-anagrafica label {display: inline;}
+
+.node-form .group-domande-e-comunicazioni.collapsible,
+.node-form .group-apertura.collapsible,
+.node-form .group-variazione.collapsible, .node-form .group-cessazione.collapsible {
+  width: 686px;
+}
+
+#edit-field-ae-apertura-modulo-nid-nid,
+#edit-field-ae-apertura-allegati-nid-nid,
+#edit-field-ae-variazione-modulo-nid-nid,
+#edit-field-ae-variazione-allegati-nid-nid,
+#edit-field-ae-cessazione-allegati-nid-nid,
+#edit-field-ae-cessazione-modulo-nid-nid {width: 95%;}
+
+form .group-documentazione-richiesta {
+  width: 95%;
+}
+
+form .group-documentazione-richiesta select {
+  width: 100%;
+}
+
+#block-indicenormativa_link-0 .form-select {
+  font-size: x-small; 
+}
+
+html.js .node fieldset.collapsible {
+    clear: both;
+}
+
+.clickable_list:hover {
+	text-decoration: underline;
+	cursor: pointer;
+	cursor: hand;
+}
+ 
+.clickable_list img {display: none;}
+
+.clickable_list .item-list ul li { margin: 0 !important; padding-bottom: 3px; padding-left: 15px; background:url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/a3.gif) no-repeat 0 5px; }
+
+fieldset.collapsible {margin-top: 10px;}
+html.js fieldset.collapsible legend a {padding-left: 18px; padding-right:5px;}
+
+fieldset.main_field_semaforo > legend {font-weight: bold;}
+
+h2#welcome_user {display:none!important;}
+
+div.field-type-nodereference {padding-top:15px; }
+
+#edit-lista-comuni-wrapper {margin-bottom:0px!important; color: #FFFFFF;}
+
+#block-backoffice_to_frontoffice-0 .content {text-align:center;}
+
+#block-views-slider-block_1 {float:none!important; width:100%!important; height:auto!important; margin-bottom:0;}
+
+a.link-carto {
+    background-image: url(https://sportello.comune.trento.it/sites/all/themes/theme523/images/mappa.png);
+    display: block;
+    font-size: 1px;
+    margin-left: 30%;
+    width:180px;
+    height:50px;}
