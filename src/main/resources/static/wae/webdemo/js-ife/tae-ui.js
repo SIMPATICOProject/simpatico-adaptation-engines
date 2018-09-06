@@ -234,7 +234,7 @@ var taeUI = (function () {
       if (synonyms != null) // If the word has synonyms show them
         currentBox.innerHTML += '<i>' + synonymLabel +':' + '</i>' + synonyms;
       if (wiki != null) // If the word has a wikipedia link
-          currentBox.innerHTML += '<br/><i>' + wikipediaLabel +':' + '</i><a target="_blank" href="'+wiki+'">' + wiki +':' + '<a/>';
+          currentBox.innerHTML += '<br/><i>' + wikipediaLabel +':' + '</i><a target="_blank" href="'+wiki+'">' + wiki + '<a/>';
       logger().logWord(simpaticoEservice, wordHTMLelement.innerHTML);
     }
 

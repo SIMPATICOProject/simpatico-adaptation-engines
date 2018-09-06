@@ -265,6 +265,7 @@ form {
 
 .simpatico-text-paragraph-active {
     position: relative;
+    padding-left: 10px;
 }
 .simpatico-text-paragraph-active::before {
     border-left: 5px solid #DE453E;
@@ -273,10 +274,10 @@ form {
     height: calc(100% - 2px);
 }
 .simpatico-text-paragraph-active:not(li)::before {
-    left: -13px;
+    left: 0px;
 }
 li.simpatico-text-paragraph-active::before {
-    left: 10px;
+    left: 8px;
 }
 
 
