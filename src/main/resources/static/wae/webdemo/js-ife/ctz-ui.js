@@ -24,6 +24,7 @@ var citizenpediaUI = (function () {
     var diagramNotificationClassName = '';
     var diagramNotificationText = '';
     var diagramURL = '';
+    var cpdEservice = '';
     var exclusive = false;
 
     // Internal usage variables
@@ -43,12 +44,13 @@ var citizenpediaUI = (function () {
       diagramNotificationImage = parameters.diagramNotificationImage;
       diagramNotificationClassName = parameters.diagramNotificationClassName;
       diagramNotificationText = parameters.diagramNotificationText;
+      cpdEservice = parameters.cpdEservice || simpaticoEservice;
       qaeCORE.getInstance().init({
           endpoint: parameters.endpoint,
           cpdDiagramEndpoint: parameters.cpdDiagramEndpoint
         });
       questionSelectionFilters = parameters.questionSelectionFilters || [''];
-      qaeCORE.getInstance().getDiagramDetails(simpaticoEservice, function(response){
+      qaeCORE.getInstance().getDiagramDetails(cpdEservice, function(response){
     	  if (response && response.length > 0 && response[0]) {
     		  diagramURL = response[0].url;
     	  }
@@ -94,7 +96,7 @@ var citizenpediaUI = (function () {
         paragrapId++;
       }
 	  logCORE.getInstance().startActivity('ctz', 'simplification');
-      qaeCORE.getInstance().getDiagramDetails(simpaticoEservice, drawDiagramNotification);
+      qaeCORE.getInstance().getDiagramDetails(cpdEservice, drawDiagramNotification);
 
     }
   

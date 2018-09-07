@@ -75,7 +75,8 @@ function initFeatures() {
     diagramNotificationClassName: "simp-ctz-ui-diagram",
     diagramNotificationText: "C'e' una visualizzazione di e-service in Citizenpedia",
     questionSelectionFilters: ['h1', '.Rigaintestazione', '.Rigaintestazioneridotta'],
-    exclusive: true
+    exclusive: true,
+    cpdEservice: cpdEservice 
   });
 
   // Init the Text Adaptation Engine component (see tae-ui.js)
