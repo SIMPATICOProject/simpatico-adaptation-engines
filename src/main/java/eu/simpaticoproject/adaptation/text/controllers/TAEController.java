@@ -30,6 +30,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import eu.simpaticoproject.adaptation.text.Handler;
+import eu.simpaticoproject.adaptation.text.model.PageTextModel;
+import eu.simpaticoproject.adaptation.text.repositories.TextModelRepository;
 import eu.simpaticoproject.adaptation.text.tae.SimpaticoInput;
 import eu.simpaticoproject.adaptation.text.tae.SimpaticoOutput;
 import io.swagger.annotations.ApiOperation;
@@ -44,6 +46,8 @@ public class TAEController {
 
 	@Autowired
 	private Handler handler;
+	@Autowired
+	private TextModelRepository repo;
 	
 	@RequestMapping(value = "/tae/simp", method = RequestMethod.GET, produces = "application/json")
 	@ApiOperation(value = "Process text",
@@ -77,6 +81,31 @@ public class TAEController {
 //		}
 //		return output;
 		return json;
+	}
+
+	@RequestMapping(value = "/tae/model", method = RequestMethod.POST, produces = "application/json")
+	@ApiOperation(value = "Create text model",
+	  response = PageTextModel.class,
+	  notes = "Create text model for a specific page")
+	public @ResponseBody PageTextModel createModel(@RequestBody PageTextModel input) throws Exception {
+		if (repo.findByPageId(input.getPageId()) != null) throw new IllegalArgumentException("Model with the specified pageId already exists");
+		return repo.save(input);
+	}
+	
+	@RequestMapping(value = "/tae/model", method = RequestMethod.PUT, produces = "application/json")
+	@ApiOperation(value = "Create text model",
+	  response = PageTextModel.class,
+	  notes = "Update text model for a specific page")
+	public @ResponseBody PageTextModel updateModel(@RequestBody PageTextModel input) throws Exception {
+		return repo.save(input);
+	}
+
+	@RequestMapping(value = "/tae/model", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value = "Get text model",
+	  response = PageTextModel.class,
+	  notes = "Retrieve text model for a specific page")
+	public @ResponseBody PageTextModel updateModel(@RequestParam String pageId) throws Exception {
+		return repo.findByPageId(pageId);
 	}
 
 	@ExceptionHandler(OperationNotSupportedException.class)
