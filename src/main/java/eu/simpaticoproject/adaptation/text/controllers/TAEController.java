@@ -104,8 +104,10 @@ public class TAEController {
 	@ApiOperation(value = "Get text model",
 	  response = PageTextModel.class,
 	  notes = "Retrieve text model for a specific page")
-	public @ResponseBody PageTextModel updateModel(@RequestParam String pageId) throws Exception {
-		return repo.findByPageId(pageId);
+	public @ResponseBody PageTextModel getModel(@RequestParam String pageId) throws Exception {
+		PageTextModel mdl = repo.findByPageId(pageId);
+		if (mdl == null) throw new Exception("Model not found");
+		return mdl;
 	}
 
 	@ExceptionHandler(OperationNotSupportedException.class)
