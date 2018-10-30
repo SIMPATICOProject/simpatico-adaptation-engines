@@ -89,8 +89,8 @@ function initFeatures() {
   cdvUI.getInstance().init({
 	    endpoint: 'https://cdv.comune.trento.it/CDV',
 	    serviceID: simpaticoEservice,
-		serviceName: simpaticoEserviceName,
-	    serviceURL: window.location.href,
+		serviceName: serviceName || simpaticoEserviceName,
+	    serviceURL: serviceURL || window.location.href,
 	    dataFields: simpaticoMapping,
 	    informedConsentLink: "https://cdv.comune.trento.it/CDV/IFE/informed_consent.html",
 	    consentGiven:true,
@@ -275,19 +275,19 @@ function initFeatures() {
 //                    },
 //                    exclusive: true
 //                  },
-//                    { // CPD: procedure model
-//                        id: 'process',
-//                        imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
-//                        imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
-//                        alt: "Procedura amministrativa",
-//                        // Ad-hoc css classes to define the enabled/disabled styles
-//                        styleClassEnabled: "simp-bar-btn-active",
-//                        styleClassDisabled: "simp-bar-btn-inactive",
-//                        label: 'Procedura',
-//                        isEnabled: function() { return false; },
-//                        enable: function() { citizenpediaUI.getInstance().openDiagram(); },
-//                        disable: function() {  }
-//                      },                    
+                    { // CPD: procedure model
+                        id: 'process',
+                        imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
+                        imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
+                        alt: "Procedura amministrativa",
+                        // Ad-hoc css classes to define the enabled/disabled styles
+                        styleClassEnabled: "simp-bar-btn-active",
+                        styleClassDisabled: "simp-bar-btn-inactive",
+                        label: 'Procedura',
+                        isEnabled: function() { return false; },
+                        enable: function() { citizenpediaUI.getInstance().openDiagram(); },
+                        disable: function() {  }
+                      },                    
 
 //                  { // SF: session feedback
 //                      id: 'sf',
@@ -306,7 +306,7 @@ function initFeatures() {
              
             ];
 //  if (!isProd()) {
-	  buttons.splice(buttons.length - 1, 0, {	// CDV
+	  buttons.splice(buttons.length - 2, 0, {	// CDV
     	  id: "simp-bar-sw-cdv",
           // Ad-hoc images to define the enabled/disabled images
           imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png",
