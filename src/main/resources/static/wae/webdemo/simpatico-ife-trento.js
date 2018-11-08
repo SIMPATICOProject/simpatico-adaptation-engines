@@ -27,6 +27,12 @@ function initFeatures() {
 	if (!window.simpaticoEserviceURL) {
 		simpaticoEserviceURL = window.location.origin + window.location.pathname;
 	}
+	if (!window.serviceName) {
+		serviceName = simpaticoEserviceName;
+	}
+	if (!window.serviceURL) {
+		serviceURL = simpaticoEserviceURL;
+	}
 	
   // Init the Auth component (see simpatico-auth.js)
   // - endpoint: the main URL of the used AAC instance
