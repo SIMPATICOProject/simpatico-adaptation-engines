@@ -24,6 +24,7 @@ var citizenpediaUI = (function () {
     var diagramNotificationClassName = '';
     var diagramNotificationText = '';
     var diagramURL = '';
+    var questionsURL = '';
 
     // Internal usage variables
     var paragraphs = []; // Used to store all the tagged paragraphs
@@ -48,10 +49,10 @@ var citizenpediaUI = (function () {
         });
       questionSelectionFilters = parameters.questionSelectionFilters || [''];
       qaeCORE.getInstance().getDiagramDetails(simpaticoEservice, function(response){
-    	  if (response && response.length > 0 && response[0]) {
-    		  diagramURL = response[0].url;
-    	  }
+        response = response[0] || response;
+        diagramURL = response.url;
       });
+      questionsURL = parameters.questionsURL || 'https://simpatico.smartcommunitylab.it/qae/questions';
     }
     
     function enableComponentFeatures() {
@@ -229,7 +230,7 @@ var citizenpediaUI = (function () {
     // - response: a JSON response provided by the Citizenpedia instance 
     function drawDiagramNotification(response) {
       if (response != null) {
-    	response = response[0];
+    	response = response[0] || response;
         // Attach the notification container
         var diagramNode = document.getElementById('simp-bar');
         diagramContainer = document.createElement('div');
@@ -255,7 +256,64 @@ var citizenpediaUI = (function () {
     	diagramURL = response["url"];
       }
     }
-
+    
+    function openQuestionDiagram(){
+      var questionModalContainer = document.getElementById("questionModal");
+      if (questionModalContainer == null) {
+        var body = document.getElementsByTagName('body')[0];
+        questionModalContainer = document.createElement('div');
+        body.insertBefore(questionModalContainer, body.firstChild);
+        //simpaticoEservice is a global variable that initialized in install time
+        qaeCORE.getInstance().getAllQuestions(simpaticoEservice,function(response){
+          
+          var listItem="";
+          $.each(response, function (index, value){
+            var ansLength=value.answers.length;
+            var ansListItem="";
+            if(ansLength < 10){
+              if(ansLength == 0){
+                listItem+="<a class='list-group-item'>"+value.title+"<span class='ansNum'>"+ansLength+"</span></a>";  
+              }else{
+                $.each(value.answers,function(index2, value2){
+                  ansListItem+="<a  class='list-group-item'>"+value2.content+"</a>";
+                });
+                listItem+="<a href='#' class='list-group-item' data-toggle='collapse' data-target='#"+value._id+"'>"+value.title+"<span class='ansNum'>"+ansLength+"</span></a><div id='"+value._id+"' class='collapse'><div class='list-group'>"+ansListItem+"</div></div>";
+              }
+            }else{
+              listItem += "<a href='#' class='list-group-item' href='"+questionsURL+"/show/"+value._id+"' target='_blank'>"+value.title+"<span class='ansNum'>"+ansLength+"</span></a>";
+            }
+          });
+          var questionModalHTML='<div class="modal fade bottom" id="questionModal" role="dialog">'+
+                                  '<div class="modal-dialog">'+
+                                    '<div class="modal-content">'+
+                                      '<div class="modal-header question-modalHeader">'+
+                                        '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+                                        '<h3 class="modal-title">'+questionsBoxTitle+'</h3>'+
+                                      '</div>'+
+                                      '<div class="modal-body questionModalBody">'+
+                                        // '<input class="form-control input-sm" id="inputQuestion" type="text" placeholder="Type your question here">'+
+                                        '<div class="list-group">'+
+                                          listItem +
+                                        '</div>'+
+                                      '</div>'+
+                                      '<div class="modal-footer">'+
+                                        // '<button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>'+
+                                        '<button type="button" class="btn btn-default btn-send" id="sendQuestions" onclick="sendQuestion();" >'+addQuestionLabel+'</button>'+
+                                      '</div>'+
+                                    '</div>'+
+                                  '</div>'+
+                                '</div>';
+        
+        
+          questionModalContainer.innerHTML=questionModalHTML;
+          $("#questionModal").modal();
+        });
+      }else{
+        $("#questionModal").modal();
+      }
+      
+    }
+    
     return {
       // Public definitions
       init: initComponent, // Called only one time
@@ -264,9 +322,9 @@ var citizenpediaUI = (function () {
       isEnabled: function() { return featureEnabled;}, // Returns if the feature is enabled
       openDiagram: function(){
     	  logCORE.getInstance().startActivity('cpd', 'process');
-		  window.open(diagramURL,"_blank");        	  
-
+		    window.open(diagramURL,"_blank");
       },
+      openQuestionDiagram: openQuestionDiagram,
       paragraphEvent: paragraphEvent,
 
       createNewQuestionEvent: createNewQuestionEvent,

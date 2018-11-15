@@ -39,6 +39,16 @@ var qaeCORE = (function () {
       );
     }
 
+    // Get questions from Citizenpedia.
+    // - serviceID: the id corresponding to the e-service
+    function getAllQuestions(serviceID, questionsCallback) {
+      jQuery.getJSON(getQuestionsAPI + '/' + serviceID ,
+        function(jsonResponse) {
+          questionsCallback(jsonResponse);
+        }
+      );
+    }
+
     // It creates an URL which can be used to redirect to the details of the 
     // question passed as parameter
     function createQuestionDetailsURL(questionID) {
@@ -72,6 +82,7 @@ var qaeCORE = (function () {
     return {
         init: initComponent,
         getQuestions: getQuestions,
+        getAllQuestions: getAllQuestions,
         createQuestionDetailsURL: createQuestionDetailsURL,
         createNewQuestionURL: createNewQuestionURL,
         getDiagramDetails: getDiagramDetails

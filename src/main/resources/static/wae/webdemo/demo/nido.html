@@ -23,83 +23,36 @@
 <link rel="stylesheet" href="./resources/css/css_wtY0x01Xn_RDi47Cfdy9epPBxsTBxvLWv02p2gIx1y0.css" media="all">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     
-<!--[if lte IE 8]>
+<link type="text/css" rel="stylesheet" charset="UTF-8" href="./resources/css/translateelement.css">
+
+<!-- SIMPATICO BEGIN -->
+ <link rel="stylesheet" href="../css/simpatico-new-trento.css" media="all">
+            
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+ <script src="./resources/js/popupoverlay.js"></script>
+ <script src="./resources/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+ <script type="text/javascript">
+   var pageID="simpTag_P_li";
+   var simpaticoEservice = "2"; //  the id corresponding to the e-service
+   var simpaticoEserviceName = "M1876 ISCRIZIONE NIDO"; //  the name corresponding to the e-service
+   var simpaticoEserviceURL = "https://sportello.comune.trento.it/sites/default/files/sportello_telematico/M1876-ISCRIZIONE-NIDO.html" ; //  the url corresponding to the e-service
+ </script>
+ <script src="../js-ife/log-core.js"></script>
+ <script src="../js-ife/ctz-ui.js"></script>
+ <script src="../js-ife/ctz-core.js"></script>
+ <script src="../js-ife/tae-core-store.js"></script>
+<script src="./simpatico-ife-new.js"></script>
+<!-- SIMPATICO END -->
+
+ <!--[if lte IE 8]>
 <script src="/sites/default/files/js/js_VtafjXmRvoUgAzqzYTA3Wrjkx9wcWhjP0G4ZnnqRamA.js"></script>
 <![endif]-->
-<script src="./resources/js/jquery-1.12.4.js"></script>
-<script src="./resources/js/jquery-ui.js"></script>
-<!-- <script src="./resources/js/jquery.toolbar.js"></script> -->
-<script src="./resources/js/popupoverlay.js"></script>
-<script src="./resources/js/bootstrap.min.js"></script>
-<script src="./resources/js/moment.min.js"></script>
-<script src="./resources/js/log-core.js"></script>
-<script src="./resources/js/ctz-ui.js"></script>
-<script src="./resources/js/ctz-core.js"></script>
-<script src="./resources/js/cdv-ui-popup.js"></script>
-<script src="./resources/js/cdv-core-popup.js"></script>
-<script src="./resources/js/tae-core.js"></script>
-<script src="./resources/js/tae-ui.js"></script>
-<script src="./resources/js/wae-core.js"></script>
-<script src="./resources/js/wae-ui.js"></script>
-<script src="./resources/js/da-ui.js"></script>
-<script src="./resources/js/wgxpath.install.js"></script>
-<script src="./resources/js/tae-core-popup.js"></script>
-<script src="./resources/js/tae-ui-popup.js"></script>
-<script src="./resources/js/sf-core.js"></script>
-<script src="./resources/js/sf-ui.js"></script>
-<script src="./resources/js/simpatico-auth.js"></script>
-<script src="./resources/js/simpatico-ife-trento.js"></script>
 <script src="./resources/js/js_J_HGOTpL53ydzCa7iNo9dKYb904YSQg0wbNA07yZVhk.js"></script>
 
 
-<link type="text/css" rel="stylesheet" charset="UTF-8" href="./resources/css/translateelement.css">
-
-<script type="text/javascript">
-    var simpaticoEservice = "2"; //  the id corresponding to the e-service
-    var simpaticoEserviceName = "M1876 ISCRIZIONE NIDO"; //  the name corresponding to the e-service
-    var simpaticoEserviceURL = "https://sportello.comune.trento.it/sites/default/files/sportello_telematico/M1876-ISCRIZIONE-NIDO.html" ; //  the url corresponding to the e-service
-    var simpaticoForm = "main";
-    var simpaticoCategory = "Infanzia"; // the general category of the e-service
-    var simpaticoMapping=["AventeTitolo_EMailPEC","AventeTitolo_Fax","AventeTitolo_EMail","AventeTitolo_EnteProvv","AventeTitolo_NumProt","AventeTitolo_Data","Parametri_TipoLavoroPadre","Parametri_AziendaLavoroPadre","Parametri_IndirizzoAziendaLavoroPadre","Parametri_CivicoAziendaLavoroPadre","Parametri_CapAziendaLavoroPadre","Parametri_TelAziendaLavoroPadre","Parametri_EmailAziendaLavoroPadre","Parametri_AgenziaEntratePadre","Parametri_PIVAPadre","Parametri_ScuolaPadre","Parametri_TipoLavoroMadre","Parametri_AziendaLavoroMadre","Parametri_IndirizzoAziendaLavoroMadre","Parametri_CivicoAziendaLavoroMadre","Parametri_CapAziendaLavoroMadre","Parametri_TelAziendaLavoroMadre","Parametri_EmailAziendaLavoroMadre","Parametri_AgenziaEntrateMadre","Parametri_PIVAMadre","Parametri_ScuolaMadre"];
-    var ERROR_LABELS = {
-            'block1' : 'Manca il codice fiscale',
-            'block2' : 'Seleziona Ruolo',
-            'block6' : 'Seleziona Part-time / Full-time',
-            'block10': 'Seleziona se avvalersi dell\'attestazione ICEF o meno'
-            
-          }
-  </script>
-<!-- LOG -->
-<!-- <script src="../js/log-core.js"></script> -->
-<!-- CITIZENPEDIA -->
-<!-- <script src="../js/ctz-ui.js"></script>
-<script src="../js/ctz-core.js"></script> -->
-<!-- CDV -->        
-<!-- <script src="../js/cdv-ui-popup.js"></script>
-<script src="../js/cdv-core-popup.js"></script> -->
-<!-- TAE / TAE WITH POPUP -->
-<!-- <script src="../js/tae-core.js"></script>
-<script src="../js/tae-ui.js"></script>
-<script src="../js/tae-core-popup.js"></script>
-<script src="../js/tae-ui-popup.js"></script> -->
-<!-- WAE -->
-<!-- <script src="../js/wae-core.js"></script>
-<script src="../js/wae-ui.js"></script>
-<script src="../js/wgxpath.install.js"></script> -->
-<!-- <script>
-    wgxpath.install();
-</script> -->
-<!-- DATA ANALYSIS -->            
-<!-- <script src="../js/da-ui.js"></script> -->
-<!-- SESSION FEEDBACK -->
-<!-- <script src="../js/sf-core.js"></script>
-<script src="../js/sf-ui.js"></script> -->
-<!-- AUTHENTICATION -->
-<!-- <script src="../js/simpatico-auth.js"></script> -->
-<!-- IFE CONFIGURATION AND TOOLBAR -->
-<!-- <script src="simpatico-ife.js"></script> -->
-
-<!-- SIMPATICO END -->
 
 </head>
 
@@ -777,127 +730,5 @@ dalla Giunta provinciale hanno acquisito il diritto all'iscrizione alla scuola&n
 <div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="./resources/images/translate_24dp.png" width="20" height="20" alt="Google Translate"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">Original text</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">Contribute a better translation</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div><div role="log" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"><div style="display: none;">site in Italian</div><div style="display: none;">Italiano</div><div style="display: none;">sito in italiano</div><div style="display: none;">Home</div><div>Home</div></div><div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div>
 </div>
 
-<!-- added HTML-->
-
-<!--simplification popover  -->
-<div id="popoverText" class="hidden">
-  <div class="container-fluid" >
-    <div class="row">
-      <div class="col-sm-2" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Shows a simplified version of the selected text"><img src="./resources/images/info.png" class=""></div>
-      <div class="col-sm-3" style="background-color:transparent;">
-          <label class="switch">
-            <input id="textCheckbox" type="checkbox" onclick="clickTextCheckbox()" >
-            <span class="slider sliderText round"></span>
-          </label>
-      </div>
-      <div class="col-sm-7 " style="background-color:transparent;"><span >Text simplification</span></div>
-    </div>
-    <div class="row">
-      <div class="col-sm-2" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Shows the definition of the selected word"><img src="./resources/images/info.png" class=""></div>
-      <div class="col-sm-3" style="background-color:transparent;">
-          <label class="switch">
-            <input id="wordCheckbox" type="checkbox" onclick="clickWordCheckbox()">
-            <span class="slider sliderWord round"></span>
-          </label>
-      </div>
-      <div class="col-sm-7" style="background-color:transparent;"><span >Words definition</span></div>
-    </div>  
-  </div>
-  
-</div>
-<!-- Modal 4 Procedure-->
-<div class="modal fade" id="modalProcedure" role="dialog">
-  <div class="modal-dialog" style="width:70%; height: 70%">
-    
-    <!-- Modal content-->
-    <div class="modal-content">
-       
-      <div class="modal-body" style="padding:10px 10px;">
-        <img src="./resources/images/procedure_large.png" style="max-width: 100%; max-height: 80%">
-      </div>
-       
-    </div>
-    
-  </div>
-</div>
-<!--Access popover   -->
-<div id="popoverAccess" class="hidden">
-  <h4>SIGN IN</h4>
-</div>
-<!-- Modal for question -->
-<div class="modal fade bottom" id="questionModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header question-modalHeader">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h3 class="modal-title">Questions</h3>
-        </div>
-        <div class="modal-body">
-          <input class="form-control input-sm" id="inputsm" type="text" placeholder="Type your question here">
-          <div class="list-group">
-            <a href="#" class="list-group-item">First Question</a>
-            <a href="#" class="list-group-item">Second Question</a>
-            <a href="#" class="list-group-item">Third Question</a>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
-          <button type="button" class="btn btn-default btn-send" >SEND</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-<!-- Toolbar  -->
-<div class="container-fluid " >
-  <div class="row" id="conToolbar" >
-    <div class="col-sm-5"  style="background-color:transparent;" >
-      <div class="row" id="simpaticoTutorialPopup" data-toggle="tooltip" data-placement="top" title="Simpatico" onclick="simpaticoTutorial('simpaticoTutorialPopup')">
-        <div class="col-sm-4" style="background-color:transparent;"><img src="./resources/images/logo.png" class="logoSmall"></div>
-        <div class="col-sm-8 toolbarText" style="background-color:transparent;"><span >Simpatico</span></div>
-      </div>
-    </div>
-    <div class="col-sm-3" style="background-color:transparent;">
-      <div class="row">
-        
-        <div class="col-sm-6" id="textTutorialPopup"  style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Text Tools">
-            <div id="textTools">
-              <img src="./resources/images/textTool.png" class="toolbarSmall" >
-            </div>
-        </div>
-        
-        <div class="col-sm-6" id="procedureTutorialPopup" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Procedure">
-          <div id="btnModalProcedure">
-            <img src="./resources/images/procedure.png" class="toolbarSmall">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4" style="background-color:transparent;">
-        <div class="row" >
-            <div class="col-sm-5" id="accessTutorialPopup" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Access">
-                <div id="accessID" data-placement="top" title="Access">
-                  <img src="./resources/images/access.png" class="toolbarSmall">
-                </div>
-            </div>
-            <div class="col-sm-5" id="questionTutorialPopup" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Questions">
-              <div id="btnModalQuestion">
-                <img src="./resources/images/questions.png" class="toolbarSmall">
-              </div>
-            </div>
-            <div class="col-sm-2" style="background-color:transparent;"></div>
-        </div>
-    </div>
-  </div>  
-</div>
-<!-- <div id='testData'>
-</div> -->
-
 </body>
-<!-- <script src="./resources/js/localData.js"></script> -->
-<script src="./resources/js/tae-core-store.js"></script>
-
-<link rel="stylesheet" href="./resources/css/tae-core-store.css" media="all">
 </html>
