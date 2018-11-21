@@ -1,0 +1,66 @@
+/* CSS Document for primary links */
+.yuimenubar{visibility:visible;position:static;}
+.yuimenu .yuimenu,.yuimenubar .yuimenu{visibility:hidden;position:absolute;top:-10000px;left:-10000px;}
+.yui-menu-shadow{position:absolute;visibility:hidden;z-index:-1;}
+
+.yuimenubar ul, .yuimenu ul { list-style-type:none;}
+.yui-skin-sam .yuimenuitem-hassubmenu {
+    background-image: url(images/menuitem_submenuindicator.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+.yuimenubar ul, .yuimenu ul, .yuimenubar li, .yuimenu li, .yuimenu h6, .yuimenubar h6 { margin:0; padding:0;}
+#productsandservices { overflow:hidden; position:relative; z-index:1;}
+
+.yuimenuitemlabel, .yuimenubaritemlabel { white-space:nowrap;}
+
+.hide-scrollbars * { overflow:hidden;}
+
+.hide-scrollbars select { display:none;}
+
+.yuimenu.show-scrollbars { overflow:visible;}
+
+.yui-skin-sam .yuimenubar > .bd > ul:after { clear:both; content:"."; display:block; height:0; line-height:0; visibility:hidden; }
+
+
+.yui-skin-sam .yuimenubaritem { float:left; margin: 0 15px;}
+
+.yui-skin-sam .yuimenubarnav .yuimenubaritem { line-height:1.42em;}
+
+
+.yui-skin-sam .yuimenubaritemlabel { display:block; *position:relative; text-decoration:none; text-align:center; line-height:1.42em; color:#fff; padding:70px 0px 20px; font-size:13px !important; text-transform: uppercase}
+.yui-skin-sam .yuimenubaritemlabel-selected, .yui-skin-sam .yuimenubaritem a.active, .yui-skin-sam .yuimenubaritem-hassubmenu-selected a{ text-transform: uppercase; text-decoration:underline; }
+.yui-skin-sam .yuimenubaritem-hassubmenu-selected {padding:0; }
+
+/*div.bd ul.first-of-type li a:hover { color:#39892f;} colore del a del menu*/
+
+li#yui-gen0:hover, li#yui-gen1:hover, li#yui-gen2:hover, li#yui-gen3:hover, li#yui-gen4:hover {background:url(images/green.png) repeat transparent!important; }
+
+li#yui-gen0 li#yui-gen4:hover {background-color: #f6fcf8!important; }
+li#yui-gen3 {float:right!important; }
+
+div.bd ul.first-of-type li a {text-decoration:none!important; }
+div.bd ul.first-of-type li:hover {background:url(images/white2.png) repeat transparent!important; }
+
+yui-menu-body-scrolled {height:auto!important;}
+
+/** + html .yui-skin-sam .yuimenubarnav .yuimenubaritemlabel { padding:11px 18px 0px 18px; line-height:1.42em; height:31px;}*/
+
+.yui-skin-sam .yuimenu .bd { left:0; top:0px; overflow:visible; width:auto; background:#f6fcf8; position:relative; z-index:999; min-width:150px; height: auto!important;}
+li#yui-gen0 div.bd, li#yui-gen1 div.bd { top:0;}
+li#yui-gen0 div.bd div.bd, li#yui-gen1 div.bd div.bd { top:0px;}
+.yui-skin-sam .yuimenu ul { padding:3px 0px}
+.yui-skin-sam .yuimenu a { background:none; border:0;}
+
+.yui-skin-sam .yuimenuitemlabel{ font-size:12px; color:#535353; padding:0 10px !important; line-height:25px; text-decoration:none; text-transform:none!important; font-weight:normal;}
+.yui-skin-sam .yuimenuitemlabel-selected, .yui-skin-sam .bd .yuimenuitem a.active{ color:#000;}
+.yui-skin-sam .bd .bd li.first-of-type a { background:none !important;}
+
+.first-of-type a, .first-of-type li a.active, a.yuimenubaritemlabel  { font-size:18px; color:#7d7d7d;} /***For IE with cufon***/ 
+
+.yui-skin-sam .yuimenubar { font-size:13px!important; background:none!important; border:0!important;}
+.yui-skin-sam .yuimenubarnav .yuimenubaritem { margin: 0 !important;}
+.yui-skin-sam .yuimenubaritemlabel { border:0!important;}
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-hassubmenu { background: none;}
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel { padding:9px 10px 8px;}
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-selected { margin-left: 0 !important; border:0!important; }

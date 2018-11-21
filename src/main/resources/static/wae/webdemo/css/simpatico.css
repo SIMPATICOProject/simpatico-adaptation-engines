@@ -132,7 +132,7 @@ body {
     }
     .simp-ctz-ui-qb li {
       list-style-type: none;
-      line-height: 18px;
+      line-height: 18px !important;
     }
 
     /* Answers style*/

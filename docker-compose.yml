@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  mongo:
+    image: mongo:3.6.2-jessie
+    container_name: simpatico-mongo
+    ports:
+      - "50000:27017"
+    volumes:
+      - mongo-data:/data/db
+  simpatico-tae:
+    build: 
+      context: .
+    container_name: simpatico-tae
+    ports:
+      - "8000:80"
+    depends_on:
+      - mongo
+    links:
+      - mongo:mongodb
+    env_file: ./docker-configs/app.env
+volumes:
+  mongo-data:

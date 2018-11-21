@@ -81,12 +81,10 @@ var sfUI = (function () {
       } 
 
       var data = JSON.parse(localStorage.userData); // Get the user's ID from localStorage
-      ctzSelected = citizenpediaUI.getInstance().isEnabled();
-      simplificationSelected = taeUI.getInstance().isEnabled();
       // Check if timeout exists
       var currentTime = new Date().getTime();
       timeoutExceeded = isTimeExceeded(currentTime - startTime);
-      sfCORE.getInstance().selectDialog(ctzSelected, simplificationSelected, timeoutExceeded, data.userId);
+      sfCORE.getInstance().selectDialog(timeoutExceeded, data.userId);
       active = true;
     }
 

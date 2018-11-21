@@ -10,6 +10,11 @@ public class PageModel {
 	private List<Block> blocks = new ArrayList<Block>();
 	private List<Field> fields = new ArrayList<Field>();
 	
+	private Map<String, Object> description;
+	private Map<String, Object> name;
+	
+	private List<WorkflowStep> workflow;
+	
 	public List<Block> getBlocks() {
 		return blocks;
 	}
@@ -28,7 +33,7 @@ public class PageModel {
 	public void setContext(Map<String, Variable> context) {
 		this.context = context;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -55,6 +60,23 @@ public class PageModel {
 			return false;
 		return true;
 	}
-	
+	public Map<String, Object> getDescription() {
+		return description;
+	}
+	public void setDescription(Map<String, Object> description) {
+		this.description = description;
+	}
+	public List<WorkflowStep> getWorkflow() {
+		return workflow;
+	}
+	public void setWorkflow(List<WorkflowStep> workflow) {
+		this.workflow = workflow;
+	}
+	public Map<String, Object> getName() {
+		return name;
+	}
+	public void setName(Map<String, Object> name) {
+		this.name = name;
+	}
 	
 }

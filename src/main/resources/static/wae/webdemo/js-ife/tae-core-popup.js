@@ -52,14 +52,14 @@ var taeEngine = (function() {
                     }
                     annotatedText = annotatedText + value.substring(index, value.length);
                     //console.log('annotatedText ' + annotatedText);
-                    callback(annotatedText);
+                    callback(annotatedText, json.isSyntSimplified);
                 } else {
                     for (itemName in json.readability.forms) {
                         item = json.readability.forms[itemName];
                         if (item.start == position) {
                             var text = ' <a class="simpatico-label simpatico-label-def" title="' + item.description.description +
                                 '">' + word + '</a> ';
-                            callback(text);
+                            callback(text, json.isSyntSimplified);
                             return;
                         }
                     }
@@ -96,7 +96,7 @@ var taeEngine = (function() {
                             index = json.simplifications[item].end;
                         }
                         annotatedText = annotatedText + value.substring(index, value.length);
-                        callback(annotatedText);
+                        callback(annotatedText, json.isSyntSimplified);
                     } else {
                         for (var item = 0; item < json.simplifications.length; item++) {
                             if (json.simplifications[item].start == value.indexOf(data.word)) {
@@ -105,10 +105,10 @@ var taeEngine = (function() {
                                 return;
                             }
                         }
-                        callback(data.word);
+                        callback(data.word, json.isSyntSimplified);
                     }
                 } else {
-                    callback(data.word != null ? data.word : data.text);
+                    callback(data.word != null ? data.word : data.text, json.isSyntSimplified);
                 }
             })
             .fail(function(jqxhr, textStatus, error) {
@@ -165,7 +165,7 @@ var taeEngine = (function() {
                     }
                     annotatedText = annotatedText + value.substring(index, value.length);
                     //console.log('annotatedText ' + annotatedText);
-                    callback(annotatedText);
+                    callback(annotatedText, json.isSyntSimplified);
                 } else {
                     for (var itemName = 0; itemName < json.linkings.length; itemName++) {
                         var item = json.linkings[itemName];
@@ -175,7 +175,7 @@ var taeEngine = (function() {
                             return;
                         }
                     }
-                    callback(data.word);
+                    callback(data.word, json.isSyntSimplified);
                 }
             })
             .fail(function(jqxhr, textStatus, error) {
@@ -193,10 +193,10 @@ var taeEngine = (function() {
         var url = this.endpoint + "/simp?lang=" + this.lang + "&text=" + value;
         $.getJSON(url)
             .done(function(json) {
-                if (!!json.simplifiedText) {
-                    callback(json.simplifiedText);
+                if (json.isSyntSimplified) {
+                    callback(json.syntSimplifiedVersion, true);
                 } else {
-                    callback(value);
+                    callback(null, false);
                 }
             })
             .fail(function(jqxhr, textStatus, error) {

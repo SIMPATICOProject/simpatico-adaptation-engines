@@ -1,0 +1,1 @@
+Cufon.replace('h1, h2, h3, h4, .carousel-box ul li span, h1.title a, #left-col .title h3, #right-col .title h3', { "font-family":"Univers LT 45 Light" , hover:true });

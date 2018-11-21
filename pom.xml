@@ -5,7 +5,7 @@
 
 	<groupId>eu.simpaticoproject.adaptation</groupId>
 	<artifactId>simpatico-adaptation-engines</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.1.1</version>
 	<packaging>jar</packaging>
 
 	<name>simpatico-adaptation-engines</name>
@@ -379,9 +379,12 @@
                         <exclude>eu/simpaticoproject/adaptation/SimpaticoApplication*</exclude>
                         <exclude>eu/simpaticoproject/adaptation/text/tae/CustomMachineLinking*</exclude>
                         <exclude>eu/simpaticoproject/adaptation/text/tae/Lexenstein*</exclude>
+                        <exclude>eu/simpaticoproject/adaptation/text/tae/SimpaticoOutput*</exclude>
+                        <exclude>eu/simpaticoproject/adaptation/text/tae/SkipModel*</exclude>
                         <exclude>eu/simpaticoproject/adaptation/text/tae/LexSimpAnnotator*</exclude>
                         <exclude>eu/simpaticoproject/adaptation/text/tae/LinkingSkipModel*</exclude>
                         <exclude>eu/simpaticoproject/adaptation/text/util/*</exclude>
+                        <exclude>eu/simpaticoproject/adaptation/text/CacheKey*</exclude>
 				    </excludes>
 				</configuration>
                 <executions>
@@ -413,6 +416,7 @@
                 </configuration>
             </plugin>   
          </plugins>
+         <finalName>${project.artifactId}</finalName>
 	</build>
 
 

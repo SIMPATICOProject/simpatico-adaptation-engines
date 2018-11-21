@@ -74,46 +74,9 @@ function initFeatures() {
     diagramNotificationImage: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
     diagramNotificationClassName: "simp-ctz-ui-diagram",
     diagramNotificationText: "C'e' una visualizzazione di e-service in Citizenpedia",
-    questionSelectionFilters: ['h1', '.Rigaintestazione', '.Rigaintestazioneridotta']
-  });
-  
-  // Init the CDV component (see cdv-ui.js)
-  // - endpoint: the main URL of the used cdv instance
-  // - serviceID: the id corresponding to the e-service
-  // - serviceName: name corresponding to the e-service
-  // - serviceURL: the URL of the e-service page
-  // - dataFields: eservice field ids mapped with cdv
-  // - cdvColor: Color used to highlight the eservice fields enhanced with cdv 
-  // - dialogTitle: Title of the dialog box of CDV component
-  // - tabPFieldsTitle: tab label of personal data
-  cdvUI.getInstance().init({
-	    endpoint: 'https://cdv.comune.trento.it/CDV',
-	    serviceID: simpaticoEservice,
-		serviceName: simpaticoEserviceName,
-	    serviceURL: window.location.href,
-	    dataFields: simpaticoMapping,
-	    informedConsentLink: "https://cdv.comune.trento.it/CDV/IFE/informed_consent.html",
-	    consentGiven:true,
-	    cdvColor: '#008000',
-	    dialogTitle: 'Gestione dati personali',
-	    tabPFieldsTitle: 'I miei dati',
-	    entryMessage: 'Gestione dati personali',
-	    statusMessage: 'Adesso puoi selezionare i tuoi dati per compilare i campi evidenziati con bordo verde. Usa i valori ' +
-	    'salvati predecentemente oppure aggiungi i valori nuovi.',
-	    notextMessage: 'Nessun campo selezionato',
-	    dialogSaveTitle: 'I dati salvati!',
-	    dialogSaveMessage: 'I tuoi dati sono stati salvati con successo al tuo Data Vault.',
-	    statusMessageNoAccount: "Nessun account di gestione dati personali e' associato a te. Crearne uno?",
-	    statusMessageNoActive: "CDV non e' abilitato per questo servizio. Abilitare?",
-	    confirmSaveDataMessage: "Vuoi aggiornare i tuoi dati personali?",
-	    tabSettingsTitle: 'Impostazioni',
-	    buttonSaveData: 'Salva i tuoi dati',
-	    buttonManageData:"Gestisci i tuoi dati",
-	    buttonActivate:"Attiva",
-	    buttonCreate: "Crea",
-	    consentButton: "Consenti",
-	    tabSettingsTitle: 'Configura',
-		cdvDashUrl:'https://cdv.comune.trento.it/CDV/cdv-dashboard/index.html'
+    questionSelectionFilters: ['h1', '.Rigaintestazione', '.Rigaintestazioneridotta'],
+    exclusive: true,
+    cpdEservice: cpdEservice 
   });
 
   // Init the Text Adaptation Engine component (see tae-ui.js)
@@ -137,8 +100,9 @@ function initFeatures() {
     simplifyBoxClassName: "simp-tae-ui-sb",
     simplifyBoxTitle: "Testo semplificato",
     wordPropertiesClassName: "simp-tae-ui-word",
-    synonymLabel:'Synonyms',
-  	definitionLabel: 'Definitions',
+    synonymLabel:'Sinonimi',
+  	definitionLabel: 'Definizioni',
+  	wikipediaLabel: 'Wikipedia',
   	emptyText: 'No simplifications found for this text'
 
   });
@@ -163,43 +127,6 @@ function initFeatures() {
 		entryMessage: 'Scegli il tipo di aiuto',
 		notextMessage: 'Selezione una parola o una frase per procedere con la semplificazione'
 	});
-
-  
-  // Init the Workflow Adaptation Engine component (see wae-ui.js)
-  // - lang: language used
-  // - endpoint: the main URL of the used WAE instance
-  // - prevButtonLabel: Label for 'previous step' button
-  // - nextButtonLabel: Label for 'next step' button
-  // - topBarHeight: height of the bar to control the scroll
-  // - errorLabel: map with blockId - error message in case of block precondition fails
-  waeUI.getInstance().init({
-		lang: 'it',
-	  	endpoint: 'https://simpatico.smartcommunitylab.it/simp-engines/wae',
-		prevButtonLabel: 'Precedente',
-		nextButtonLabel: 'Successivo',
-		lastButtonLabel: 'Fine',
-		descriptionLabel: 'Guida passo a passo',
-		topBarHeight: 60,
-		errorLabel: ERROR_LABELS
-  });
-  
-  // Init the Session Feedback component (see sf-ui.js)
-  // - buttonToShowSfId: the id of the button/link that opens the dialog of the feedback form
-  // - apiEndpoint: the main URL of the logs API server (<site>/simpatico/api)
-  // NOTE: Requires jquery-ui to work properly
-  
-  if (sfEnabled()) {
-	  sfUI.getInstance().init({
-		    language: 'it',
-			buttonToShowSfId: 'SF',
-		    apiEndpoint: 'https://simpatico.smartcommunitylab.it/simpatico-logs/api',
-		    // TEMPORALY DISABLED
-		    formSelector: '#modulo',
-		    listener: function() {
-		    	$('#modulo').submit();
-		    },
-		  });	  
-  }
 
   // Init the Data Analysis component (see da-ui.js)
   // It is useful for UI elements like different tabs in the same view or an accordion.
@@ -228,19 +155,6 @@ function initFeatures() {
                   disable: function() { authManager.getInstance().disable(); }
                 },
 
-                { // WAE. Switch to the modality, where the form adaptation starts
-                    id: 'workflow',
-                    imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/forms.png",
-                    imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/forms.png",
-                    alt: "Compilazione guidata del modulo",
-                    // Ad-hoc css classes to define the enabled/disabled styles
-                    styleClassEnabled: "simp-bar-btn-active",
-                    styleClassDisabled: "simp-bar-btn-inactive",
-                    label: 'Compilazione guidata',
-                    isEnabled: function() { return waeUI.getInstance().isEnabled(); },
-                    enable: function() { var idProfile = null; waeUI.getInstance().enable(idProfile); },
-                    disable: function() { waeUI.getInstance().disable(); }
-                  },
                 { // CITIZENPEDIA
                   id: "simp-bar-sw-citizenpedia",
                   // Ad-hoc images to define the enabled/disabled images
@@ -253,75 +167,60 @@ function initFeatures() {
                   label: 'Domande e risposte',
                   isEnabled: function() { return citizenpediaUI.getInstance().isEnabled(); },
                   enable: function() { citizenpediaUI.getInstance().enable(); },
-                  disable: function() { citizenpediaUI.getInstance().disable(); }
+                  disable: function() { citizenpediaUI.getInstance().disable(); },
+				  exclusive: true
                 },
 //                {	// TAE
-//                    id: "simp-bar-sw-tae-popup",
-//                    // Ad-hoc images to define the enabled/disabled images
-//                    imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/enrich.png",
-//                    imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/enrich.png",
-//                    alt: "Semplificazione del testo selezionato",
-//                    // Ad-hoc css classes to define the enabled/disabled styles
-//                    styleClassEnabled: "simp-bar-btn-active",
-//                    styleClassDisabled: "simp-bar-btn-inactive",
-//                    label: 'Semplificazione testo',
-//                    isEnabled: function() { return false; },
-//                    enable: function() { 
-//                    	console.log(window.getSelection().toString().trim());
-//                    	taeUIPopup.getInstance().showDialog(); 
-//                    },
-//                    disable: function() { 
-//                    	taeUIPopup.getInstance().hideDialog(); 
-//                    },
-//                    exclusive: true
-//                  },
-//                    { // CPD: procedure model
-//                        id: 'process',
-//                        imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
-//                        imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
-//                        alt: "Procedura amministrativa",
-//                        // Ad-hoc css classes to define the enabled/disabled styles
-//                        styleClassEnabled: "simp-bar-btn-active",
-//                        styleClassDisabled: "simp-bar-btn-inactive",
-//                        label: 'Procedura',
-//                        isEnabled: function() { return false; },
-//                        enable: function() { citizenpediaUI.getInstance().openDiagram(); },
-//                        disable: function() {  }
-//                      },                    
-
-//                  { // SF: session feedback
-//                      id: 'sf',
-//                      imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/feedback.png",
-//                      imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/feedback.png",
-//                      alt: "La tua opinione",
-//                      // Ad-hoc css classes to define the enabled/disabled styles
-//                      styleClassEnabled: "simp-bar-btn-active",
-//                      styleClassDisabled: "simp-bar-btn-inactive",
-//                      label: 'Feedback',
-//                      isEnabled: function() { return false; },
-//                      enable: function() { sfUI.getInstance().showSF(); },
-//                      disable: function() { sfUI.getInstance().hideSF(); },
-//                      exclusive: true
-//                    }
+//	              id: "simp-bar-sw-tae-popup",
+//	              // Ad-hoc images to define the enabled/disabled images
+//	              imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/enrich.png",
+//	              imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/enrich.png",
+//	              alt: "Semplificazione del testo selezionato",
+//	              // Ad-hoc css classes to define the enabled/disabled styles
+//	              styleClassEnabled: "simp-bar-btn-active",
+//	              styleClassDisabled: "simp-bar-btn-inactive",
+//	              label: 'Semplificazione testo selezionato',
+//	              isEnabled: function() { return false; },
+//	              enable: function() { 
+//	              	console.log(window.getSelection().toString().trim());
+//	              	taeUIPopup.getInstance().showDialog(); 
+//	              },
+//	              disable: function() { 
+//	              	taeUIPopup.getInstance().hideDialog(); 
+//	              },
+//	              exclusive: true
+//	            },
+	            {
+	                  id: "simp-bar-sw-tae",
+	                  // Ad-hoc images to define the enabled/disabled images
+	                  imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/simplify.png",
+	                  imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/simplify.png",
+	                  alt: "Semplificazione testo",
+		              label: 'Semplificazione testo',
+	                  // Ad-hoc css classes to define the enabled/disabled styles
+	                  styleClassEnabled: "simp-bar-btn-active-tae",
+	                  styleClassDisabled: "simp-bar-btn-inactive-tae",
+	                  isEnabled: function() { return taeUI.getInstance().isEnabled(); },
+	                  enable: function() { taeUI.getInstance().enable(); },
+	                  disable: function() { taeUI.getInstance().disable(); },
+					  text: "Semplificazione testo",
+					  exclusive: true
+                },                
+                { // CPD: procedure model
+                    id: 'process',
+                    imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
+                    imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
+                    alt: "Procedura amministrativa",
+                    // Ad-hoc css classes to define the enabled/disabled styles
+                    styleClassEnabled: "simp-bar-btn-active",
+                    styleClassDisabled: "simp-bar-btn-inactive",
+                    label: 'Procedura',
+                    isEnabled: function() { return false; },
+                    enable: function() { citizenpediaUI.getInstance().openDiagram(); },
+                    disable: function() {  }
+                  },
              
             ];
-//  if (!isProd()) {
-	  buttons.splice(buttons.length - 1, 0, {	// CDV
-    	  id: "simp-bar-sw-cdv",
-          // Ad-hoc images to define the enabled/disabled images
-          imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png",
-          imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png",
-          alt: "Salva e precompila i campi usando i tuoi dati personali attraverso Citizen Data Vault",
-          // Ad-hoc css classes to define the enabled/disabled styles
-          styleClassEnabled: "simp-bar-btn-active",
-          styleClassDisabled: "simp-bar-btn-inactive",
-          label: 'Dati personali',
-          isEnabled: function() { return cdvUI.getInstance().isEnabled(); },
-          enable: function() { cdvUI.getInstance().enable(); },
-          disable: function() { cdvUI.getInstance().disable(); },
-//          exclusive: true
-        });
-//  }
   
 }//initFeatures()
 
@@ -440,7 +339,10 @@ function toggleAction(id) {
     } 
     if (!!clickedButton && clickedButton.exclusive) {
     	buttons.forEach(function(b){
-    		if (b.exclusive && b.id != clickedButton.id) b.disable();
+    		if (b.exclusive && b.id != clickedButton.id) {
+    			b.disable();
+    			updateButtonStyle(b);
+    		}
     	});
     }
   }
@@ -477,17 +379,13 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   
   var link = document.createElement( "link" );
-  link.href = "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/css/moduli.css";
-  link.type = "text/css";
-  link.rel = "stylesheet";
-  document.getElementsByTagName( "head" )[0].appendChild( link );
   link = document.createElement( "link" );
   link.href = "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/css/simpatico.css";
   link.type = "text/css";
   link.rel = "stylesheet";
   document.getElementsByTagName( "head" )[0].appendChild( link );
   link = document.createElement( "link" );
-  link.href = "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/css/trento.css";
+  link.href = "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/css/trento_descr.css";
   link.type = "text/css";
   link.rel = "stylesheet";
   document.getElementsByTagName( "head" )[0].appendChild( link );
@@ -556,13 +454,8 @@ function closeTutorial() {
 }
 function nextTutorial() {
 	dialog_step++;
-	// in prod skip CDV for the moment
-	if (isProd() && dialog_step == 4) {
-		nextTutorial();
-		return;
-	}
 	$('#tutorialcontent').html(tutorialContent(dialog_step));
-	if (dialog_step == 5) {
+	if (dialog_step == 3) {
 		$('#tutorialnext').hide();
 	}
 }
@@ -570,12 +463,9 @@ function nextTutorial() {
 function tutorialContent(step) {
 	switch(step) {
 	case 0: return '<p>Il servizio SIMPATICO mette a disposizione strumenti per semplificare la compilazione dei moduli online.</p><br/><p>Per accedere alle funzionalità effettua l\'accesso in alto a destra.</p>';
-	case 1: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/forms.png"></td><td width="100%">La funzionalità COMPILAZIONE GUIDATA ti accompagna passo-passo nella compilazione del modulo online.</td></tr></table>';
-	case 2: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/citizenpedia.png"></td><td width="100%">La funzionalità DOMANDE E RISPOSTE ti permette di leggere e/o inserire domande legate a specifiche sezioni del servizio.</td></tr></table>';
-	case 3: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/enrich.png"></td><td width="100%">La funzionalità SEMPLIFICAZIONE TESTO mette a disposizione strumenti per meglio comprendere le frasi nel modulo. Per attivarla devi selezionare il testo da semplificare e cliccare sull\'icona.</td></tr></table>';
-	case 4: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png"></td><td width="100%">La funzionalità DATI PERSONALI ti consente di salvare e recuperare in altri moduli le informazioni che hai inserito (es. nucleo familiare).</td></tr></table>';
-	case 5: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png"></td><td width="100%">La funzionalità PROCEDURA ti permette di avere uno sguardo di insieme dei passi previsti per l’attivazione e l’utilizzo del servizio.</td></tr></table>';
-//	case 6: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/feedback.png"></td><td width="100%">La funzione FEEDBACK ti consente di esprimere in ogni momento una valutazione rispetto alle funzionalità di SIMPATICO.</td></tr></table>';
+	case 1: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/citizenpedia.png"></td><td width="100%">La funzionalità DOMANDE E RISPOSTE ti permette di leggere e/o inserire domande legate a specifiche sezioni del servizio. Per attivarla devi cliccare la sezione che ti interessa.</td></tr></table>';
+	case 2: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/enrich.png"></td><td width="100%">La funzionalità SEMPLIFICAZIONE TESTO mette a disposizione strumenti per meglio comprendere le frasi nel modulo. Per attivarla devi cliccare il testo da semplificare.</td></tr></table>';
+	case 3: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png"></td><td width="100%">La funzionalità PROCEDURA ti permette di avere uno sguardo di insieme dei passi previsti per l’attivazione e l’utilizzo del servizio.</td></tr></table>';
 	}
 }
 	

@@ -82,7 +82,20 @@ public class WAEController {
 		}
 		return list;
 	}
+
 	
+	@RequestMapping(value = "/wae/eservice", method = RequestMethod.GET)
+	@ApiOperation(value = "Get models by eServiceId",
+	  notes = "Get models matching the specific eServiceID")
+	public @ResponseBody List<WorkFlowModelStore> getModelStoreByEServiceId(@RequestParam String eServiceId,
+			HttpServletRequest request) throws Exception {
+		List<WorkFlowModelStore> list = storage.getModelsByESeerviceId(eServiceId);
+		if(logger.isInfoEnabled()) {
+			logger.info(String.format("getModelStore for eServiceId: %s - %s", eServiceId, list.size()));
+		}
+		return list;
+	}
+
 	@RequestMapping(value = "/wae/model", method = RequestMethod.POST)
 	@ApiOperation(value = "Create model",
 	  notes = "Create a new model")

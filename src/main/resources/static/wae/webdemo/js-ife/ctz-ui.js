@@ -24,6 +24,8 @@ var citizenpediaUI = (function () {
     var diagramNotificationClassName = '';
     var diagramNotificationText = '';
     var diagramURL = '';
+    var cpdEservice = '';
+    var exclusive = false;
 
     // Internal usage variables
     var paragraphs = []; // Used to store all the tagged paragraphs
@@ -42,16 +44,21 @@ var citizenpediaUI = (function () {
       diagramNotificationImage = parameters.diagramNotificationImage;
       diagramNotificationClassName = parameters.diagramNotificationClassName;
       diagramNotificationText = parameters.diagramNotificationText;
+      cpdEservice = parameters.cpdEservice || simpaticoEservice;
       qaeCORE.getInstance().init({
           endpoint: parameters.endpoint,
           cpdDiagramEndpoint: parameters.cpdDiagramEndpoint
         });
       questionSelectionFilters = parameters.questionSelectionFilters || [''];
-      qaeCORE.getInstance().getDiagramDetails(simpaticoEservice, function(response){
+      qaeCORE.getInstance().getDiagramDetails(cpdEservice, function(response){
     	  if (response && response.length > 0 && response[0]) {
     		  diagramURL = response[0].url;
     	  }
+    	  else if (response && response.url) {
+    		  diagramURL = response.url;
+    	  }
       });
+      exclusive = !!parameters.exclusive;
     }
     
     function enableComponentFeatures() {
@@ -85,11 +92,11 @@ var citizenpediaUI = (function () {
         // Add the onclick event to enhance the paragraph
         paragraphs[i].setAttribute("onclick", 
           "citizenpediaUI.getInstance()." + 
-          "paragraphEvent('" + paragraphName + "');");
+          "paragraphEvent(event, '" + paragraphName + "');");
         paragrapId++;
       }
 	  logCORE.getInstance().startActivity('ctz', 'simplification');
-      qaeCORE.getInstance().getDiagramDetails(simpaticoEservice, drawDiagramNotification);
+      qaeCORE.getInstance().getDiagramDetails(cpdEservice, drawDiagramNotification);
 
     }
   
@@ -131,11 +138,13 @@ var citizenpediaUI = (function () {
     // get the questions related to the paragraph passed as parameter
     // - paragraphName: the id of the paragraph which has produced the event
     // IMPORTANT: Here is used the global variable simpaticoEservice
-    function paragraphEvent(paragraphName) {
+    function paragraphEvent(event, paragraphName) {
       if (!featureEnabled) return;
+      event.stopPropagation();
       // trick for WAE
       if ($('#'+paragraphName).hasClass('wae-disabled')) return;
       if (document.getElementById(paragraphName + "_questions") === null) {
+        if (exclusive) hideQuestionsBox();
         logger().logContentRequest(simpaticoEservice, paragraphName);
         qaeCORE.getInstance().getQuestions(simpaticoEservice, paragraphName, drawQuestionsBox);
       } else {
@@ -221,6 +230,16 @@ var citizenpediaUI = (function () {
     function hideQuestionsBox(paragraphName) {
       // trick for WAE
       $('#div_simpatico_block_description').show();
+      
+      if (!paragraphName) {
+    	  var elements = document.getElementsByClassName(questionsBoxClassName);
+    	  if (!elements) return;
+    	  for (var i = 0; i < elements.length; i++) {
+    		  elements[i].parentNode.removeChild(elements[i]);
+    	  }
+    	  return;
+      }
+      
       var qBoxToRemove = document.getElementById(paragraphName + "_questions");
       qBoxToRemove.parentNode.removeChild(qBoxToRemove);
     }

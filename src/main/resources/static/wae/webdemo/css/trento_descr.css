@@ -67,11 +67,13 @@ form {
     text-decoration: none;
 }
 
+.simpatico-query-and-answer:not(.collapsed) {
+    border-left: 1px solid #d2d2d2 !important;
+}
+
 .simp-paragraph-active {
     position: relative;
-    border-left: 0;
     border-radius: 0;
-    padding: 0;
     margin: 0;
 }
 .simp-paragraph-active::before {
@@ -79,22 +81,21 @@ form {
 	position: absolute;
 	width: 1cm;
 	height: 100%;
-	left: 19.05cm;
-	background-image:
-		url(https://dev.smartcommunitylab.it/simp-engines/wae/webdemo/img/citizenpedia.png);
-	background-repeat: no-repeat;
-	background-size: contain;
-	border-left: 3px solid #24BCDA;
+	left: 0;
+	top: 9px;
+    border-left: 5px solid #24BCDA;
 }
 
 .simp-ctz-ui-qb {
-	position: absolute;
-	left: 20.5cm;
-	top: 0;
-	min-width: 8cm;
+	position: fixed;
+	right: .5cm;
+	top: 20vh;
+	min-width: 10cm;
+	min-height: 60vh;
 	margin-left: 0 !important;
     border-radius: 0 !important;
     border-left: 0 !important;
+    z-index: 1000;
 }
 
 .simp-ctz-ui-qb p {
@@ -258,24 +259,39 @@ form {
 	margin-top: 52px;
 }
 
-
 /********************************/
 /** CUSTOM TAE STYLING IN CASE OF INLINE **/
 /********************************/
 
 .simpatico-text-paragraph-active {
-    border-left: 5px solid #DE453E;
-    padding: 8px;
-    margin-top: 2px;
+    position: relative;
+    padding-left: 10px;
 }
+.simpatico-text-paragraph-active::before {
+    border-left: 5px solid #DE453E;
+    content: "";
+    position: absolute;
+    height: calc(100% - 2px);
+}
+.simpatico-text-paragraph-active:not(li)::before {
+    left: 0px;
+}
+li.simpatico-text-paragraph-active::before {
+    left: 8px;
+}
+
+
 .simp-tae-ui-sb {
-    border-radius: 0!important;
+	border-radius: 0!important;
 } 
 
 .simp-tae-ui-sb p {
-    border-radius: 0!important;
+	border-radius: 0!important;
 }
 
 .simp-tae-ui-sb li {
-    background: none !important;
+	background: none !important;
+}
+.simp-word {
+	cursor: pointer;
 }
