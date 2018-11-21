@@ -38,16 +38,33 @@ public class TAEController {
     @Autowired
     private Handler handler;
 
-    @RequestMapping(value = "/tae/simp", method = RequestMethod.GET, produces = "application/json")
+//    @RequestMapping(value = "/tae/simp", method = RequestMethod.GET, produces = "application/json")
+//    @ApiOperation(value = "Process text",
+//            response = SimpaticoOutput.class,
+//            notes = "Obtain annotations and simplifications. Two modalities supported: word simplification and sentence/paragraph simplification.")
+//    public @ResponseBody String simp(
+//            @ApiParam(value = "word to be simplified, if any", required = false) @RequestParam(required = false) String word,
+//            @ApiParam(value = "word position in the context, in case of word simplification", required = false) @RequestParam(required = false) Integer position,
+//            @ApiParam(value = "language, as 2-letter ISO code. If not specified, derived by the tool", required = false) @RequestParam(required = false) String lang,
+//            @ApiParam(value = "sentext or text to be simplified in case of syntactic simplification. Word context in case of word simplification", required = false) @RequestParam(required = false) String text)
+//            throws Exception {
+//        if (text == null) {
+//            text = word;
+//        }
+//        String json = handler.service(word, position, lang, text);
+//        return json;
+//    }
+
+    @RequestMapping(value = {"/tae/simpform", "/tae/simp"}, method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "Process text",
             response = SimpaticoOutput.class,
-            notes = "Obtain annotations and simplifications. Two modalities supported: word simplification and sentence/paragraph simplification.")
-    public @ResponseBody String simp(
+            notes = "Obtain text annotations and simplifications, used for the web demo")
+    public @ResponseBody String simpformGet(
             @ApiParam(value = "word to be simplified, if any", required = false) @RequestParam(required = false) String word,
-            @ApiParam(value = "word position in the context, in case of word simplification", required = false) @RequestParam(required = false, defaultValue = "0") Integer position,
+            @ApiParam(value = "word position in the context, in case of word simplification", required = false) @RequestParam(required = false) Integer position,
             @ApiParam(value = "language, as 2-letter ISO code. If not specified, derived by the tool", required = false) @RequestParam(required = false) String lang,
-            @ApiParam(value = "sentext or text to be simplified in case of syntactic simplification. Word context in case of word simplification", required = false) @RequestParam(required = false) String text)
-            throws Exception {
+            @ApiParam(value = "text to be simplified in case of syntactic simplification. Word context in case of word simplification", required = false)
+            @RequestParam(required = false) String text) throws Exception {
         if (text == null) {
             text = word;
         }
