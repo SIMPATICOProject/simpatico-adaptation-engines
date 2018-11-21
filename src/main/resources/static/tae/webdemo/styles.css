@@ -30,7 +30,12 @@
     border-radius: 3px;
 }
 
-.too-long {
+#text-original-ssimplifications .sentence {
+    margin-bottom: 3px;
+    border-bottom: 1px solid #ccc;
+}
+
+.too-long, .synt-simp-sent {
     background-color: #FFFFb4;
 }
 
@@ -55,6 +60,10 @@
 
 /* Spinner */
 
+.synt-spinner {
+    display: none;
+}
+
 .spinner {
     display: inline-block;
     opacity: 0;
@@ -67,7 +76,7 @@
 }
 
 .has-spinner.active {
-    cursor:progress;
+    cursor: progress;
 }
 
 .has-spinner.active .spinner {

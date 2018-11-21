@@ -1,8 +1,9 @@
 supportedLanguages = it, en, es
 
-en.annotators = tokenize, ssplit, pos, lemma, readability, syntsimp
+en.annotators = tokenize, ssplit, pos, lemma, readability, lexsimp, syntsimp, ml
 en.readability.language = en
 en.syntsimp.language = en
+en.lexsimp.language = en
 en.customAnnotatorClass.readability = eu.fbk.dh.tint.readability.ReadabilityAnnotator
 
 es.annotators = spanish, readability
@@ -16,27 +17,28 @@ es.lsimp.min_difficult = 4
 es.customAnnotatorClass.lexsimp = eu.simpaticoproject.adaptation.text.tae.LexSimpAnnotator
 
 # add languagetool
-it.annotators = ita_toksent, pos, ita_morpho, ita_lemma, readability, simplesim, ml, depparse, syntfake
+it.annotators = ita_toksent, udpipe, simplesim, ml, syntfake, ita_verb, readability
 it.readability.language = it
 it.readability.glossario.parse = yes
 it.readability.glossario.use = yes
 it.readability.glossario.stanford.annotators = ita_toksent, pos, ita_morpho, ita_lemma
 it.simplesyn.only_one = false
-it.ml.annotator = ml-annotate
-it.ml.address = http://ml.apnetwork.it/annotate
-it.ml.min_confidence = 0.25
 it.pos.model=models/italian-big.tagger
 it.ner.model=models/ner-ita-nogpe-noiob_gaz_wikipedia_sloppy.ser.gz
 it.depparse.model=models/parser-model-1.txt.gz
 it.syntfake.list=
+it.udpipe.server=gardner
+it.udpipe.port=50020
+it.udpipe.keepOriginal=1
 
 ml_address = http://ml.apnetwork.it/annotate
 ml_min_confidence = 0.25
+syntsimp_annotators = syntsimp
 
 all.customAnnotatorClass.ita_toksent=eu.fbk.dh.tint.tokenizer.annotators.ItalianTokenizerAnnotator
 all.customAnnotatorClass.ita_lemma=eu.fbk.dh.tint.digimorph.annotator.DigiLemmaAnnotator
 all.customAnnotatorClass.ita_morpho=eu.fbk.dh.tint.digimorph.annotator.DigiMorphAnnotator
-all.customAnnotatorClass.ita_tense=eu.fbk.dh.tint.tense.TenseAnnotator
+all.customAnnotatorClass.ita_verb=eu.fbk.dh.tint.verb.VerbAnnotator
 all.customAnnotatorClass.ml=eu.fbk.dkm.pikes.twm.LinkingAnnotator
 all.customAnnotatorClass.readability=eu.fbk.dh.tint.readability.ReadabilityAnnotator
 all.customAnnotatorClass.simplesim = eu.simpaticoproject.adaptation.text.tae.SimpleSimAnnotator
@@ -44,6 +46,12 @@ all.customAnnotatorClass.spanish = eu.simpaticoproject.adaptation.text.spanish.B
 all.customAnnotatorClass.lexsimp = eu.simpaticoproject.adaptation.text.tae.LexSimpAnnotator
 all.customAnnotatorClass.syntsimp = eu.simpaticoproject.adaptation.text.tae.SyntSimpAnnotator
 all.customAnnotatorClass.syntfake = eu.simpaticoproject.adaptation.text.tae.SyntFakeAnnotator
+all.customAnnotatorClass.udpipe = eu.fbk.fcw.udpipe.api.UDPipeAnnotator
 
 all.syntsimp.host = dh-server.fbk.eu
 all.syntsimp.port = 9002
+all.lexsimp.host = dh-server.fbk.eu
+all.lexsimp.port = 9001
+all.ml.annotator = ml-annotate
+all.ml.address = http://ml.apnetwork.it/annotate
+all.ml.min_confidence = 0.25

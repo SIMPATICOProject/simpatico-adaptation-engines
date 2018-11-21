@@ -61,29 +61,31 @@ public class Handler {
     private ApplicationContext applicationContext;
 
     static Logger LOGGER = Logger.getLogger(Handler.class.getName());
-    //    protected Properties itProps, enProps, esProps, generalProps;
-    protected Properties generalProps;
+    protected Properties generalProps, syntsimpProps;
     protected Map<String, Properties> props = new HashMap<>();
 
     protected static Set<String> supportedLanguages = new HashSet<>();
-    //            = Stream.of("it", "en", "es")
-//            .collect(Collectors.toCollection(HashSet::new));
     protected MachineLinking machineLinking;
 
     protected RestTemplate rest = new RestTemplate();
 
     private String DEFAULT_CONFIG = "classpath:/simpatico-default.props";
+    private String DEFAULT_SYNTSIMP = "syntsimp";
+    private String DEFAULT_LEXSIMP = "lexsimp";
+
+    private String syntSimp;
+    private String lexSimp;
 
     private LoadingCache<CacheKey, String> simplificationCache = CacheBuilder.newBuilder()
-    		.maximumSize(1000)
-    		.expireAfterWrite(1, TimeUnit.DAYS)
-    		.build(new CacheLoader<CacheKey, String>(){
-				@Override
-				public String load(CacheKey key) throws Exception {
-					return doService(key.word, key.position, key.lang, key.text);
-				}
-    		});
-    
+            .maximumSize(1000)
+            .expireAfterWrite(1, TimeUnit.DAYS)
+            .build(new CacheLoader<CacheKey, String>() {
+                @Override
+                public String load(CacheKey key) throws Exception {
+                    return doService(key.word, key.position, key.lang, key.text);
+                }
+            });
+
     @PostConstruct
     public void init() throws IOException {
         if (modeProxy) {
@@ -111,7 +113,6 @@ public class Handler {
             for (String string : strings) {
                 supportedLanguages.add(string.trim());
             }
-
         }
 
         Properties allProps = PropertiesUtils.dotConvertedProperties(generalProps, "all");
@@ -120,6 +121,13 @@ public class Handler {
             props.get(lang).putAll(allProps);
         }
 
+        syntSimp = generalProps.getProperty("syntsimp", DEFAULT_SYNTSIMP);
+        lexSimp = generalProps.getProperty("lexsimp", DEFAULT_LEXSIMP);
+
+        syntsimpProps = new Properties();
+        syntsimpProps.setProperty("annotators", generalProps.getProperty("syntsimp_annotators"));
+        syntsimpProps.putAll(allProps);
+
         Properties mlProperties = new Properties();
         mlProperties.setProperty("address", generalProps.getProperty("ml_address"));
         mlProperties.setProperty("min_confidence", generalProps.getProperty("ml_min_confidence"));
@@ -127,26 +135,25 @@ public class Handler {
     }
 
     public String service(String word, Integer position, String lang, String text) throws Exception {
-    	
-    	return simplificationCache.get(new CacheKey(word, text, lang, position));
+
+        return simplificationCache.get(new CacheKey(word, text, lang, position));
     }
+
     private String doService(String word, Integer position, String lang, String text) throws Exception {
-    	
+
         if (modeProxy) {
             String res = rest.getForObject(proxyEndpoint + "?lang={lang}&text={text}&position={position}", String.class, lang, text, position);
             res = res.replace(" NaN", " null");
             return res;
         } else {
-        	 String res = serviceLocal(lang, text, word, position);
-             res = res.replace(" NaN", " null");
-        	 return res;
+            String res = serviceLocal(lang, text, word, position);
+            res = res.replace(" NaN", " null");
+            return res;
         }
     }
 
     private String serviceLocal(String lang, String text, @Nullable String word, @Nullable Integer position) throws Exception {
         LOGGER.debug("Starting service");
-
-        Annotation annotation = null;
 
         if (lang == null || !supportedLanguages.contains(lang)) {
             lang = machineLinking.lang(text);
@@ -157,18 +164,39 @@ public class Handler {
         }
 
         Properties additionalProps = new Properties();
+
         if (position != null) {
-            additionalProps.put("lsimp.offset", position.toString());
+            additionalProps.put(lexSimp + ".offset", position.toString());
         } else {
-            additionalProps.put("lsimp.offset", "-1");
+            additionalProps.put(lexSimp + ".offset", "-1");
         }
 
         for (String tmpLang : supportedLanguages) {
             props.get(tmpLang).putAll(additionalProps);
         }
 
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props.get(lang));
-        annotation = new Annotation(text);
+        return runPipeline(props.get(lang), text);
+    }
+
+    public String syntsimp(String text, String lang, String comp, String conf) throws Exception {
+        LOGGER.debug("Starting service");
+
+        if (lang == null || !supportedLanguages.contains(lang)) {
+            throw new OperationNotSupportedException("Language " + lang + " is not supported");
+        }
+
+        comp = comp == null ? "false" : comp;
+        conf = conf == null ? "false" : conf;
+
+        syntsimpProps.setProperty(syntSimp + ".comp", comp);
+        syntsimpProps.setProperty(syntSimp + ".conf", conf);
+
+        return runPipeline(syntsimpProps, text);
+    }
+
+    private String runPipeline(Properties props, String text) throws OperationNotSupportedException, IOException {
+        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+        Annotation annotation = new Annotation(text);
         pipeline.annotate(annotation);
 
         String json = "";
@@ -176,5 +204,62 @@ public class Handler {
         options.includeText = true;
         json = JSONOutputter.jsonPrint(annotation, options);
         return json;
+    }
+
+    private static class CacheKey {
+        private String word, text, lang;
+        private Integer position;
+
+        public CacheKey(String word, String text, String lang, Integer position) {
+            super();
+            this.word = word;
+            this.text = text;
+            this.lang = lang;
+            this.position = position;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((lang == null) ? 0 : lang.hashCode());
+            result = prime * result + ((position == null) ? 0 : position.hashCode());
+            result = prime * result + ((text == null) ? 0 : text.hashCode());
+            result = prime * result + ((word == null) ? 0 : word.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            CacheKey other = (CacheKey) obj;
+            if (lang == null) {
+                if (other.lang != null)
+                    return false;
+            } else if (!lang.equals(other.lang))
+                return false;
+            if (position == null) {
+                if (other.position != null)
+                    return false;
+            } else if (!position.equals(other.position))
+                return false;
+            if (text == null) {
+                if (other.text != null)
+                    return false;
+            } else if (!text.equals(other.text))
+                return false;
+            if (word == null) {
+                if (other.word != null)
+                    return false;
+            } else if (!word.equals(other.word))
+                return false;
+            return true;
+        }
+
     }
 }

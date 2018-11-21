@@ -35,4 +35,12 @@ public class SimpaticoAnnotations {
         }
     }
 
+    @JSONLabel("isSyntSimplified")
+    public static class IsSyntSimplifiedAnnotation implements CoreAnnotation<Boolean> {
+
+        public Class<Boolean> getType() {
+            return Boolean.class;
+        }
+    }
+
 }
