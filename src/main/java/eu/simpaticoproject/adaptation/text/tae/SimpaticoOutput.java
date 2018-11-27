@@ -29,6 +29,7 @@ public class SimpaticoOutput {
 
     String simplifiedText;
     String text, syntSimplifiedVersion;
+    boolean isSyntSimplified;
     String udpipe_original;
     Map<String,Object> ffs;
     
@@ -493,6 +494,14 @@ public class SimpaticoOutput {
 
 	public void setFfs(Map<String, Object> ffs) {
 		this.ffs = ffs;
+	}
+
+	public boolean getIsSyntSimplified() {
+		return isSyntSimplified;
+	}
+
+	public void setIsSyntSimplified(boolean isSyntSimplified) {
+		this.isSyntSimplified = isSyntSimplified;
 	}
 
 	
