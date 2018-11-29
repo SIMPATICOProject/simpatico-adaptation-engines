@@ -361,16 +361,37 @@ var taeUIInline = (function () {
           if(color== true){
 
             if(instance.loadFirstTime){
-              if(index==0){
-                if(value['start']==0){
-                  replaceStrArray.push( "<span class='wordColor' id='"+id+"-"+index+"'>"+value['originalWord']+"</span>");
-                }else{
-                  replaceStrArray.push( myString.substring(0,value['start'])+"<span class='wordColor' id='"+id+"-"+index+"'>"+value['originalWord']+"</span>");
-                } 
-              }else{
-                replaceStrArray.push( myString.substring(lastEnd,value['start'])+"<span class='wordColor' id='"+id+"-"+index+"'>"+value['originalWord']+"</span>");
-              }
-              lastEnd=value['end'];
+              // if(index==0){
+              //   if(value['start']==0){
+              //     replaceStrArray.push( "<span class='wordColor' id='"+id+"-"+index+"'>"+value['originalWord']+"</span>");
+              //   }else{
+              //     replaceStrArray.push( myString.substring(0,value['start'])+"<span class='wordColor' id='"+id+"-"+index+"'>"+value['originalWord']+"</span>");
+              //   } 
+              // }else{
+              //   replaceStrArray.push( myString.substring(lastEnd,value['start'])+"<span class='wordColor' id='"+id+"-"+index+"'>"+value['originalWord']+"</span>");
+              // }
+              // lastEnd=value['end'];
+              findAndReplaceDOMText(str, {
+                // preset: 'prose',
+                find: value['originalWord'],   //have one problem in last word if add space
+                replace: function(portion, match) {
+                  if(match.index == 0){
+                    var el = document.createElement('span');
+                    el.className="wordColor";
+                    el.id=id+"-"+index;
+                    el.innerHTML = portion.text;
+                    // el.innerHTML = portion.text.substr(0, portion.text.length-1);
+                    // el.id=id+"-"+match.index;
+                    // el.innerHTML = match[0];
+                    // console.log("portion::",portion,", match::",match, " id::",el.id);
+                    return el;
+                  }else{
+                    return value['originalWord'];
+                  }
+                  
+                },
+
+              });
             }else if(instance.loadFirstTime == false){
               $( "#"+id+"-"+index ).addClass( "wordColor" );
             }
@@ -379,11 +400,11 @@ var taeUIInline = (function () {
             $( "#"+id+"-"+index ).removeClass( "wordColor" );
           }
         });
-        if(instance.loadFirstTime){
-          replaceStrArray.push( myString.substring(lastEnd,myString.length));
-          str.innerHTML=replaceStrArray.join("");
-          //console.log("replaceStrArray:",replaceStrArray.join(""));
-        }    
+        // if(instance.loadFirstTime){
+        //   replaceStrArray.push( myString.substring(lastEnd,myString.length));
+        //   str.innerHTML=replaceStrArray.join("");
+        //   //console.log("replaceStrArray:",replaceStrArray.join(""));
+        // }    
       }
 
       function setPopupForWord(instance, id,color,arrWord){
