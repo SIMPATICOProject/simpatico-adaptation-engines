@@ -16,7 +16,7 @@ function logEnabled() {
 	return isProd() || isTestProd();
 }
 function sfEnabled() {
-	return true;
+	return !isProd();
 }
 
 // It inits all the enabled features of IFE 
@@ -26,12 +26,6 @@ function initFeatures() {
 	}
 	if (!window.simpaticoEserviceURL) {
 		simpaticoEserviceURL = window.location.origin + window.location.pathname;
-	}
-	if (!window.serviceName) {
-		serviceName = simpaticoEserviceName;
-	}
-	if (!window.serviceURL) {
-		serviceURL = simpaticoEserviceURL;
 	}
 	
   // Init the Auth component (see simpatico-auth.js)
@@ -95,8 +89,8 @@ function initFeatures() {
   cdvUI.getInstance().init({
 	    endpoint: 'https://cdv.comune.trento.it/CDV',
 	    serviceID: simpaticoEservice,
-		serviceName: serviceName || simpaticoEserviceName,
-	    serviceURL: serviceURL || window.location.href,
+		serviceName: simpaticoEserviceName,
+	    serviceURL: window.location.href,
 	    dataFields: simpaticoMapping,
 	    informedConsentLink: "https://cdv.comune.trento.it/CDV/IFE/informed_consent.html",
 	    consentGiven:true,
@@ -281,19 +275,19 @@ function initFeatures() {
 //                    },
 //                    exclusive: true
 //                  },
-                    { // CPD: procedure model
-                        id: 'process',
-                        imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
-                        imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
-                        alt: "Procedura amministrativa",
-                        // Ad-hoc css classes to define the enabled/disabled styles
-                        styleClassEnabled: "simp-bar-btn-active",
-                        styleClassDisabled: "simp-bar-btn-inactive",
-                        label: 'Procedura',
-                        isEnabled: function() { return false; },
-                        enable: function() { citizenpediaUI.getInstance().openDiagram(); },
-                        disable: function() {  }
-                      },                    
+//                    { // CPD: procedure model
+//                        id: 'process',
+//                        imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
+//                        imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
+//                        alt: "Procedura amministrativa",
+//                        // Ad-hoc css classes to define the enabled/disabled styles
+//                        styleClassEnabled: "simp-bar-btn-active",
+//                        styleClassDisabled: "simp-bar-btn-inactive",
+//                        label: 'Procedura',
+//                        isEnabled: function() { return false; },
+//                        enable: function() { citizenpediaUI.getInstance().openDiagram(); },
+//                        disable: function() {  }
+//                      },                    
 
 //                  { // SF: session feedback
 //                      id: 'sf',
@@ -312,7 +306,7 @@ function initFeatures() {
              
             ];
 //  if (!isProd()) {
-	  buttons.splice(buttons.length - 2, 0, {	// CDV
+	  buttons.splice(buttons.length - 1, 0, {	// CDV
     	  id: "simp-bar-sw-cdv",
           // Ad-hoc images to define the enabled/disabled images
           imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png",

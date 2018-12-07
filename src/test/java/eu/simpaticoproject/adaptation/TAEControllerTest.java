@@ -17,12 +17,14 @@ package eu.simpaticoproject.adaptation;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Collections;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import eu.simpaticoproject.adaptation.text.model.PageTextModel;
+import eu.simpaticoproject.adaptation.text.model.PageTextModel.TextBlock;
+import eu.simpaticoproject.adaptation.text.model.PageTextModel.WordBlock;
+import eu.simpaticoproject.adaptation.text.repositories.TextModelRepository;
 import eu.simpaticoproject.adaptation.text.tae.SimpaticoInput;
 import eu.simpaticoproject.adaptation.text.tae.SimpaticoOutput;
 
@@ -53,6 +59,14 @@ public class TAEControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
+	@Autowired
+	private TextModelRepository repo;
+	
+	@Before
+	public void setUp() {
+		repo.deleteAll();
+	}
+
 	@Test
 	public void testIT() throws Exception{
 		String word = "prova", lang = "it";
@@ -113,5 +127,66 @@ public class TAEControllerTest {
 		Assert.assertNotNull(output);
 	}
 	
-	
+	@Test
+	public void testTAEModel() throws Exception {
+		PageTextModel model = new PageTextModel();
+		model.setPageId("p1");
+		TextBlock block = new TextBlock();
+		block.setElementID("id1");
+		block.setOriginalText("Lorem ipsum");
+		block.setSyntSimplifiedVersion(block.getOriginalText());
+		WordBlock word = new WordBlock();
+		word.setDefinition("definition");
+		word.setEnd(10);
+		word.setStart(1);
+		word.setOriginalWord("word");
+		word.setSynonyms("Parola");
+		word.setWikilink("link");
+		block.setWords(Collections.singletonList(word));
+		model.setBlocks(Collections.singletonList(block));
+		
+		// create
+		RequestBuilder request = MockMvcRequestBuilders.post("/tae/model")
+				.content(new ObjectMapper().writeValueAsString(model))
+				.header("Accept", MediaType.APPLICATION_JSON_VALUE)
+				.header("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+		ResultActions result = mockMvc.perform(request);
+		result.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		
+		String string = result.andReturn().getResponse().getContentAsString();
+		PageTextModel savedModel = new ObjectMapper().readValue(string, PageTextModel.class);
+		Assert.assertNotNull(savedModel);
+		Assert.assertEquals(model.getPageId(), savedModel.getPageId());
+
+		// create duplicate
+		request = MockMvcRequestBuilders.post("/tae/model")
+				.content(new ObjectMapper().writeValueAsString(model))
+				.header("Accept", MediaType.APPLICATION_JSON_VALUE)
+				.header("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+		result = mockMvc.perform(request);
+		result.andExpect(MockMvcResultMatchers.status().is5xxServerError());
+
+		// update
+		model.setPageId("p2");
+		request = MockMvcRequestBuilders.put("/tae/model")
+				.content(new ObjectMapper().writeValueAsString(model))
+				.header("Accept", MediaType.APPLICATION_JSON_VALUE)
+				.header("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+		result = mockMvc.perform(request);
+		result.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		string = result.andReturn().getResponse().getContentAsString();
+		savedModel = new ObjectMapper().readValue(string, PageTextModel.class);
+		Assert.assertNotNull(savedModel);
+		Assert.assertEquals(model.getPageId(), savedModel.getPageId());
+
+		request = MockMvcRequestBuilders.get("/tae/model?pageId={pageId}", model.getPageId())
+				.header("Accept", MediaType.APPLICATION_JSON_VALUE);
+		result = mockMvc.perform(request);
+		result.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+		string = result.andReturn().getResponse().getContentAsString();
+		savedModel = new ObjectMapper().readValue(string, PageTextModel.class);
+		Assert.assertNotNull(savedModel);
+		Assert.assertEquals(model.getPageId(), savedModel.getPageId());
+		
+	}
 }

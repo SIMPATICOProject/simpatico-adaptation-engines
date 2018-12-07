@@ -17,7 +17,7 @@ es.lsimp.min_difficult = 4
 es.customAnnotatorClass.lexsimp = eu.simpaticoproject.adaptation.text.tae.LexSimpAnnotator
 
 # add languagetool
-it.annotators = ita_toksent, udpipe, simplesim, ml, syntfake, ita_verb, readability
+it.annotators = ita_toksent, pos, ita_morpho, ita_lemma, ita_verb, parse, simplesim, ml, syntfake, ita_verb, readability
 it.readability.language = it
 it.readability.glossario.parse = yes
 it.readability.glossario.use = yes
@@ -35,9 +35,9 @@ ml_address = http://ml.apnetwork.it/annotate
 ml_min_confidence = 0.25
 syntsimp_annotators = syntsimp
 
-all.customAnnotatorClass.ita_toksent=eu.fbk.dh.tint.tokenizer.annotators.ItalianTokenizerAnnotator
-all.customAnnotatorClass.ita_lemma=eu.fbk.dh.tint.digimorph.annotator.DigiLemmaAnnotator
-all.customAnnotatorClass.ita_morpho=eu.fbk.dh.tint.digimorph.annotator.DigiMorphAnnotator
+all.customAnnotatorClass.ita_toksent = eu.fbk.dh.tint.tokenizer.annotators.ItalianTokenizerAnnotator
+all.customAnnotatorClass.ita_lemma = eu.fbk.dh.tint.digimorph.annotator.DigiLemmaAnnotator
+all.customAnnotatorClass.ita_morpho = eu.fbk.dh.tint.digimorph.annotator.DigiMorphAnnotator
 all.customAnnotatorClass.ita_verb=eu.fbk.dh.tint.verb.VerbAnnotator
 all.customAnnotatorClass.ml=eu.fbk.dkm.pikes.twm.LinkingAnnotator
 all.customAnnotatorClass.readability=eu.fbk.dh.tint.readability.ReadabilityAnnotator

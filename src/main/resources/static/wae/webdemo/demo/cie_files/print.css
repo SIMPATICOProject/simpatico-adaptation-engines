@@ -1,0 +1,24 @@
+#header,
+#valuation-container,
+#footer,
+#credits,
+#editor_tools,
+#content .content-related,
+#content .nav-section
+{
+    display: none;
+}
+
+#content .content-main{
+    width: 100%;
+}
+
+body{    
+    background:#fff !important;
+}
+
+*{    
+    text-shadow: none !important;
+}
+
+/* #content a:link:after, #content a:visited:after {content:" (" attr(href) ")";font-size:70%;} */

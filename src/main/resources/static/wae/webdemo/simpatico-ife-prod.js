@@ -474,7 +474,7 @@ function updateButtonStyle(button) {
 
 // Once the document is loaded the Simpatico features are initialised and the 
 // toolbar added
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('simpaticoEvent', function () {
   initFeatures();
   addSimpaticoBar("simpatico_top");
   authManager.getInstance().updateUserData();
