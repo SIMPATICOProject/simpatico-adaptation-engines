@@ -96,6 +96,17 @@ public class TAEControllerTest {
 		ResultActions result = mockMvc.perform(request);
 		result.andExpect(MockMvcResultMatchers.status().is5xxServerError());
 	}
+	@Test
+	public void testSyntSimp() throws Exception {
+		// get
+		RequestBuilder request = MockMvcRequestBuilders.post("/tae/syntsimp")
+				.param("text", "I giovani: sempre di meno, più emarginati sul lavoro ed emigrati anche per studiare")
+				.param("lang", "it")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+				.header("Accept", MediaType.APPLICATION_JSON_VALUE);
+		ResultActions result = mockMvc.perform(request);
+		result.andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+	}
 
 	private void testWordSimplification(String word, String lang) throws Exception, UnsupportedEncodingException,
 			IOException, JsonParseException, JsonMappingException, JsonGenerationException {

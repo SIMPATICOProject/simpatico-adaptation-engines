@@ -381,6 +381,7 @@
                         <exclude>eu/simpaticoproject/adaptation/text/tae/Lexenstein*</exclude>
                         <exclude>eu/simpaticoproject/adaptation/text/tae/SimpaticoOutput*</exclude>
                         <exclude>eu/simpaticoproject/adaptation/text/tae/SkipModel*</exclude>
+                        <exclude>eu/simpaticoproject/adaptation/text/tae/SyntSimpAnnotator*</exclude>
                         <exclude>eu/simpaticoproject/adaptation/text/tae/LexSimpAnnotator*</exclude>
                         <exclude>eu/simpaticoproject/adaptation/text/tae/LinkingSkipModel*</exclude>
                         <exclude>eu/simpaticoproject/adaptation/text/util/*</exclude>
