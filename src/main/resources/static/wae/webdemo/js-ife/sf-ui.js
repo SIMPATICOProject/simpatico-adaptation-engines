@@ -42,6 +42,9 @@ var sfUI = (function () {
     			  return true;
     		  }
     		  e.preventDefault();
+			  formElement.onsubmit = function(){
+				  return true;
+			  }    				  
     		  showSF();
     		  return false;
     	  };
