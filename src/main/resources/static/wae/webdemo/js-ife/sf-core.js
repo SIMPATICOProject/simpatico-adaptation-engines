@@ -118,11 +118,11 @@ var sfCORE = (function () {
             '</p></div>'+
             '<div id="face-radio-buttons-session-feedback" class="cc-selector">'+
               '<input id="face-happy-session-feedback" class="input_hidden" name="faces_session_feedback" type="radio" value="happy" data-component="global"/>'+
-              '<label for="face-happy-session-feedback" data-face="happy" class="left" style="margin-left: 10%;border-radius: 20%;"><img src="img/happy_face.png" alt="Happy"/></label>'+
+              '<label for="face-happy-session-feedback" data-face="happy" class="left" style="margin-left: 10%;border-radius: 20%;"><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/happy_face.png" alt="Happy"/></label>'+
               '<input id="face-normal-session-feedback" class="input_hidden" name="faces_session_feedback" type="radio" value="normal" data-component="global"/>'+
-              '<label for="face-normal-session-feedback" data-face="normal" style="margin-left: 20%;border-radius: 20%;"><img src="img/normal_face.png" alt="Normal"/></label>'+
+              '<label for="face-normal-session-feedback" data-face="normal" style="margin-left: 20%;border-radius: 20%;"><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/normal_face.png" alt="Normal"/></label>'+
               '<input id="face-sad-session-feedback" class="input_hidden" name="faces_session_feedback" type="radio" value="sad" data-component="global"/>'+
-              '<label for="face-sad-session-feedback" data-face="sad" class="right" style="margin-right: 10%;border-radius: 20%;"><img src="img/sad_face.png" alt="Sad" /></label>'+
+              '<label for="face-sad-session-feedback" data-face="sad" class="right" style="margin-right: 10%;border-radius: 20%;"><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/sad_face.png" alt="Sad" /></label>'+
             '</div>'+
           '</div>'+
           '<!-- Buttons send/cancel -->'+
