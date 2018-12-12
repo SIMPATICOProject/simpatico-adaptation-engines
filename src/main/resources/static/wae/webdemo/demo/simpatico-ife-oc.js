@@ -69,7 +69,7 @@ function initFeatures() {
   // - questionSelectionFilters: filters for text selection to ask question for
   citizenpediaUI.getInstance().init({
     endpoint: 'https://simpatico.smartcommunitylab.it/qae',
-    cpdDiagramEndpoint: 'https://dev.smartcommunitylab.it/cpd/api/diagram/eService',
+    cpdDiagramEndpoint: 'https://simpatico.smartcommunitylab.it/cpd/api/diagram/eService',
     primaryColor: "#24BCDA",
     secondaryColor:"#D3F2F8",
     elementsToEnhanceClassName: "simpatico-query-and-answer",
@@ -103,8 +103,8 @@ function initFeatures() {
                 {	// TAE
                     id: "simp-bar-sw-tae-inline",
                     // Ad-hoc images to define the enabled/disabled images
-                    imageSrcEnabled: "./resources/images/textTool.png",
-                    imageSrcDisabled: "./resources/images/textTool.png",
+                    imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/textTool.png",
+                    imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/textTool.png",
                     alt: "Semplificazione del testo selezionato",
                     // Ad-hoc css classes to define the enabled/disabled styles
                     styleClassEnabled: "simp-none", 
@@ -123,8 +123,8 @@ function initFeatures() {
                   {
                     id: "simp-bar-sw-cpd",
                     // Ad-hoc images to define the enabled/disabled images
-                    imageSrcEnabled: "./resources/images/procedure.png",
-                    imageSrcDisabled: "./resources/images/procedure.png",
+                    imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/procedure.png",
+                    imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/procedure.png",
                     alt: "Procedura",
                     // Ad-hoc css classes to define the enabled/disabled styles
                     styleClassEnabled: "simp-none", 
@@ -137,8 +137,8 @@ function initFeatures() {
 //                  {
 //                    id: "simp-bar-sw-login",
 //                    // Ad-hoc images to define the enabled/disabled images
-//                    imageSrcEnabled: "./resources/images/access.png",
-//                    imageSrcDisabled: "./resources/images/access.png",
+//                    imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/access.png",
+//                    imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/access.png",
 //                    alt: "Entra",
 //                    // Ad-hoc css classes to define the enabled/disabled styles
 //                    styleClassEnabled: "simp-none", 
@@ -151,8 +151,8 @@ function initFeatures() {
                   { // CITIZENPEDIA
                     id: "simp-bar-sw-citizenpedia",
                     // Ad-hoc images to define the enabled/disabled images
-                    imageSrcEnabled: "./resources/images/questions.png",
-                    imageSrcDisabled: "./resources/images/questions.png",
+                    imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/questions.png",
+                    imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/questions.png",
                     alt: "Accedi alle domande e risposte associate agli elementi del modulo",
                     // Ad-hoc css classes to define the enabled/disabled styles
                     styleClassEnabled: "simp-none", 
@@ -449,10 +449,10 @@ function nextTutorial() {
 function tutorialContent(step) {
 	switch(step) {
 	case 0: return '<p>Questo strumento migliora la tua esperienza con la Pubblica Amministrazione. Alcune funzionalità richiedono un account.</p>';
-	case 1: return '<table><tr><td><img src="./resources/images/textTool.png"></td><td width="100%">Semplificare un testo di difficile comprensione per trovare la definizione di termini complessi. Gli utenti registrati godono di suggerimenti personalizzati.</td></tr></table>';
-	case 2: return '<table><tr><td><img src="./resources/images/procedure.png"></td><td width="100%">Trova un riepilogo di questa procedura amministrativa.</td></tr></table>';
-//	case 3: return '<table><tr><td><img src="./resources/images/access.png"></td><td width="100%">Memorizza i tuoi dati personali per compilare automaticamente moduli e ricevere suggerimenti personalizzati.</td></tr></table>';
-	case 3: return '<table><tr><td><img src="./resources/images/questions.png"></td><td width="100%">Trova le domande inviate da altri membri della comunità o invia le tue domande. Richiede di essere registrato.</td></tr></table>';
+	case 1: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/textTool.png"></td><td width="100%">Semplificare un testo di difficile comprensione per trovare la definizione di termini complessi. Gli utenti registrati godono di suggerimenti personalizzati.</td></tr></table>';
+	case 2: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/procedure.png"></td><td width="100%">Trova un riepilogo di questa procedura amministrativa.</td></tr></table>';
+//	case 3: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/access.png"></td><td width="100%">Memorizza i tuoi dati personali per compilare automaticamente moduli e ricevere suggerimenti personalizzati.</td></tr></table>';
+	case 3: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources/images/questions.png"></td><td width="100%">Trova le domande inviate da altri membri della comunità o invia le tue domande. Richiede di essere registrato.</td></tr></table>';
 	// case 5: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png"></td><td width="100%"></td></tr></table>';
 	// case 6: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/feedback.png"></td><td width="100%">La funzione FEEDBACK ti consente di esprimere in ogni momento una valutazione rispetto alle funzionalità di SIMPATICO.</td></tr></table>';
 	}

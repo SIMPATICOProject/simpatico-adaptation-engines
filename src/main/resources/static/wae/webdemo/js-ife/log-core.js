@@ -30,6 +30,7 @@ var logCORE = (function () {
   
 	var start;
 	var log = function(url, data) {
+		if (!window['authManager']) return;
 		var token = authManager.getInstance().getToken();
 		var userId = authManager.getInstance().getUserId();
 		data.userID = userId;
