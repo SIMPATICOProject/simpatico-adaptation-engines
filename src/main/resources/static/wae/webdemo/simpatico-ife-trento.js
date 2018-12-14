@@ -281,19 +281,19 @@ function initFeatures() {
 //                    },
 //                    exclusive: true
 //                  },
-                    { // CPD: procedure model
-                        id: 'process',
-                        imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
-                        imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
-                        alt: "Procedura amministrativa",
-                        // Ad-hoc css classes to define the enabled/disabled styles
-                        styleClassEnabled: "simp-bar-btn-active",
-                        styleClassDisabled: "simp-bar-btn-inactive",
-                        label: 'Procedura',
-                        isEnabled: function() { return false; },
-                        enable: function() { citizenpediaUI.getInstance().openDiagram(); },
-                        disable: function() {  }
-                      },                    
+//                    { // CPD: procedure model
+//                        id: 'process',
+//                        imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
+//                        imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/diagram.png",
+//                        alt: "Procedura amministrativa",
+//                        // Ad-hoc css classes to define the enabled/disabled styles
+//                        styleClassEnabled: "simp-bar-btn-active",
+//                        styleClassDisabled: "simp-bar-btn-inactive",
+//                        label: 'Procedura',
+//                        isEnabled: function() { return false; },
+//                        enable: function() { citizenpediaUI.getInstance().openDiagram(); },
+//                        disable: function() {  }
+//                      },                    
 
 //                  { // SF: session feedback
 //                      id: 'sf',
