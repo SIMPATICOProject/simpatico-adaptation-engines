@@ -197,13 +197,13 @@ function initFeatures() {
   if (sfEnabled()) {
 	  sfUI.getInstance().init({
 		    language: 'it',
-			buttonToShowSfId: 'SF',
+//			buttonToShowSfId: 'SF',
 		    apiEndpoint: 'https://simpatico.smartcommunitylab.it/simpatico-logs/api',
 		    // TEMPORALY DISABLED
-		    formSelector: '#modulo',
-		    listener: function() {
-		    	$('#modulo').submit();
-		    },
+//		    formSelector: '#modulo',
+//		    listener: function() {
+//		    	$('#modulo').submit();
+//		    },
 		  });	  
   }
 
@@ -402,6 +402,8 @@ function addSimpaticoBar(containerID) {
     var body = document.getElementsByTagName('body')[0];
     simpaticoBarContainer = document.createElement('div');
     body.insertBefore(simpaticoBarContainer, body.firstChild);
+  } else {
+	  simpaticoBarContainer.style.display = 'show';
   }
 
   // Create the main div of the toolbar
@@ -429,6 +431,13 @@ function addSimpaticoBar(containerID) {
   // Add the generated bar to the container
   simpaticoBarContainer.innerHTML = simpaticoBarHtml;
 }//addSimpaticoBar()
+
+function removeSimpaticoBar(containerID) {
+	  var simpaticoBarContainer = document.getElementById(containerID);
+	  if (simpaticoBarContainer) {
+		  simpaticoBarContainer.style.display = 'none';
+	  }
+}
 
 // switch on/off the control buttons.
 // -id: of the button which calls this function
@@ -472,6 +481,13 @@ function updateButtonStyle(button) {
   }
 }
 
+//Once the document is loaded the Simpatico features are initialised and the 
+//toolbar added
+document.addEventListener('simpaticoDestroy', function () {
+	  removeSimpaticoBar("simp-bar");	
+	  if (authManager.getInstance().isEnabled()) sfUI.getInstance().showSF();
+});
+
 // Once the document is loaded the Simpatico features are initialised and the 
 // toolbar added
 document.addEventListener('simpaticoEvent', function () {
@@ -505,6 +521,7 @@ document.addEventListener('simpaticoEvent', function () {
   
   checkShowTutorial();
 });
+
 
 window.addEventListener('beforeunload', function (e) {
   logCORE.getInstance().setSyncMode();	
@@ -593,3 +610,15 @@ function updateForm(sessionId) {
 	}
 	
 }
+
+//document.addEventListener('DOMContentLoaded', function () {
+//	document.dispatchEvent(new Event('simpaticoEvent'));
+//});
+//setTimeout(function() {
+//	  document.dispatchEvent(new Event('simpaticoDestroy'));
+//	  setTimeout(function() {
+//		  document.dispatchEvent(new Event('simpaticoEvent'));
+//	}, 2000);
+//}, 5000);
+
+
