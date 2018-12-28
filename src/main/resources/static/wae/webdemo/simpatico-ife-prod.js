@@ -492,7 +492,7 @@ document.addEventListener('simpaticoDestroy', function () {
 // toolbar added
 document.addEventListener('simpaticoEvent', function () {
   initFeatures();
-  addSimpaticoBar("simpatico_top");
+  addSimpaticoBar("simp-bar");
   authManager.getInstance().updateUserData();
   if (authManager.getInstance().isEnabled()) {
     updateForm(localStorage.logSessionStart);
@@ -613,6 +613,9 @@ function updateForm(sessionId) {
 
 //document.addEventListener('DOMContentLoaded', function () {
 //	document.dispatchEvent(new Event('simpaticoEvent'));
+//	setTimeout(function(){
+//		document.dispatchEvent(new Event('simpaticoEvent'));
+//	}, 3000);
 //});
 //setTimeout(function() {
 //	  document.dispatchEvent(new Event('simpaticoDestroy'));
