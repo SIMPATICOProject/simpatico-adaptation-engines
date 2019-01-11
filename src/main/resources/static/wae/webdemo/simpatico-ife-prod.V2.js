@@ -192,8 +192,8 @@ function initFeatures() {
                 },
                 { //  workflow adaptation. Switch to the modality, where the form adaptation starts
                   id: 'workflow',
-                  imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/forms.png",
-                  imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/forms.png",
+                  imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/play.png",
+                  imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/play.png",
                   alt: "Step-by-step execution",
                   // Ad-hoc css classes to define the enabled/disabled styles
                   styleClassEnabled: "simp-bottomBar-btn-active",
