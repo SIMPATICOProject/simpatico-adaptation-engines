@@ -55,6 +55,20 @@ var citizenpediaUI = (function () {
       questionsURL = parameters.questionsURL || 'https://simpatico.smartcommunitylab.it/qae/questions';
     }
     
+    function setParagraphId(){
+        if (paragraphs.length === 0) {
+          paragraphs = document.getElementsByClassName(elementsToEnhanceClassName);
+        }
+        // console.log("paragraphs:",paragraphs);
+        var paragrapId = 1;
+        var paragraphName = '';
+        for (var i = 0, len = paragraphs.length; i < len; i++) {
+          paragraphName = "Paragraph" + paragrapId;
+          paragraphs[i].setAttribute("id", paragraphName);
+          paragrapId++;
+        }
+      }
+
     function enableComponentFeatures() {
       if (featureEnabled) return;
       featureEnabled = true;
@@ -319,6 +333,7 @@ var citizenpediaUI = (function () {
       init: initComponent, // Called only one time
       enable: enableComponentFeatures,  // Called when the Component button is enabled
       disable: disableComponentFeatures, // Called when the Component button is disabled or another one enabled
+      setParagraphId: setParagraphId,
       isEnabled: function() { return featureEnabled;}, // Returns if the feature is enabled
       openDiagram: function(){
     	  logCORE.getInstance().startActivity('cpd', 'process');

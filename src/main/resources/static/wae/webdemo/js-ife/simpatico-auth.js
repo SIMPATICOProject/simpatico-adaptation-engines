@@ -114,8 +114,10 @@ var authManager = (function () {
               updateUserData();
               return;
           }
-          document.getElementById(userdataElementID).innerHTML = data.name + ' '+ data.surname;
-          document.getElementById(userdataElementID).style = "display:block";
+          if (document.getElementById(userdataElementID)) {
+              document.getElementById(userdataElementID).innerHTML = data.name + ' '+ data.surname;
+              document.getElementById(userdataElementID).style = "display:block";        	  
+          }
           enablePrivateFeatures();
           featureEnabled = true;
           // session started successfully, log
@@ -127,10 +129,12 @@ var authManager = (function () {
           }
 
         } else {
-          document.getElementById(userdataElementID).innerHTML = greeting;
-          document.getElementById(userdataElementID).style  = "display:block";
-          disablePrivateFeatures();
-          featureEnabled = false;
+        	if (document.getElementById(userdataElementID)) {
+	          document.getElementById(userdataElementID).innerHTML = greeting;
+	          document.getElementById(userdataElementID).style  = "display:block";
+        	}
+            disablePrivateFeatures();
+            featureEnabled = false;
         }
       console.log("<<< updateUserData()");
     }

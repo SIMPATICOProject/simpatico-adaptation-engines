@@ -7,6 +7,7 @@ import java.util.Map;
 public class Block {
 	private String id;
 	private String type;
+	private Map<String, String> name;
 	private String xpath;
 	private List<String> tags = new ArrayList<String>();
 	private List<String> fields = new ArrayList<String>();
@@ -76,6 +77,7 @@ public class Block {
 	public void setDescription(Map<String, String> description) {
 		this.description = description;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -136,6 +138,12 @@ public class Block {
 		} else if (!xpath.equals(other.xpath))
 			return false;
 		return true;
+	}
+	public Map<String, String> getName() {
+		return name;
+	}
+	public void setName(Map<String, String> name) {
+		this.name = name;
 	}
 	
 }
