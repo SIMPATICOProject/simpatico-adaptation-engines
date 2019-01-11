@@ -2,9 +2,6 @@ body {
     margin-left: 0 !important;
     margin-top: 0 !important;
 }
-form {
-    padding-left: 9cm;
-}
 
 #simp-bottomBar{
     position: fixed !important;
@@ -314,7 +311,3 @@ form {
 #tutorialesc {
    color: #DD4039;
 } 
-
-#cdv_toolbar_buttons {
-    top: 52px !important;
-}
