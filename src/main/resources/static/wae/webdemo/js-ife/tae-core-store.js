@@ -33,6 +33,7 @@ var taeUIInline = (function () {
       _instance.textContainerQuery = null;
       _instance.textQueryString = null;
       _instance.questionsURL= null;
+      _instance.resourceURL= null;
 
       _instance.init = function(config) {
         _instance.endpoint = config.endpoint || 'https://simpatico.smartcommunitylab.it/simp-engines/tae';
@@ -44,7 +45,8 @@ var taeUIInline = (function () {
         _instance.elementId = config.elementId;
         _instance.textContainerQuery = config.textContainerQuery || 'simpatico-text';
         _instance.textQueryString = config.textQueryString || 'p,li';
-  
+        _instance.resourceURL = config.resourceURL || 'https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo';
+
         getTextsAndsetSpan(_instance);
         //
         jQuery.getJSON(_instance.simpDataURL + "?pageId=" + pageID,function(jsonResponse,status) {
@@ -105,7 +107,7 @@ var taeUIInline = (function () {
             return '<div id="popoverText" >' +
             '<div class="container-fluid" >' +
             '  <div class="row">' +
-            '    <div class="col-sm-2" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Shows a simplified version of the selected text"><img src="./resources/images/info.png" class=""></div>' +
+            '    <div class="col-sm-2" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Shows a simplified version of the selected text"><img src="'+_instance.resourceURL+'/images/info.png" class=""></div>' +
             '    <div class="col-sm-3" style="background-color:transparent;">' +
             '        <label class="switch">' +
             '          <input id="textCheckbox" type="checkbox" onclick="toggleTextSimplifiction()" '+(_instance.globalTextCheckboxVal ? 'checked="true"':'')+'>' +
@@ -115,7 +117,7 @@ var taeUIInline = (function () {
             '    <div class="col-sm-7 " style="background-color:transparent;"><span >Text simplification</span></div>' +
             '  </div>' +
             '  <div class="row">' +
-            '    <div class="col-sm-2" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Shows the definition of the selected word"><img src="./resources/images/info.png" class=""></div>' +
+            '    <div class="col-sm-2" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="Shows the definition of the selected word"><img src="'+_instance.resourceURL+'/images/info.png" class=""></div>' +
             '    <div class="col-sm-3" style="background-color:transparent;">' +
             '        <label class="switch">' +
             '          <input id="wordCheckbox" type="checkbox" onclick="toggleWordSimplifiction()" " '+(_instance.globalWordCheckboxVal ? 'checked="true"':'')+'>' +
