@@ -49,7 +49,7 @@ var citizenpediaUI = (function () {
         });
       questionSelectionFilters = parameters.questionSelectionFilters || [''];
       qaeCORE.getInstance().getDiagramDetails(simpaticoEservice, function(response){
-        response = response[0] || response;
+        response = response[0] || response || {};
         diagramURL = response.url;
       });
       questionsURL = parameters.questionsURL || 'https://simpatico.smartcommunitylab.it/qae/questions';
