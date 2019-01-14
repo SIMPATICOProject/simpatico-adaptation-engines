@@ -91,6 +91,8 @@ function initFeatures() {
     synonimLabel:'Sinonimi',
     definitionLabel: 'Definizioni e sinonimi',
     simplifedTextLabel: 'Semplificazione testo',
+    definitionHint: 'Mostra definizione e sinonimi di alcune parole',
+    simplifiedTextHint:'Mostra una versione semplice del testo selezionato',
     questionsURL: "https://simpatico.smartcommunitylab.it/qae/questions",
     resourceURL: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources",
   });
