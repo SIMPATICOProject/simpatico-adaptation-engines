@@ -2,7 +2,7 @@
 
 #simp-bar{
   position: fixed !important;
-  right: 32px;
+  right: 64px;
   bottom: 16px;
   z-index: 100 !important;
 
@@ -39,6 +39,9 @@
 #simp-bar-container-left li {
   position: relative;
 }    
+#simp-bar-container-right {
+	display: none !important;
+}
 
 #simp-bar li img {
   width: 24px;
@@ -332,6 +335,8 @@ input:checked + .slider:before {
   /* margin-left: -65%; */
   padding: 0px 1px;
   font-size: 10px;
+  width: 14px;
+  text-align: center;
 }
 .ansNum{
   position: absolute;
