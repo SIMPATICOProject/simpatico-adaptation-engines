@@ -116,7 +116,7 @@ var taeUIInline = (function () {
             '          <span class="slider sliderText round"></span>' +
             '        </label>' +
             '    </div>' +
-            '    <div class="col-sm-7 " style="background-color:transparent;"><span >'+_instance.simplifedTextLabel+'</span></div>' +
+            '    <div class="col-sm-7 " style="background-color:transparent;white-space:nowrap"><span >'+_instance.simplifedTextLabel+'</span></div>' +
             '  </div>' +
             '  <div class="row">' +
             '    <div class="col-sm-2" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="'+_instance.definitionHint+'"><img src="'+_instance.resourceURL+'/images/info.png" class=""></div>' +
@@ -126,7 +126,7 @@ var taeUIInline = (function () {
             '          <span class="slider sliderWord round"></span>' +
             '        </label>' +
             '    </div>' +
-            '    <div class="col-sm-7" style="background-color:transparent;"><span >'+_instance.definitionLabel+'</span></div>' +
+            '    <div class="col-sm-7" style="background-color:transparent;white-space:nowrap;"><span >'+_instance.definitionLabel+'</span></div>' +
             '  </div>  ' +
             '</div>'
           },
