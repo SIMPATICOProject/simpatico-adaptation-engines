@@ -92,6 +92,7 @@ function initFeatures() {
     definitionLabel: 'Definizione',
     simplifedTextLabel: 'Testo semplificato',
     questionsURL: "https://simpatico.smartcommunitylab.it/qae/questions",
+    resourceURL: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources",
   });
 
 
