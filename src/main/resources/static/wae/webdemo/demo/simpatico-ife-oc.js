@@ -89,8 +89,8 @@ function initFeatures() {
     textQueryString: "p,li",
     elementId: 'simp-bar-sw-tae-inline',
     synonimLabel:'Sinonimi',
-    definitionLabel: 'Definizione',
-    simplifedTextLabel: 'Testo semplificato',
+    definitionLabel: 'Definizioni e sinonimi',
+    simplifedTextLabel: 'Semplificazione testo',
     questionsURL: "https://simpatico.smartcommunitylab.it/qae/questions",
     resourceURL: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/demo/resources",
   });
