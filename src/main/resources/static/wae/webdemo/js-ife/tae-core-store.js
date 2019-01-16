@@ -108,7 +108,7 @@ var taeUIInline = (function () {
           content: function() {
             return '<div id="popoverText" >' +
             '<div class="container-fluid" >' +
-            '  <div class="row">' +
+            '  <div class="row" style="min-width: 270px;">' +
             '    <div class="col-sm-2" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="'+_instance.simplifiedTextHint+'"><img src="'+_instance.resourceURL+'/images/info.png" class=""></div>' +
             '    <div class="col-sm-3" style="background-color:transparent;">' +
             '        <label class="switch">' +
@@ -118,7 +118,7 @@ var taeUIInline = (function () {
             '    </div>' +
             '    <div class="col-sm-7 " style="background-color:transparent;white-space:nowrap"><span >'+_instance.simplifedTextLabel+'</span></div>' +
             '  </div>' +
-            '  <div class="row">' +
+            '  <div class="row"  style="min-width: 270px;">' +
             '    <div class="col-sm-2" style="background-color:transparent;" data-toggle="tooltip" data-placement="top" title="'+_instance.definitionHint+'"><img src="'+_instance.resourceURL+'/images/info.png" class=""></div>' +
             '    <div class="col-sm-3" style="background-color:transparent;">' +
             '        <label class="switch">' +
