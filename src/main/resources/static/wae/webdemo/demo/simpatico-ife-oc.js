@@ -113,9 +113,8 @@ function initFeatures() {
                     styleClassEnabled: "simp-none", 
                     styleClassEnabled: "simp-none", 
                     label: 'Semplificazione testo',
-                    isEnabled: function() { return false; },
+                    isEnabled: function() {return taeUIInline.getInstance().isEnabled(); },
                     enable: function() { 
-                    	console.log(window.getSelection().toString().trim());
                     	taeUIInline.getInstance().showDialog(); 
                     },
                     disable: function() { 
@@ -253,22 +252,12 @@ function addSimpaticoBar(containerID) {
 // -id: of the button which calls this function
 function toggleAction(id) {
   var clickedButton;
-  if (buttons[0].id == id) {
-    // Login button
-    clickedButton = buttons[0];
-  } else {
-    // Disable all the buttons
-    for (var i = 1, len = buttons.length; i < len; i++) {
+    for (var i = 0, len = buttons.length; i < len; i++) {
       if(buttons[i].id == id) {
         clickedButton = buttons[i];
       }
     } 
-    if (!!clickedButton && clickedButton.exclusive) {
-    	buttons.forEach(function(b){
-    		if (b.exclusive && b.id != clickedButton.id) b.disable();
-    	});
-    }
-  }
+  
 
   // Enable/Disable the selected button
   if (clickedButton.isEnabled()) {
@@ -276,7 +265,7 @@ function toggleAction(id) {
   } else {
 	  clickedButton.enable();
   }
-  updateButtonStyle(clickedButton);
+//  updateButtonStyle(clickedButton);
 } //toggleAction(id)
 
 

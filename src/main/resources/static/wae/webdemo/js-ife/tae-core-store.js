@@ -18,6 +18,8 @@ var taeUIInline = (function () {
       _instance = this;
 
       _instance.sentences = [];
+      _instance.enabled = false;
+      
       
       _instance.globalTextCheckboxVal = false;
       _instance.globalWordCheckboxVal = false;
@@ -86,25 +88,20 @@ var taeUIInline = (function () {
         });
     
   
-        // kill popovers on click in outside of popover
-        // $(document).on('click', function (e) {
-        //   $('[data-toggle="popover"],[data-original-title]').each(function () {
-        //       //the 'is' for buttons that trigger popups
-        //       //the 'has' for icons within a button that triggers a popup
-        //       if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {                
-        //           (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
-        //       }
-  
-        //   });
-        // });
       }
+      _instance.isEnabled = function() {
+    	  return _instance.enabled;
+      }
+      
       _instance.hideDialog = function() {
-        $('#'+_instance.elementId).popover('toggle');   
+        $('#'+_instance.elementId).popover('hide');
+        _instance.enabled = false;
       }
 
       _instance.showDialog = function() {
         $('#'+_instance.elementId).popover({
           html : true, 
+          trigger: 'manual',
           content: function() {
             return '<div id="popoverText" >' +
             '<div class="container-fluid" >' +
@@ -133,7 +130,8 @@ var taeUIInline = (function () {
           placement: 'top',
         });
         
-        $('#textTools').popover('toggle');        
+        $('#'+_instance.elementId).popover('show');
+        _instance.enabled = true;
       }
       
       /**
