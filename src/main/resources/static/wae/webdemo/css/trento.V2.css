@@ -7,7 +7,7 @@ body {
     position: fixed !important;
     right: 32px;
     bottom: 16px;
-    z-index: 100 !important;
+    z-index: 99999 !important;
 
     height: 48px !important;
     background: inherit;
@@ -62,11 +62,12 @@ body {
     overflow-y: hidden; 
     overflow-x: hidden;
     left: auto; 
+    top: 72px;
     width: 20%; 
     height: 100%;
     margin-left: 2px;
     background-color: aliceblue;
-    z-index: 100;
+    z-index: 99999;
 
     -moz-box-shadow: 2px 2px 8px 4px #888888 !important;
     -webkit-box-shadow: 2px 2px 8px 4px #888888 !important;
@@ -92,10 +93,11 @@ body {
     overflow-y: hidden; 
     overflow-x: hidden;
     right: 2px; 
+    top: 72px;
     width: 20%; 
     height: calc(100% - 96px);
     background-color: aliceblue;
-    z-index: 100;
+    z-index: 99999;
 
     -moz-box-shadow: 2px 2px 8px 4px #888888 !important;
     -webkit-box-shadow: 2px 2px 8px 4px #888888 !important;

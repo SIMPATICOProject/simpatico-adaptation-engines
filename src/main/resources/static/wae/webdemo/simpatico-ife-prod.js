@@ -591,11 +591,11 @@ function updateForm(sessionId) {
 	
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-	setTimeout(function(){
-		document.dispatchEvent(new Event('simpaticoEvent'));
-	}, 500);
-});
+//document.addEventListener('DOMContentLoaded', function () {
+//	setTimeout(function(){
+//		document.dispatchEvent(new Event('simpaticoEvent'));
+//	}, 500);
+//});
 //setTimeout(function() {
 //	  document.dispatchEvent(new Event('simpaticoDestroy'));
 //	  setTimeout(function() {
