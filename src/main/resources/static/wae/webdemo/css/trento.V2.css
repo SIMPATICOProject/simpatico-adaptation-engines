@@ -95,7 +95,7 @@ body {
     right: 2px; 
     top: 72px;
     width: 20%; 
-    height: calc(100% - 96px - 52px);
+    height: calc(100% - 96px - 72px);
     background-color: aliceblue;
     z-index: 99999;
 
@@ -108,7 +108,7 @@ body {
     height: 100%;
   }
   .help-modal .helpModal-body {
-    height: calc(100vh - 96px - 52px - 44px);
+    height: calc(100vh - 96px - 72px - 44px);
     overflow-y: auto;
   }
   .help-modalHeader{
@@ -275,6 +275,7 @@ body {
 	bottom: 64px !important;
 	top: inherit !important;
 	right: 32px;
+	z-index: 99999!important;
 }
 /***************************/
 /**       TUTORIAL        **/
