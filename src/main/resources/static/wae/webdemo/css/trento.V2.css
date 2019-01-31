@@ -320,3 +320,7 @@ body {
 .block_edited {
 	width: calc(19cm + 6px) !important;
 }
+
+.ui-dialog {
+	z-index: 99999;
+}
