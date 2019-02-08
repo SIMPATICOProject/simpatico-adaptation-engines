@@ -457,7 +457,8 @@ function initFeatures() {
 //Once the document is loaded the Simpatico features are initialised and the 
 //toolbar added
 document.addEventListener('simpaticoDestroy', function () {
-	  removeSimpaticoBar("simp-bar");	
+	  var simpaticoBarContainer = document.getElementById('simp-bottomBar');;
+	  simpaticoBarContainer.parentNode.removeChild(simpaticoBarContainer);
 	  if (authManager.getInstance().isEnabled()) sfUI.getInstance().showSF();
 	  logCORE.getInstance().setSyncMode();	
 	  logCORE.getInstance().ifeLogger.sessionEnd(simpaticoEservice);
@@ -601,6 +602,6 @@ document.addEventListener('DOMContentLoaded', function () {
 //	  setTimeout(function() {
 //		  document.dispatchEvent(new Event('simpaticoEvent'));
 //	}, 2000);
-//}, 5000);
-
-  
+//}, 2000);
+//
+//  
