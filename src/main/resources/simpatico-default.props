@@ -27,8 +27,8 @@ it.pos.model=models/italian-big.tagger
 it.ner.model=models/ner-ita-nogpe-noiob_gaz_wikipedia_sloppy.ser.gz
 it.depparse.model=models/parser-model-1.txt.gz
 it.syntfake.list=
-it.udpipe.server=gardner
-it.udpipe.port=50020
+it.udpipe.server=localhost
+it.udpipe.port=9040
 it.udpipe.keepOriginal=1
 
 ml_address = http://ml.apnetwork.it/annotate
@@ -48,9 +48,9 @@ all.customAnnotatorClass.syntsimp = eu.simpaticoproject.adaptation.text.tae.Synt
 all.customAnnotatorClass.syntfake = eu.simpaticoproject.adaptation.text.tae.SyntFakeAnnotator
 all.customAnnotatorClass.udpipe = eu.fbk.fcw.udpipe.api.UDPipeAnnotator
 
-all.syntsimp.host = dh-server.fbk.eu
+all.syntsimp.host = localhost
 all.syntsimp.port = 9002
-all.lexsimp.host = dh-server.fbk.eu
+all.lexsimp.host = localhost
 all.lexsimp.port = 9001
 all.ml.annotator = ml-annotate
 all.ml.address = http://ml.apnetwork.it/annotate

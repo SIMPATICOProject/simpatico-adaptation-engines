@@ -1,5 +1,6 @@
 package eu.simpaticoproject.adaptation.text.tae;
 
+import com.google.common.collect.HashMultimap;
 import edu.stanford.nlp.ling.CoreAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -16,6 +17,10 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+import static java.util.Collections.reverseOrder;
+import static java.util.Map.Entry.comparingByValue;
 
 /**
  * Created by alessio on 19/12/16.
@@ -38,9 +43,11 @@ public class SimpleSimAnnotator implements Annotator {
         this.model = FakeSimModel.getInstance(globalProperties, localProperties, this.skipModel);
     }
 
-    @Override public void annotate(Annotation annotation) {
+    @Override
+    public void annotate(Annotation annotation) {
 
         List<RawSimplification> simplificationList = new ArrayList<>();
+        Map<String, List<RawSimplification>> ffs = new HashMap<>();
 
         int lemmaIndex = 0;
         HashMap<Integer, Integer> lemmaIndexes = new HashMap<>();
@@ -67,8 +74,56 @@ public class SimpleSimAnnotator implements Annotator {
         }
 
         HashMap<String, GlossarioEntry> glossario = model.getGlossario();
+        Map<String, Integer> frequencies = model.getFrequencies();
         List<String> glossarioKeys = new ArrayList<>(glossario.keySet());
         TreeMap<Integer, DescriptionForm> forms = new TreeMap<>();
+
+        HashMultimap<String, String> ffReverse = HashMultimap.create();
+        HashMultimap<Integer, String> ffOffsets = HashMultimap.create();
+
+        for (String lang : model.getFf().keySet()) {
+            ffs.put(lang, new ArrayList<>());
+            for (String word : model.getFf().get(lang)) {
+                ffReverse.put(word, lang);
+            }
+        }
+
+        for (String form : ffReverse.keySet()) {
+            if (form.length() < 4) {
+                continue;
+            }
+
+            List<Integer> allOccurrences = ItalianReadability.findAllOccurrences(text, form);
+            for (Integer occurrence : allOccurrences) {
+                ffOffsets.putAll(occurrence, ffReverse.get(form));
+            }
+
+        }
+
+        for (Integer offset : ffOffsets.keySet()) {
+
+            // tokenIndex can be null because the offset can be inside a word (sic!)
+            Integer tokenIndex = tokenIndexes.get(offset);
+            if (tokenIndex == null) {
+                continue;
+            }
+
+            CoreLabel token = annotation.get(CoreAnnotations.TokensAnnotation.class).get(tokenIndex);
+            token.set(SimpaticoAnnotations.FfAnnotation.class, new ArrayList<>(ffOffsets.get(offset)));
+
+            RawSimplification simplification = new RawSimplification(
+                    token.beginPosition(),
+                    token.endPosition(),
+                    "[no simplification]"
+            );
+
+            for (String lang : ffOffsets.get(offset)) {
+                ffs.get(lang).add(simplification);
+            }
+
+        }
+
+        annotation.set(SimpaticoAnnotations.FfsAnnotation.class, ffs);
 
         for (String form : glossarioKeys) {
 
@@ -78,26 +133,12 @@ public class SimpleSimAnnotator implements Annotator {
 
             int numberOfTokens = form.split("\\s+").length;
             List<Integer> allOccurrences = ItalianReadability.findAllOccurrences(text, form);
-//                List<Integer> allLemmaOccurrences = ItalianReadability
-//                        .findAllOccurrences(lemmaText.toString().trim(), form);
-//                if (allLemmaOccurrences.size() > 0) {
-//                    System.out.println(form);
-//                    System.out.println(allLemmaOccurrences);
-//                }
 
             for (Integer occurrence : allOccurrences) {
-//                if (skipIndexes.contains(occurrence)) {
-//                    continue;
-//                }
                 ItalianReadability
                         .addDescriptionForm(form, tokenIndexes, occurrence, numberOfTokens, forms, annotation,
                                 glossario);
             }
-//                for (Integer occurrence : allLemmaOccurrences) {
-//                    ItalianReadability
-//                            .addDescriptionForm(form, lemmaIndexes, occurrence, numberOfTokens, forms, annotation,
-//                                    glossario);
-//                }
         }
 
         formsLoop:
@@ -127,25 +168,41 @@ public class SimpleSimAnnotator implements Annotator {
             }
 
             String[] strings = simplifiedVersion.split(",");
-            LinkedHashSet<String> results = new LinkedHashSet<>();
+            LinkedHashMap<String, Integer> results = new LinkedHashMap<>();
             for (String string : strings) {
-                if (string.contains(" ")) {
-                    continue;
-                }
-                results.add(string);
-            }
-            for (String string : strings) {
-                results.add(string);
+                string = string.trim();
+                Integer frequency = frequencies.getOrDefault(string.toLowerCase(), 1);
+                results.put(string, frequency);
             }
 
+            Map<String, Integer> sorted = results
+                    .entrySet()
+                    .stream()
+                    .sorted(reverseOrder(comparingByValue()))
+                    .collect(
+                            Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2,
+                                    LinkedHashMap::new));
+            System.out.println(simplifiedVersion);
+            System.out.println(sorted);
+//            LinkedHashSet<String> results = new LinkedHashSet<>();
+//            for (String string : strings) {
+//                if (string.contains(" ")) {
+//                    continue;
+//                }
+//                results.add(string);
+//            }
+//            for (String string : strings) {
+//                results.add(string);
+//            }
+
             StringBuffer buffer = new StringBuffer();
-            for (String result : results) {
+            for (String result : sorted.keySet()) {
                 buffer.append(" ").append(result).append(",");
             }
             simplifiedVersion = buffer.delete(buffer.length() - 1, buffer.length()).toString().trim();
             simplifiedVersion = simplifiedVersion.replaceAll("\\s+", " ");
 
-//            System.out.println(simplifiedVersion);
+//            System.out.println(String.format("Simplified version [%s]: %s", token.toString(), simplifiedVersion));
 
             for (String skipTerm : skipModel.getSkipList()) {
                 if (simplifiedVersion.startsWith(skipTerm)) {
@@ -177,7 +234,8 @@ public class SimpleSimAnnotator implements Annotator {
      * Returns a set of requirements for which tasks this annotator can
      * provide.  For example, the POS annotator will return "pos".
      */
-    @Override public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
+    @Override
+    public Set<Class<? extends CoreAnnotation>> requirementsSatisfied() {
         return Collections.emptySet();
     }
 
@@ -186,7 +244,8 @@ public class SimpleSimAnnotator implements Annotator {
      * to perform.  For example, the POS annotator will return
      * "tokenize", "ssplit".
      */
-    @Override public Set<Class<? extends CoreAnnotation>> requires() {
+    @Override
+    public Set<Class<? extends CoreAnnotation>> requires() {
         return Collections.unmodifiableSet(new ArraySet<>(Arrays.asList(
                 CoreAnnotations.PartOfSpeechAnnotation.class,
                 CoreAnnotations.TokensAnnotation.class,

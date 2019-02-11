@@ -63,6 +63,9 @@ public class LexSimpAnnotator implements Annotator {
                 if (difficult == null) {
                     difficult = DEFAULT_DIFF;
                 }
+                if (contentWord == null) {
+                    contentWord = false;
+                }
 
                 if (this.position >= 0) {
                     Integer start = token.get(CoreAnnotations.CharacterOffsetBeginAnnotation.class);

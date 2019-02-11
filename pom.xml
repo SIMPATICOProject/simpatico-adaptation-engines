@@ -23,7 +23,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<fcw-version>0.1</fcw-version>
-		<tint-version>0.2</tint-version>
+		<tint-version>1.0-SNAPSHOT</tint-version>
 		<utils-version>3.1.1</utils-version>
 		<twm-version>1.4</twm-version>
 	</properties>
@@ -90,6 +90,11 @@
 		<dependency>
 			<groupId>eu.fbk.dh</groupId>
 			<artifactId>tint-readability</artifactId>
+			<version>${tint-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>eu.fbk.dh</groupId>
+			<artifactId>tint-derived</artifactId>
 			<version>${tint-version}</version>
 		</dependency>
 		<dependency>
