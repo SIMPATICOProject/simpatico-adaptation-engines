@@ -16,6 +16,8 @@
 package eu.simpaticoproject.adaptation.text.controllers;
 
 import eu.simpaticoproject.adaptation.text.Handler;
+import eu.simpaticoproject.adaptation.text.model.PageTextModel;
+import eu.simpaticoproject.adaptation.text.repositories.TextModelRepository;
 import eu.simpaticoproject.adaptation.text.tae.SimpaticoInput;
 import eu.simpaticoproject.adaptation.text.tae.SimpaticoOutput;
 import io.swagger.annotations.ApiOperation;
@@ -35,9 +37,11 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class TAEController {
 
-    @Autowired
-    private Handler handler;
-
+	@Autowired
+	private Handler handler;
+	@Autowired
+	private TextModelRepository repo;
+	
 //    @RequestMapping(value = "/tae/simp", method = RequestMethod.GET, produces = "application/json")
 //    @ApiOperation(value = "Process text",
 //            response = SimpaticoOutput.class,
@@ -112,20 +116,47 @@ public class TAEController {
         return json;
     }
 
-    @ExceptionHandler(OperationNotSupportedException.class)
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    @ResponseBody
-    public String handleNotSupportedError(HttpServletRequest request, Exception exception) {
-        exception.printStackTrace();
-        return "{\"error\":\"" + exception.getMessage() + "\"}";
-    }
+    @RequestMapping(value = "/tae/model", method = RequestMethod.POST, produces = "application/json")
+	@ApiOperation(value = "Create text model",
+	  response = PageTextModel.class,
+	  notes = "Create text model for a specific page")
+	public @ResponseBody PageTextModel createModel(@RequestBody PageTextModel input) throws Exception {
+		if (repo.findByPageId(input.getPageId()) != null) throw new IllegalArgumentException("Model with the specified pageId already exists");
+		return repo.save(input);
+	}
+	
+	@RequestMapping(value = "/tae/model", method = RequestMethod.PUT, produces = "application/json")
+	@ApiOperation(value = "Create text model",
+	  response = PageTextModel.class,
+	  notes = "Update text model for a specific page")
+	public @ResponseBody PageTextModel updateModel(@RequestBody PageTextModel input) throws Exception {
+		return repo.save(input);
+	}
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    @ResponseBody
-    public String handleError(HttpServletRequest request, Exception exception) {
-        exception.printStackTrace();
-        return "{\"error\":\"" + exception.getMessage() + "\"}";
-    }
+	@RequestMapping(value = "/tae/model", method = RequestMethod.GET, produces = "application/json")
+	@ApiOperation(value = "Get text model",
+	  response = PageTextModel.class,
+	  notes = "Retrieve text model for a specific page")
+	public @ResponseBody PageTextModel getModel(@RequestParam String pageId) throws Exception {
+		PageTextModel mdl = repo.findByPageId(pageId);
+		if (mdl == null) throw new Exception("Model not found");
+		return mdl;
+	}
 
+	@ExceptionHandler(OperationNotSupportedException.class)
+	@ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+	@ResponseBody
+	public String handleNotSupportedError(HttpServletRequest request, Exception exception) {
+		exception.printStackTrace();
+		return "{\"error\":\"" + exception.getMessage() + "\"}";
+	}
+	
+	
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ResponseBody
+	public String handleError(HttpServletRequest request, Exception exception) {
+		exception.printStackTrace();
+		return "{\"error\":\"" + exception.getMessage() + "\"}";
+	}
 }

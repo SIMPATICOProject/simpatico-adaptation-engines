@@ -27,6 +27,12 @@ function initFeatures() {
 	if (!window.simpaticoEserviceURL) {
 		simpaticoEserviceURL = window.location.origin + window.location.pathname;
 	}
+	if (!window.serviceName) {
+		serviceName = simpaticoEserviceName;
+	}
+	if (!window.serviceURL) {
+		serviceURL = simpaticoEserviceURL;
+	}
 	
   // Init the Auth component (see simpatico-auth.js)
   // - endpoint: the main URL of the used AAC instance
@@ -89,8 +95,8 @@ function initFeatures() {
   cdvUI.getInstance().init({
 	    endpoint: 'https://cdv.comune.trento.it/CDV',
 	    serviceID: simpaticoEservice,
-		serviceName: simpaticoEserviceName,
-	    serviceURL: window.location.href,
+		serviceName: serviceName || simpaticoEserviceName,
+	    serviceURL: serviceURL || window.location.href,
 	    dataFields: simpaticoMapping,
 	    informedConsentLink: "https://cdv.comune.trento.it/CDV/IFE/informed_consent.html",
 	    consentGiven:true,
@@ -306,7 +312,7 @@ function initFeatures() {
              
             ];
 //  if (!isProd()) {
-	  buttons.splice(buttons.length - 1, 0, {	// CDV
+	  buttons.splice(buttons.length - 2, 0, {	// CDV
     	  id: "simp-bar-sw-cdv",
           // Ad-hoc images to define the enabled/disabled images
           imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png",

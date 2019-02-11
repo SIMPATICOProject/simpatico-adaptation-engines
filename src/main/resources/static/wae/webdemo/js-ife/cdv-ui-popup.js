@@ -14,6 +14,7 @@ var cdvUI = (function () {
 	var consent_given=false;
     var dialog_cdv = null;
 	var informedConsentLink = "informed_consent.html";
+	var dlgPosition = { my: "right top", at: "right bottom",  of: "#cdv_toolbar_buttons"}
 	
 	function Singleton() {
 
@@ -73,7 +74,10 @@ var cdvUI = (function () {
                         if (parameters.consentGiven) {
 				consent_given = parameters.consentGiven;
 			}
-
+            if (parameters.dlgPosition) {
+            	dlgPosition = parameters.dlgPosition; 
+            }
+                        
                         
 			cdvDashUrl: parameters.cdvDashUrl
 
@@ -142,8 +146,8 @@ var cdvUI = (function () {
 			if (dialog_cdv) {
 				dialog_cdv.dialog("destroy");
 				dialog_cdv=null;
-				$('#cdv_toolbar_buttons').remove();
 			}
+			if ($('#cdv_toolbar_buttons').length) $('#cdv_toolbar_buttons').remove();
 
 		}
 
@@ -533,9 +537,9 @@ var cdvUI = (function () {
 						draggable: false,
 						height: "auto",
 						position: {
-							my: "right top",
-							at: "right bottom",
-							of: "#cdv_toolbar_buttons"
+							my: dlgPosition.my,
+							at: dlgPosition.at,
+							of: dlgPosition.of
 						},
 						width: 310,
 						show: {

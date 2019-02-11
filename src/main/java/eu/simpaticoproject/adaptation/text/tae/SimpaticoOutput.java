@@ -29,7 +29,10 @@ public class SimpaticoOutput {
 
     String simplifiedText;
     String text, syntSimplifiedVersion;
-
+    boolean isSyntSimplified;
+    String udpipe_original;
+    Map<String,Object> ffs;
+    
     public SimpaticoReadability getReadability() {
         return readability;
     }
@@ -103,7 +106,7 @@ public class SimpaticoOutput {
         private String language = null;
         private int contentWordSize = 0, contentEasyWordSize = 0, wordCount = 0;
         private int docLenWithSpaces = 0, docLenWithoutSpaces = 0, docLenLettersOnly = 0;
-        private int sentenceCount = 0, tokenCount = 0;
+        private int sentenceCount = 0, tokenCount = 0, goodSentenceCount = 0;
         private int hyphenCount = 0;
         private int hyphenWordCount = 0;
 
@@ -114,6 +117,7 @@ public class SimpaticoOutput {
         protected Map<String, Object> maxYellowValues = new HashMap<>();
         protected Map<String, Object> minValues = new HashMap<>();
         protected Map<String, Object> maxValues = new HashMap<>();
+        protected Map<String, Object> deeps = new HashMap<>();
 
         protected HashMap<String, String> genericPosDescription = new HashMap<>();
         protected HashMap<String, String> posDescription = new HashMap<>();
@@ -122,7 +126,7 @@ public class SimpaticoOutput {
         Stats posStats = new Stats();
         Stats genericPosStats = new Stats();
 
-        private Double ttrValue, density,subordinateRatio;
+        private Double ttrValue, density,subordinateRatio, deepAvg, deepMax, propositionsAvg, wordsAvg;
 
         public Map<String, Object> getForms() {
             return forms;
@@ -332,6 +336,54 @@ public class SimpaticoOutput {
 			this.maxValues = maxValues;
 		}
 
+		public int getGoodSentenceCount() {
+			return goodSentenceCount;
+		}
+
+		public void setGoodSentenceCount(int goodSentenceCount) {
+			this.goodSentenceCount = goodSentenceCount;
+		}
+
+		public Double getDeepAvg() {
+			return deepAvg;
+		}
+
+		public void setDeepAvg(Double deepAvg) {
+			this.deepAvg = deepAvg;
+		}
+
+		public Double getDeepMax() {
+			return deepMax;
+		}
+
+		public void setDeepMax(Double deepMax) {
+			this.deepMax = deepMax;
+		}
+
+		public Double getPropositionsAvg() {
+			return propositionsAvg;
+		}
+
+		public void setPropositionsAvg(Double propositionsAvg) {
+			this.propositionsAvg = propositionsAvg;
+		}
+
+		public Double getWordsAvg() {
+			return wordsAvg;
+		}
+
+		public void setWordsAvg(Double wordsAvg) {
+			this.wordsAvg = wordsAvg;
+		}
+
+		public Map<String, Object> getDeeps() {
+			return deeps;
+		}
+
+		public void setDeeps(Map<String, Object> deeps) {
+			this.deeps = deeps;
+		}
+
     }
 
     public static class Stats {
@@ -427,4 +479,31 @@ public class SimpaticoOutput {
 	public void setSentences(List<Map<String, Object>> sentences) {
 		this.sentences = sentences;
 	}
+
+	public String getUdpipe_original() {
+		return udpipe_original;
+	}
+
+	public void setUdpipe_original(String udpipe_original) {
+		this.udpipe_original = udpipe_original;
+	}
+
+	public Map<String, Object> getFfs() {
+		return ffs;
+	}
+
+	public void setFfs(Map<String, Object> ffs) {
+		this.ffs = ffs;
+	}
+
+	public boolean getIsSyntSimplified() {
+		return isSyntSimplified;
+	}
+
+	public void setIsSyntSimplified(boolean isSyntSimplified) {
+		this.isSyntSimplified = isSyntSimplified;
+	}
+
+	
+	
 }

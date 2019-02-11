@@ -310,15 +310,19 @@ var waeEngine = new function() {
 	/**
 	 * RETURN BLOCK DESCRIPTION
 	 */
-	this.getBlockDescription = function() {
-		if (!!workflowModel && !!workflowModel.blocks && workflowModel.blocks[actualBlockIndex]) {
-			return workflowModel.blocks[actualBlockIndex].description;
-		}
-	}
+	this.getBlockDescription = function(idx) {
+    	if (idx == null || idx < 0) idx = actualBlockIndex; 
+	    else idx-=1;
+    	if (!!workflowModel && !!workflowModel.blocks && workflowModel.blocks[idx]) {
+    	  	return workflowModel.blocks[idx].description;
+    	}
+  	}
 	
 	this.restartBlock = function(callback, errorCallback) {
-		setActualBlock(actualBlockIndex -1);
-		this.nextBlock(callback,errorCallback);
+		if (actualBlockIndex < 0)
+			actualBlockIndex = 0;
+		setActualBlock(actualBlockIndex - 1);
+		this.nextBlock(callback, errorCallback);
 	}
 	
 	function fillBlock() {

@@ -13,6 +13,7 @@ var waeUI = (function () {
 	var errorLabel = {};
     this.active = false;
     this.idProfile = null;
+	var currentParagraphId, currentParagraphTitle, currentBlockId;
     var lang = "en";
 	
   	var labels = {
@@ -43,7 +44,7 @@ var waeUI = (function () {
 		labels.nextButtonLabel = config.nextButtonLabel || labels.nextButtonLabel;
 		labels.lastButtonLabel = config.lastButtonLabel || labels.lastButtonLabel;
 		labels.descriptionLabel = config.descriptionLabel || labels.descriptionLabel;
-		topBarHeight = config.topBarHeight || topBarHeight;
+		topBarHeight = config.topBarHeight != null ? config.topBarHeight : topBarHeight;
 		errorLabel = config.errorLabel;
 	}
 
@@ -263,7 +264,221 @@ var waeUI = (function () {
 		waeEngine.prevBlock(doActions, moduleErrorMsg);
 		if (waeEngine.getActualBlockId()) logger().logBlockStart(simpaticoEservice, waeEngine.getActualBlockId());
 	};
+	
+	/**
+	 * VERSION 2 of WAE. KEEP BOTH FOR COMPATIBILITY
+	 */
+	this.loadModelV2 = function(idProfile) {
+		var moduleUri = $("[data-simpatico-workflow]").attr('data-simpatico-workflow');
+		if (!!idProfile) {
+			this.idProfile = idProfile;
+		}
+		waeEngine.loadModel(moduleUri, this.idProfile, moduleLoadedV2, moduleLoadError);
+	};
+	function moduleLoadedV2(blocks){
+		blockMap = blocks;
+		console.log("Data::",blocks);
+		//to set paragraph ID in every block
+		citizenpediaUI.getInstance().setParagraphId();
+		var paragraphId = 1;
+		$.each(blocks, function(k, v) {
+			// var param=paragraphId+',"'+encodeURI(v.description.it)+'"';
+			// var param=JSON.stringify(v);
+			var name = v.name && v.name[lang] ? v.name[lang] : k;
+			$("#paragraphTitles").append("<p id='guide"+k+"' onclick='waeUI.getInstance().detailsHelp("+paragraphId+")' class='groupList'>"+name+"</p>");
+			
+			$( "#guide"+k ).on({
+				click: function(){
+					// currentParagraphId='Paragraph'+paragraphId;	
+					
+				},
+				mouseenter: function() {
+				  $( this ).addClass( "hoverList" );
+				}, 
+				mouseleave: function() {
+				  $( this ).removeClass( "hoverList" );
+				}
+			});
+			paragraphId++;
+		});
+	}
+
+    this.enableV2 = function(idProfile) {
+		$('#guideNotification').text(labels.nextButtonLabel);
+		if (waeEngine.isLoaded()) {
+    		for(var key in blockMap) {
+    			if(blockMap.hasOwnProperty(key)) {
+    				showElement(key, "HIDE");
+    			}
+    		}
+			$('#guideNotification').show();
+    		waeEngine.restartBlock(doActionsV2, moduleErrorMsgV2);    		
+			instance.active = true;
+    	} else {
+			// first init, hide help description as no blocks selected
+			$('#guideNotification').hide();
+        	this.loadModelV2(idProfile);
+    	}
+		logCORE.getInstance().startActivity('wae', 'simplification');
+    }
+	/**
+	 * RESET THE VIEW
+	 */
+	this.resetV2 = function(stay){
+		for(var key in blockMap) {
+			if(blockMap.hasOwnProperty(key)) {
+				showElement(key, "SHOW");
+			}
+		}
+		resetBlock(waeEngine.getActualBlockId());
+		instance.active = false;
+		$('#guideNotification').hide();
+		if (!stay) $('html, body').animate({scrollTop: 0}, 200);
+		logCORE.getInstance().endActivity('wae', 'simplification');
+	}
+	this.disableV2 = this.resetV2;
+	
+	function showHelp(paragraphId, waeEngine) {
+		if (waeEngine.isLoaded()) {
+			// $('#helpModal').show();
+			$("#blockDetails").html(waeEngine.getBlockDescription(paragraphId).it);
+		}
+		$('#guideblock'+currentBlockId).removeClass('active');
+		$('#helpModalPlaceholder').hide();
+		$('#helpModalContent').show();
+
+		currentParagraphId = 'Paragraph'+paragraphId;	
+		currentParagraphTitle = "test123...";
+		currentBlockId = paragraphId;
+		$('#guideblock'+currentBlockId).addClass('active');
+		
+		qaeCORE.getInstance().getQuestions(simpaticoEservice,currentParagraphId,function(paragraphName, jsonResponse){
+			console.log("question::",jsonResponse);
+			if(jsonResponse.length > 0){
+				var questions="";
+				$.each(jsonResponse, function(key, val) {
+					var answers='';
+					if(val.answers.length == 1){answers='<br>(1 risposta)';}
+					if(val.answers.length > 1){answers='<br>('+val.answers.length+' risposte)';}
+					var answerContent = '<div class="question-title"><a onclick="waeUI.getInstance().showQuestion(\''+val._id+'\')">'+val.content+'</a></div>';
+					val.answers.forEach(function(a) {
+						var txt = 
+						'<div class="answer">'+
+						'<div class="answer-content">'+a.content+'</div>'+
+						'<div class="answer-comment"><a onclick="waeUI.getInstance().showQuestion(\''+val._id+'\')">Aggiungi commento</a></div>'+
+						'<div class="answer-user"><a onclick="waeUI.getInstance().showQuestion(\''+val._id+'\')">'+a.user.name+'</a></div>'+
+						'</div>';
+						answerContent += txt;
+					});
+					if (val.answers.length ==0) answerContent += '<div class="answer">Nessuna risposta</div>';
+					questions += '<h3><b>'+val.title+'</b>'+ answers+'</h3><div>'+answerContent+'</div>';
+				});
+				if ($( "#blockQuestions" ).accordion( "instance" )) $("#blockQuestions").accordion('destroy');
+				$("#blockQuestions").html(questions);
+				$("#blockQuestions").accordion({active: false, collapsible: true, heightStyle: 'content'});
+			}else{
+				$("#blockQuestions").html(" ");
+			}
+			
+		});
+
+	}
+
+	this.detailsHelp = function(paragraphId){
+		this.resetV2(true);
+		// trick for directly changing the button
+		$('#workflow').removeClass('simp-bottomBar-btn-active');
+		$('#workflow').addClass('simp-bottomBar-btn-inactive');
+
+		goToBlock('Paragraph'+paragraphId);
+		showHelp(paragraphId, waeEngine);
+	}
+	this.createNewQuestion=function(){
+		window.open(qaeCORE.getInstance().createNewQuestionURL(simpaticoCategory,simpaticoEservice,currentParagraphId,currentParagraphTitle),"_blank");
+	}
+	this.showQuestion = function(questionId) {
+		window.open(qaeCORE.getInstance().createQuestionDetailsURL(questionId),"_blank");
+	}
+
+	this.progress = function() {
+		if (instance.active) {
+		  nextBlockV2();
+		} else {
+			this.enableV2();
+		}
+	}
+	
+	function goToBlock(paragraphId) {
+		var container = paragraphId ? $('#'+paragraphId) : waeEngine.getSimpaticoContainer();
+		if(container != null) {
+			var offset = $(container).offset();
+			if (offset) {
+				var position = offset.top - topBarHeight;
+				$('html, body').animate({scrollTop: position}, 200);
+			}
+		}
+	
+	}
+	function editBlockV2(simpaticoId) {
+		var element = waeEngine.getSimpaticoBlockElement(simpaticoId);
+		if(element != null) {
+			showHelp(waeEngine.getActualBlockIndex()+1, waeEngine);
+			element.wrap("<div data-simpatico-id='simpatico_edit_block' class='block_edited_wrapper col-md-12'><div  class='block_edited'></div></div>" );
+			goToBlock();
+		}
+	};
+	
+	function doActionsV2(actions) {
+		for(var blockId in actions) {
+			var state = actions[blockId];
+			if(state == "HIDE") {
+				resetBlock(blockId);
+				showElement(blockId, "HIDE");
+			}
+		}
+		for(var blockId in actions) {
+			var state = actions[blockId];
+			if(state == "SHOW") {
+				showElement(blockId, "SHOW");
+				editBlockV2(blockId);
+				clearErrorMsg();
+				break;
+			}
+		}
+		if(waeEngine.getActualBlockIndex() < (waeEngine.getBlocksNum() - 1)) {
+			$('#guideNotification').text(labels.nextButtonLabel);
+		} else {	
+			$('#guideNotification').text(labels.lastButtonLabel);
+		}
+		// $('#helpModal').show();
+
+	};
+	
+	function moduleErrorMsgV2(text) {
+		var keyNames = Object.keys(JSON.parse(text));
+		var blockId = keyNames[0];
+		moduleErrorMessage = errorLabel[blockId];
+		createErrorMsg(moduleErrorMessage);
+		// var element = $("#div_simpatico_error_msg");
+		// if(element != null) {
+		// 	$(element).text(moduleErrorMessage);
+		// }
+	};
+	
+	function createErrorMsg(msg) {
+		$('#errorMessages').text(msg);
+	};
+	function clearErrorMsg() {
+		$('#errorMessages').text('');
+	}
+
+	function nextBlockV2() {
+		if (waeEngine.getActualBlockId()) logger().logBlockEnd(simpaticoEservice, waeEngine.getActualBlockId());
+		waeEngine.nextBlock(doActionsV2, moduleErrorMsgV2);
+		if (waeEngine.getActualBlockId()) logger().logBlockStart(simpaticoEservice, waeEngine.getActualBlockId());
+	};
   }
+  
   return {
     	getInstance: function() {
     		if(!instance) instance = new Singleton();
