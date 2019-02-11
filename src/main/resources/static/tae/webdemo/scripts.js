@@ -35,6 +35,13 @@ var posChartOptions = {
 
 var language;
 
+function changeView() {
+    var lang = $("#simp-select").val();
+    $(".simp-ff").css("display", "none");
+    $("#simp-" + lang).css("display", "block");
+    return false;
+}
+
 function escapeAttrNodeValue(value) {
     return value.replace(/(&)|(")|(\u00A0)/g, function (match, amp, quote) {
         if (amp) return "&amp;";
@@ -70,41 +77,49 @@ function newInput(name, checked) {
     return input;
 }
 
-function updateSyntSimpText(i) {
+function updateSyntSimpText(i, lang) {
     var c = $("#switch-" + i + "-main").prop("checked");
     var orig = $("#origsentence" + i);
     var synt = $("#syntsentence" + i);
     var spinner = $("#spinner-" + i);
 
     if (c) {
-        var comp = $("#switch-" + i + "-comp").prop("checked");
-        var conf = $("#switch-" + i + "-conf").prop("checked");
+        if (lang === "it") {
+            var comp = $("#switch-" + i + "-comp").prop("checked");
 
-        var data = {
-            text: orig.html(),
-            comp: comp ? "true" : "false",
-            conf: conf ? "true" : "false",
-            lang: language
-        };
+            orig.hide();
+            synt.show();
+        }
+        else {
+            var comp = $("#switch-" + i + "-comp").prop("checked");
+            var conf = $("#switch-" + i + "-conf").prop("checked");
 
-        spinner.show();
+            var data = {
+                text: orig.html(),
+                comp: comp ? "true" : "false",
+                conf: conf ? "true" : "false",
+                lang: language
+            };
 
-        $.ajax("../syntsimp", {
-            dataType: "json",
-            method: "POST",
-            data: data,
-            success: function (data) {
-                synt.removeClass();
-                spinner.hide();
-                if (data.isSyntSimplified) {
-                    synt.addClass("synt-simp-sent");
+            spinner.show();
+
+            $.ajax("../syntsimp", {
+                dataType: "json",
+                method: "POST",
+                data: data,
+                success: function (data) {
+                    synt.removeClass();
+                    spinner.hide();
+                    if (data.isSyntSimplified) {
+                        synt.addClass("synt-simp-sent");
+                    }
+                    synt.html(data.syntSimplifiedVersion);
+
+                    orig.hide();
+                    synt.show();
                 }
-                synt.html(data.syntSimplifiedVersion);
-
-                orig.hide();
-                synt.show();
-            }
-        });
+            });
+        }
     }
     else {
         orig.show();
@@ -162,6 +177,62 @@ $(function () {
                     var defText = allText;
                     var linksText = allText;
 
+                    var ffText = {};
+                    var okSimp = {};
+
+                    if (data.simplifications != undefined) {
+
+                        data.simplifications.forEach(function (element) {
+                            okSimp[element.start] = element;
+                        });
+                    }
+
+                    if (data.ffs != undefined) {
+                        Object.keys(data.ffs).forEach(function (lang) {
+                            ffText[lang] = allText;
+                            // console.log(lang);
+
+                            var okFf = {};
+                            data.ffs[lang].forEach(function (element) {
+                                okFf[element.start] = element;
+                            });
+
+                            Object.keys(okFf).sort(function (a, b) {
+                                return b - a;
+                            }).forEach(function (start) {
+                                var element = okFf[start];
+                                var end = element.end;
+
+                                var word = ffText[lang].substring(start, end);
+
+                                var before;
+                                var after = '</a>';
+
+                                if (okSimp[start] == undefined) {
+                                    before = '<a data-content="[No simplification]"' +
+                                        ' tabindex="0" role="button" class="my-popover label label-light">';
+                                }
+                                else {
+                                    var t = okSimp[start].simplification;
+                                    before = '<a data-content="' + t.replace('"', "'") +
+                                        // '" title="' + item.shortMessage.replace('"', "'") +
+                                        '" tabindex="0" role="button" class="my-popover label label-danger">';
+                                }
+
+                                var newText = ffText[lang].substring(0, start);
+                                newText += before;
+                                newText += word;
+                                newText += after;
+                                newText += ffText[lang].substring(end);
+
+                                ffText[lang] = newText;
+                            });
+
+                        });
+                    }
+
+                    // console.log(ffText);
+
                     // Definitions
                     if (data.readability != undefined) {
                         Object.keys(data.readability.forms).sort().reverse().forEach(function (start) {
@@ -183,11 +254,6 @@ $(function () {
 
                     // Lexical simplifications
                     if (data.simplifications != undefined) {
-
-                        var okSimp = {};
-                        data.simplifications.forEach(function (element) {
-                            okSimp[element.start] = element;
-                        });
 
                         Object.keys(okSimp).sort(function (a, b) {
                             return b - a;
@@ -243,6 +309,23 @@ $(function () {
 
                             linksText = newText;
                         });
+                    }
+
+                    if (language == "it") {
+                        var simpDiv = '<div id="mother-language">Mother language: <select id="simp-select" onchange="changeView();">';
+                        simpDiv += '<option value="none">[Not specified]</option>';
+                        Object.keys(ffText).forEach(function (lang) {
+                            simpDiv += '<option value="' + lang + '">' + lang + '</option>';
+                        });
+                        simpDiv += '</select></div>';
+
+                        var textDiv = '<div class="simp-ff" id="simp-none">' + simpText + '</div>';
+                        simpText = simpDiv + textDiv;
+
+                        Object.keys(ffText).forEach(function (lang) {
+                            simpText += '<div class="simp-ff" id="simp-' + lang + '">' + ffText[lang] + '</div>';
+                        });
+
                     }
 
                     $("#text-original-simplifications").html(simpText);
@@ -329,13 +412,13 @@ $(function () {
                         var input3 = newInput(i + "-conf", false);
 
                         input.change(function () {
-                            updateSyntSimpText(i);
+                            updateSyntSimpText(i, language);
                         });
                         input2.change(function () {
-                            updateSyntSimpText(i);
+                            updateSyntSimpText(i, language);
                         });
                         input3.change(function () {
-                            updateSyntSimpText(i);
+                            updateSyntSimpText(i, language);
                         });
 
                         var text = item.text;
@@ -360,8 +443,10 @@ $(function () {
                         inputp.append(input);
                         inputp.append(" Complexity checker: ");
                         inputp.append(input2);
-                        inputp.append(" Confidence model: ");
-                        inputp.append(input3);
+                        if (language !== "it") {
+                            inputp.append(" Confidence model: ");
+                            inputp.append(input3);
+                        }
                         inputp.append(" ");
                         inputp.append(spinner);
 
@@ -369,7 +454,7 @@ $(function () {
 
                         // Really bad!
                         // if (language != "it") {
-                        //     div.append(inputp);
+                        div.append(inputp);
                         // }
 
                         $("#text-original-ssimplifications").append(div);

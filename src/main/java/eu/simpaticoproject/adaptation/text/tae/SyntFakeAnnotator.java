@@ -32,9 +32,12 @@ public class SyntFakeAnnotator implements Annotator {
     public void annotate(Annotation annotation) {
         String text = annotation.get(CoreAnnotations.TextAnnotation.class);
         for (String key : model.getSentences().keySet()) {
+//            System.out.println("Key: " + key);
+//            System.out.println("Index: " + text.indexOf(key));
             text = text.replace(key, model.getSentences().get(key));
         }
 
+//        System.out.println("Final text: " + text);
         annotation.set(SimpaticoAnnotations.SyntSimplifiedAnnotation.class, text);
     }
 
