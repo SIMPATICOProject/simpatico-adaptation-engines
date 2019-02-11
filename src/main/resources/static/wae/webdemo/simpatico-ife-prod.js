@@ -459,6 +459,10 @@ function initFeatures() {
 document.addEventListener('simpaticoDestroy', function () {
 	  var simpaticoBarContainer = document.getElementById('simp-bottomBar');;
 	  simpaticoBarContainer.parentNode.removeChild(simpaticoBarContainer);
+
+	  $("#guideModal").hide();
+      $("#helpModal").hide();
+	  
 	  if (authManager.getInstance().isEnabled()) sfUI.getInstance().showSF();
 	  logCORE.getInstance().setSyncMode();	
 	  logCORE.getInstance().ifeLogger.sessionEnd(simpaticoEservice);
@@ -599,9 +603,9 @@ function updateForm(sessionId) {
 //});
 //setTimeout(function() {
 //	  document.dispatchEvent(new Event('simpaticoDestroy'));
-//	  setTimeout(function() {
-//		  document.dispatchEvent(new Event('simpaticoEvent'));
-//	}, 2000);
+////	  setTimeout(function() {
+////		  document.dispatchEvent(new Event('simpaticoEvent'));
+////	}, 2000);
 //}, 5000);
 
   
