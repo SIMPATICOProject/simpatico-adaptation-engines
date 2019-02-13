@@ -304,7 +304,8 @@ var waeUI = (function () {
 	}
 
     this.enableV2 = function(idProfile) {
-		$('#guideNotification').text(labels.nextButtonLabel);
+		$('#guideNotificationNext').text(labels.nextButtonLabel);
+		$('#guideNotificationPrev').text(labels.prevButtonLabel);
 		if (waeEngine.isLoaded()) {
     		for(var key in blockMap) {
     			if(blockMap.hasOwnProperty(key)) {
@@ -407,6 +408,13 @@ var waeUI = (function () {
 			this.enableV2();
 		}
 	}
+	this.back = function() {
+		if (instance.active) {
+		  prevBlockV2();
+		} else {
+			this.enableV2();
+		}
+	}
 	
 	function goToBlock(paragraphId) {
 		var container = paragraphId ? $('#'+paragraphId) : waeEngine.getSimpaticoContainer();
@@ -446,9 +454,14 @@ var waeUI = (function () {
 			}
 		}
 		if(waeEngine.getActualBlockIndex() < (waeEngine.getBlocksNum() - 1)) {
-			$('#guideNotification').text(labels.nextButtonLabel);
+			$('#guideNotificationNext').text(labels.nextButtonLabel);
 		} else {	
-			$('#guideNotification').text(labels.lastButtonLabel);
+			$('#guideNotificationNext').text(labels.lastButtonLabel);
+		}
+		if(waeEngine.getActualBlockIndex() == 0) {
+			$('#guideNotificationPrev').hide();
+		} else {	
+			$('#guideNotificationPrev').show();
 		}
 		// $('#helpModal').show();
 
@@ -475,6 +488,11 @@ var waeUI = (function () {
 	function nextBlockV2() {
 		if (waeEngine.getActualBlockId()) logger().logBlockEnd(simpaticoEservice, waeEngine.getActualBlockId());
 		waeEngine.nextBlock(doActionsV2, moduleErrorMsgV2);
+		if (waeEngine.getActualBlockId()) logger().logBlockStart(simpaticoEservice, waeEngine.getActualBlockId());
+	};
+	function prevBlockV2() {
+		if (waeEngine.getActualBlockId()) logger().logBlockEnd(simpaticoEservice, waeEngine.getActualBlockId());
+		waeEngine.prevBlock(doActionsV2, moduleErrorMsgV2);
 		if (waeEngine.getActualBlockId()) logger().logBlockStart(simpaticoEservice, waeEngine.getActualBlockId());
 	};
   }

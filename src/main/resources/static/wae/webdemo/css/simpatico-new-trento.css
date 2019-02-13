@@ -388,3 +388,28 @@ input:checked + .slider:before {
   border-color: #1ebad9;
   border-radius: inherit;
 }
+
+.question-wrapper {
+    padding: 4px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+.question-wrapper .question-detail {
+	text-decoration: underline;
+	font-style: italic;
+	padding: 4px 0; 
+} 
+
+.question-wrapper .question-detail a {
+	color: #000;
+}
+
+.answer-item {
+    border-top: 1px solid #ddd;
+	padding: 8px;
+}
+
+.ui-state-active {
+	background-color: #f6f6f6!important;
+	color: inherit!important;
+}

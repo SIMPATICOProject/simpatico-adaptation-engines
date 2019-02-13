@@ -1,0 +1,267 @@
+{
+	"uri" : "modulo-test",
+	"concepts": [
+		{
+			"uri": "http://simpatico.org/domain/trento/fiscalid",
+			"subject": [
+				"person"
+			],
+			"type": "string"
+		},
+		{
+			"uri": "http://simpatico.org/domain/trento/parent_role",
+			"subject": [
+				"person"
+			],
+			"type": "['Padre', 'Madre']"
+		},
+		{
+			"uri": "http://simpatico.org/domain/trento/family_member",
+			"subject": [
+				"person"
+			],
+			"type": {
+				"fiscalid": "http://simpatico.org/domain/trento/fiscalid",
+				"name": "string",
+				"surname": "string",
+				"birth_date": "date",
+				"gender": "['M', 'F']"
+			}
+		},
+		{
+			"uri": "http://simpatico.org/domain/trento/family",
+			"subject": [
+				"person"
+			],
+			"type": "http://simpatico.org/domain/trento/family_member"
+		},
+		{
+			"uri": "http://simpatico.org/domain/trento/citizen",
+			"subject": [
+				"person"
+			],
+			"type": {
+				"fiscalid": "http://simpatico.org/domain/trento/fiscalid",
+				"name": "string",
+				"surname": "string",
+				"birth_date": "date",
+				"gender": "['M', 'F']",
+				"nationality": "string",
+				"birth_place": "string",
+				"address": "http://simpatico.org/domain/trento/address",
+				"contacts": "http://simpatico.org/domain/trento/contacts"
+			}
+		},
+		{
+			"uri": "http://simpatico.org/domain/trento/icef",
+			"subject": [
+				"person"
+			],
+			"type": {
+				"fiscalid": "http://simpatico.org/domain/trento/fiscalid",
+				"name": "string",
+				"surname": "string",
+				"value": "float",
+				"date": "date"
+			}
+		},
+		{
+			"uri": "http://simpatico.org/domain/trento/address",
+			"subject": [
+				"person"
+			],
+			"type": {
+				"street": "string",
+				"number": "string",
+				"bar": "string",
+				"city": "string",
+				"pronvice": "string"
+			}
+		},
+		{
+			"uri": "http://simpatico.org/domain/trento/contacts",
+			"subject": [
+				"person"
+			],
+			"type": {
+				"phone": "string",
+				"fax": "string",
+				"email": "string",
+				"email_pec": "string"
+			}
+		}
+	],
+	"services" : [
+		{
+			"uri" : "http://simpatico.org/services/account",
+			"name": "Dati account",
+			"output" : [
+				{
+					"type" : "http://simpatico.org/domain/trento/fiscalid", 
+					"mapping": {
+						"http://simpatico.org/domain/trento/fiscalid" : "CF"
+					}
+				}
+			]
+		}, 
+		{
+			"uri" : "http://simpatico.org/services/trento/getPersonlData",
+            "name": "Dati personali",
+			"implementation" : {
+				"function" : "getPersonalData"
+			},
+			"input" : [
+				{
+					"type" : "http://simpatico.org/domain/trento/fiscalid"
+				}
+			],
+			"output" : [
+				{
+					"type" : "http://simpatico.org/domain/trento/citizen", 
+					"mapping": {
+						"http://simpatico.org/domain/trento/citizen#fiscalid" : "CF", 
+						"http://simpatico.org/domain/trento/citizen#name" : "Nome", 
+						"http://simpatico.org/domain/trento/citizen#surname" : "Cognome", 
+						"http://simpatico.org/domain/trento/citizen#nationality" : "Nazionalita", 
+						"http://simpatico.org/domain/trento/citizen#birth_date" : "DataNascita", 
+						"http://simpatico.org/domain/trento/citizen#birth_place" : "LuogoNascita", 
+						"http://simpatico.org/domain/trento/citizen#gender" : "Sesso", 
+						"http://simpatico.org/domain/trento/citizen#address.street" : "Via", 
+						"http://simpatico.org/domain/trento/citizen#address.number" : "Numero", 
+						"http://simpatico.org/domain/trento/citizen#address.bar" : "Barra",
+						"http://simpatico.org/domain/trento/citizen#address.cap" : "CAP",
+						"http://simpatico.org/domain/trento/citizen#address.city" : "Comune",
+						"http://simpatico.org/domain/trento/citizen#address.province" : "Provincia"
+					}
+				}
+			]
+		}, 
+		{
+			"uri" : "http://simpatico.org/services/trento/getFamily",
+            "name": "Dati di famiglia",
+			"implementation" : {
+				"function" : "getFamily"
+			},
+			"input" : [
+				{
+					"type" : "http://simpatico.org/domain/trento/fiscalid"
+				}
+			],
+			"output" : [
+				{
+					"type" : "http://simpatico.org/domain/trento/family_member", 
+					"mapping": {
+						"http://simpatico.org/domain/trento/family_member#fiscalid" : "CF", 
+						"http://simpatico.org/domain/trento/family_member#name" : "Nome", 
+						"http://simpatico.org/domain/trento/family_member#surname" : "Cognome", 
+						"http://simpatico.org/domain/trento/family_member#birth_date" : "DataNascita", 
+						"http://simpatico.org/domain/trento/family_member#gender" : "Sesso"
+					}
+				}
+			]
+		}, 
+		{
+			"uri" : "http://simpatico.org/services/trento/getICEF",
+            "name": "Dati ICEF",
+			"implementation" : {
+				"function" : "getICEF"
+			},
+			"input" : [
+				{
+					"type" : "http://simpatico.org/domain/trento/fiscalid"
+				}
+			],
+			"output" : [
+				{
+					"type" : "http://simpatico.org/domain/trento/icef", 
+					"mapping": {
+						"http://simpatico.org/domain/trento/icef#fiscalid" : "CF", 
+						"http://simpatico.org/domain/trento/icef#name" : "Nome", 
+						"http://simpatico.org/domain/trento/icef#surname" : "Cognome", 
+						"http://simpatico.org/domain/trento/icef#date" : "DataCalcolo", 
+						"http://simpatico.org/domain/trento/icef#value" : "CoefficenteICEF"
+					}
+				}
+			]
+		}
+	],	 
+	"modalities": [
+		{
+			"type" : "question",	
+			"condition" : "context['me']['urn:simpaticoproject:profile']['interaction_capability'] === 'LOW'",
+			"configuration" : {
+				"conceptQuestions": {
+					"http://simpatico.org/domain/trento/fiscalid" : {
+						"it" : "Inserisci il codice fiscale", 
+						"en" : "Type fiscal code"
+					}, 
+					"http://simpatico.org/domain/trento/citizen#name" : {
+						"it" : "Inserisci il nome", 
+						"en" : "Type your name"
+					}, 
+					"http://simpatico.org/domain/trento/citizen#surname" : {
+						"it" : "Inserisci il cognome", 
+						"en" : "Type your surname"
+					}, 
+					"http://simpatico.org/domain/trento/citizen#nazionalita" : {
+						"it" : "Inserisci la nazionalita'", 
+						"en" : "Type your nationality"
+					}, 
+					"http://simpatico.org/domain/trento/citizen#birth_date" : {
+						"it" : "Inserisci la data di nascita", 
+						"en" : "Type your bith date"
+					}, 
+					"http://simpatico.org/domain/trento/citizen#birth_place" : {
+						"it" : "Inserisci il luogo di nascita", 
+						"en" : "Type your birth place"
+					}, 
+					"http://simpatico.org/domain/trento/citizen#street" : {
+						"it" : "Inserisci la via di residenza", 
+						"en" : "Type your street"
+					},
+					"http://simpatico.org/domain/trento/citizen#number" : {
+						"it" : "Inserisci il numero civico di residenza", 
+						"en" : "Type street number"
+					},
+					"http://simpatico.org/domain/trento/citizen#bar" : {
+						"it" : "Inserisci l'eventuale numero dopo la barra", 
+						"en" : "Type the bar number"
+					},
+					"http://simpatico.org/domain/trento/citizen#city" : {
+						"it" : "Inserisci il comune di residenza", 
+						"en" : "Type your city"
+					},
+					"http://simpatico.org/domain/trento/citizen#province" : {
+						"it" : "Inserisci la provincia di residenza", 
+						"en" : "Type your province"
+					},
+					"http://simpatico.org/domain/trento/citizen#phone" : {
+						"it" : "Inserisci il numero di telefono", 
+						"en" : "Type phone number"
+					},
+					"http://simpatico.org/domain/trento/citizen#fax" : {
+						"it" : "Inserisci il numero di fax", 
+						"en" : "Type fax number"
+					},
+					"http://simpatico.org/domain/trento/person#email" : {
+						"it" : "Inserisci l'indirizzo citizen'", 
+						"en" : "Type email address"
+					},
+					"http://simpatico.org/domain/trento/citizen#email_pec" : {
+						"it" : "Inserisci l'indirizzo email pec", 
+						"en" : "Type pec email address"
+					},
+					"http://simpatico.org/domain/trento/citizen/parent_role" : {
+						"it" : "Inserisci il tuo ruolo", 
+						"en" : "Type your role"
+					} 
+				}
+			}
+		},
+		{
+			"type" : "form-semplified",
+			"condition": "context['me']['urn:simpaticoproject:profile']['interaction_capability'] === 'MEDIUM'",
+			"configuration" : {}
+		}
+	]
+}

@@ -204,12 +204,22 @@ body {
   font-style: normal;
   /* width: 50%; */
   text-align: center;
-  padding: 10px 15px 10px 0px;
+  padding: 10px 15px 0px 10px;
   color: #2196F3;
-  border: solid 1px #2196F3;
-  border-radius: 5px;
-  margin: 5px;
+  display: flex;
   }
+   .guide-noti button{
+      color: #2196F3;
+      background-color: transparent;
+      height: 37px;
+	   border: solid 1px #2196F3;
+	  border-radius: 5px;
+	  margin: 5px;
+	  width: 100%;
+   }
+   .guide-noti button:focus {
+    outline: none!important;
+   }
   
   .groupList.active{
     background-color: #0099ff3f;
@@ -323,4 +333,16 @@ body {
 
 .ui-dialog {
 	z-index: 99999!important;
+}
+
+.loadingScreenWindow .ui-dialog-titlebar {
+	display: none;
+	
+}
+.loadingScreenWindow {
+	text-align: center;
+	line-height: 100%;
+}
+.prefilled {
+	background-color: #E9F8FC !important;
 }

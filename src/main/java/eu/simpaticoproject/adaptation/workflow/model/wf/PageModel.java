@@ -9,6 +9,8 @@ public class PageModel {
 	private Map<String, Variable> context = new HashMap<String, Variable>();
 	private List<Block> blocks = new ArrayList<Block>();
 	private List<Field> fields = new ArrayList<Field>();
+	private List<Map<String, Object>> services = new ArrayList<Map<String,Object>>();
+	private List<Map<String, Object>> questions = new ArrayList<Map<String,Object>>();
 	
 	private Map<String, Object> description;
 	private Map<String, Object> name;
@@ -77,6 +79,18 @@ public class PageModel {
 	}
 	public void setName(Map<String, Object> name) {
 		this.name = name;
+	}
+	public List<Map<String, Object>> getServices() {
+		return services;
+	}
+	public void setServices(List<Map<String, Object>> services) {
+		this.services = services;
+	}
+	public List<Map<String, Object>> getQuestions() {
+		return questions;
+	}
+	public void setQuestions(List<Map<String, Object>> questions) {
+		this.questions = questions;
 	}
 	
 }

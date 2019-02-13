@@ -161,7 +161,7 @@ function initFeatures() {
                     styleClassDisabled: "simp-none", 
                     label: 'Domande e risposte',
                     isEnabled: function() { return citizenpediaUI.getInstance().isEnabled(); },
-                    enable: function() { citizenpediaUI.getInstance().openQuestionDiagram(); },
+                    enable: function() { openQuestionDiagram(simpaticoEservice+".descr"); },
                     disable: function() { citizenpediaUI.getInstance().disable(); }
                   },
                  
@@ -285,7 +285,7 @@ function updateButtonStyle(button) {
 function sendQuestion(){
   $('#questionModal').modal('hide');
   // window.open(taeUIInline.getInstance().questionsURL+"/create?text="+$("#inputQuestion").val()+"&tags=Infanzia,"+simpaticoEservice,"_blank");
-  window.open(taeUIInline.getInstance().questionsURL+"/create?tags=Infanzia,"+simpaticoEservice,"_blank");
+  window.open(taeUIInline.getInstance().questionsURL+"/create?tags="+simpaticoEservice+".descr","_blank");
 }
 // Once the document is loaded the Simpatico features are initialised and the 
 // toolbar added
@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
   //simpaticoEservice is a global variable that initialized in install time
-  qaeCORE.getInstance().getAllQuestions(simpaticoEservice,function(response){
+  qaeCORE.getInstance().getAllQuestions(simpaticoEservice+".descr",function(response){
     $("#simp-bar-container-left").append("<li id='simp-question-num-li'><span id='simp-question-num'>"+response.length+"</span></li>");
   });
   
@@ -450,3 +450,67 @@ function tutorialContent(step) {
 	}
 }
 	
+
+function openQuestionDiagram(ref){
+	var questionsURL = "https://simpatico.smartcommunitylab.it/qae/questions";
+    var questionModalContainer = document.getElementById("questionModal");
+    if (questionModalContainer == null) {
+      var body = document.getElementsByTagName('body')[0];
+      questionModalContainer = document.createElement('div');
+      body.insertBefore(questionModalContainer, body.firstChild);
+      //simpaticoEservice is a global variable that initialized in install time
+      qaeCORE.getInstance().getAllQuestions(ref,function(response){
+        
+        var listItem="";
+        $.each(response, function (index, value){
+          var ansLength=value.answers.length;
+//    	  listItem+="<a class='list-group-item' data-toggle='collapse' href='#"+value._id+"' aria-expanded='false' aria-controls='"+value._id+"'>"+value.title+"<span class='ansNum'>"+ansLength+"</span></a>";
+    	  listItem+="<h3 class='list-group-item'>"+value.title+"<span class='ansNum'>"+ansLength+"</span></h3>";
+    	  listItem+="<div id='"+value._id+"' class='question-wrapper'>";
+    	  listItem+='<div class="question-detail"><a href="'+questionsURL+'/show/'+value._id+'" target="_blank">'+value.content+'</a></div>';
+          
+    	  if (ansLength > 10) {
+    		  value.answers = value.answers.slice(0, 10);
+    	  }
+    	  var ansListItem = "";
+          $.each(value.answers,function(index2, value2){
+              ansListItem+="<div class='answer-item'>"+value2.content+"</div>";
+          });
+          listItem += "<div class='answer-group'>"+ansListItem+"</div></div>";          
+        });
+        if (!listItem) {
+        	listItem = "Non sono ancora presenti domande associate a questa pagina.";
+        } 
+        var questionModalHTML='<div class="modal fade bottom" id="questionModal" role="dialog">'+
+                                '<div class="modal-dialog">'+
+                                  '<div class="modal-content">'+
+                                    '<div class="modal-header question-modalHeader">'+
+                                      '<button type="button" class="close" data-dismiss="modal">&times;</button>'+
+                                      '<h3 class="modal-title">Domande legate</h3>'+
+                                    '</div>'+
+                                    '<div class="modal-body questionModalBody">'+
+                                      // '<input class="form-control input-sm" id="inputQuestion" type="text" placeholder="Type your question here">'+
+                                      '<div class="list-group" id="accordion">'+
+                                        listItem +
+                                      '</div>'+
+                                    '</div>'+
+                                    '<div class="modal-footer">'+
+                                      // '<button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>'+
+                                      '<button type="button" class="btn btn-default btn-send" id="sendQuestions" onclick="sendQuestion();" >+ Aggiungi una domanda</button>'+
+                                    '</div>'+
+                                  '</div>'+
+                                '</div>'+
+                              '</div>';
+      
+      
+        questionModalContainer.innerHTML=questionModalHTML;
+        $("#questionModal").modal();
+        $('#accordion').accordion({
+        	heightStyle: "content", active: false, collapsible: true
+        });
+      });
+    }else{
+      $("#questionModal").modal();
+    }
+    
+  }

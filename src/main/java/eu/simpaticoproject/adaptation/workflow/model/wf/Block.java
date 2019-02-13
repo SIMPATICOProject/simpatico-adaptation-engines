@@ -15,7 +15,9 @@ public class Block {
 	private List<String> dependencies = new ArrayList<String>();
 	private String condition;
 	private String completed;
+	private List<Map<String, Object>> annotations = new ArrayList<Map<String,Object>>();
 	private Map<String,String> description;
+	private List<String> concepts;
 	
 	public String getId() {
 		return id;
@@ -145,5 +147,18 @@ public class Block {
 	public void setName(Map<String, String> name) {
 		this.name = name;
 	}
+	public List<Map<String, Object>> getAnnotations() {
+		return annotations;
+	}
+	public void setAnnotations(List<Map<String, Object>> annotations) {
+		this.annotations = annotations;
+	}
+	public List<String> getConcepts() {
+		return concepts;
+	}
+	public void setConcepts(List<String> concepts) {
+		this.concepts = concepts;
+	}
+
 	
 }

@@ -1,0 +1,1668 @@
+{
+    "eserviceId": "2A",
+	"uri": "modulo-test",
+	"profileTypes": [],
+	"model": {
+		"workflow": [],
+		"services": [
+			{
+				"uri": "http://simpatico.org/services/account",
+				"output": [
+					{
+						"type": "me@http://simpatico.org/domain/trento/fiscalid"
+					}
+				]
+			},
+			{
+				"uri": "http://simpatico.org/services/trento/getICEF",
+				"input": [
+					{
+						"type": "me@http://simpatico.org/domain/trento/fiscalid"
+					}
+				],
+				"output": [
+					{
+						"type": "me@http://simpatico.org/domain/trento/icef"
+					}
+				]
+			},
+			{
+				"uri": "http://simpatico.org/services/trento/getFamily",
+				"input": [
+					{
+						"type": "me@http://simpatico.org/domain/trento/fiscalid"
+					}
+				],
+				"output": [
+					{
+						"type": "me@http://simpatico.org/domain/trento/family_member"
+					}
+				]
+			},
+			{
+				"uri": "http://simpatico.org/services/trento/getPersonlData",
+				"input": [
+					{
+						"type": "me@http://simpatico.org/domain/trento/fiscalid"
+					}
+				],
+				"output": [
+					{
+						"type": "me@http://simpatico.org/domain/trento/citizen"
+					}
+				]
+			},
+			{
+				"uri": "http://simpatico.org/services/trento/getPersonlData",
+				"input": [
+					{
+						"type": "child@http://simpatico.org/domain/trento/fiscalid"
+					}
+				],
+				"output": [
+					{
+						"type": "child@http://simpatico.org/domain/trento/citizen"
+					}
+				]
+			}, 
+			{
+				"uri" : "http://simpatico.org/services/trento/getParentRole",
+				"input" : [
+					{
+						"type" : "family@http://simpatico.org/domain/trento/fiscalid"
+					}
+				],
+				"output" : [
+					{
+						"type" : "me@http://simpatico.org/domain/trento/parent_rone"
+					}
+				]
+			}
+		],
+		"questions": [
+			{
+				"entity" : "me@http://simpatico.org/domain/trento/contacts#phone",
+				"text" : {
+					"it" : "inserisci il telefono",
+					"en" : "phone number"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/fiscalid",
+				"text" : 
+				{
+					"it": "Inserisci il codice fiscale del/la bambino/a se avente il codice fiscale",
+					"en": "Type fiscal code"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#name",
+				"text" : 
+				{
+					"it": "Inserisci il nome del/la bambino/a",
+					"en": "Type your name"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#surname", 
+				"text" :
+				{
+					"it": "Inserisci il cognome del/la bambino/a",
+					"en": "Type your surname"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#nazionalita",
+				"text" : 
+				{
+					"it": "Inserisci la nazionalita' del/la bambino/a",
+					"en": "Type your nationality"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#birth_date",
+				"text" : 
+				{
+					"it": "Inserisci la data di nascita del/la bambino/a",
+					"en": "Type your bith date"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#birth_place",
+				"text" : 
+				{
+					"it": "Inserisci il luogo di nascita del/la bambino/a",
+					"en": "Type your birth place"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#street",
+				"text" : 
+				{
+					"it": "Inserisci la via di residenza del/la bambino/a",
+					"en": "Type your street"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#number", 
+				"text" :
+				{
+					"it": "Inserisci il numero civico di residenza del/la bambino/a",
+					"en": "Type street number"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#bar",
+				"text" : 
+				{
+					"it": "Inserisci l'eventuale numero dopo la barra del/la bambino/a",
+					"en": "Type the bar number"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#city", 
+				"text" :
+				{
+					"it": "Inserisci il comune di residenza del/la bambino/a",
+					"en": "Type your city"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#province",
+				"text" : 
+				{
+					"it": "Inserisci la provincia di residenza del/la bambino/a",
+					"en": "Type your province"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#phone",
+				"text" :
+				{
+					"it": "Inserisci il numero di telefono del/la bambino/a",
+					"en": "Type phone number"
+				}
+			},
+			{
+				"entity" : "child@http://simpatico.org/domain/trento/citizen#fax",
+				 "text" :
+				 {
+					"it": "Inserisci il numero di fax del/la bambino/a",
+					"en": "Type fax number"
+				}
+			}
+		],
+		"blocks": [
+			{
+				"id": "block1",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[1]",
+				"concepts": [
+					"me@http://simpatico.org/domain/trento/citizen"
+				],
+				"tags": [],
+				"fields": [
+					"AventeTitolo_CodiceFiscale",
+					"AventeTitolo_Nome",
+					"AventeTitolo_Cognome",
+					"AventeTitolo_DataNascita",
+					"AventeTitolo_LuogoNascita",
+					"AventeTitolo_Sesso",
+					"AventeTitolo_Nazionalita",
+                    "AventeTitolo_ComuneResidenza",
+                    "AventeTitolo_ProvinciaResidenza",
+					"AventeTitolo_ViaResidenza",
+					"AventeTitolo_CivicoResidenza",
+					"AventeTitolo_BarraResidenza",
+					"AventeTitolo_CAPResidenza",
+					"AventeTitolo_Telefono",
+					"AventeTitolo_Fax",
+					"AventeTitolo_EMail",
+					"AventeTitolo_EMailPEC"
+				],
+				"blocks": [],
+				"dependencies": [],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": "context['me']['urn:simpaticoproject:profile']['interaction_capability'] === 'LOW'",
+						"text": {
+							"it": "Una volta effettuato l’accesso con la carta dei servizi, premendo il pulsante <i>“Carica dati personali”</i> le informazioni anagrafiche verranno caricate automaticamente.<br>Verificare i dati e compilare eventuali voci mancanti.<br>NOTA: Se il richiedente non risiede nell'Unione Europea, selezionare come provincia di residenza l'opzione <i>“EE”</i> e inserire la nazione di residenza nel campo “Comune”.<br><br><b>ATTENZIONE! I campi evidenziati in arancione sono obbligatori.</b><br><br>Una volta compilati tutti i campi premere il pulsante <i>“SUCCESSIVO”</i> per proseguire.",
+							"en": "English version complex"
+						}
+					},
+					{
+						"condition": "context['me']['urn:simpaticoproject:profile']['interaction_capability'] === 'MEDIUM'",
+						"text": {
+							"it": "Una volta effettuato l’accesso con la carta dei servizi, e <i>“Carica dati personali”</i>.<br>Verificare i dati e compilare eventuali voci mancanti.<br>NOTA: Se il richiedente non risiede nell'Unione Europea, selezionare come provincia di residenza l'opzione <i>“EE”</i> e inserire la nazione di residenza nel campo “Comune”.</b><br><br>Premere il pulsante <i>“SUCCESSIVO”</i> per proseguire.",
+							"en": "English version simple"
+						}
+					}
+				]
+			},
+			{
+				"id": "block2",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[2]",
+				"tags": [],
+				"fields": ["AventeTitolo_RuoloRichiedente"],
+				"blocks": [],
+				"dependencies": [
+					"block1"
+				],
+				"condition": null,
+				"completed": "(context['me']['http://simpatico.org/domain/trento/parent_role'] !== null) && (context['me']['http://simpatico.org/domain/trento/parent_role'] != '')",
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Aprire il menu a tendina e indicare il ruolo ricoperto nei confronti del bambino/a che si intende iscrivere al nido d’infanzia."
+						}
+					}
+				]
+			},
+			{
+				"id": "block3",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[3]",
+				"tags": ["me@http://simpatico.org/domain/trento/parent_role"],
+				"fields": [
+					"AventeTitolo_RuoloRichiedente"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block2"
+				],
+				"condition": "context['me']['http://simpatico.org/domain/trento/parent_role']=='affidatario' || context['me']['http://simpatico.org/domain/trento/parent_role']=='preadottivo'|| context['me']['http://simpatico.org/domain/trento/parent_role']=='tutore'",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Inserire i dati relativi al provvedimento di affidamento o tutela."
+						}
+					}
+				]
+			},
+			{
+				"id": "block4",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[4]",
+                "concepts": ["child@http://simpatico.org/domain/trento/citizen"],
+				"tags": [],
+				"fields": [
+					"Tassonomia_CF1",
+					"Tassonomia_CF2",
+					"Tassonomia_CF3",
+					"Parametri_CFBambino"
+				],
+				"blocks": [],
+				"dependencies": [],
+				"condition": "context['me']['http://simpatico.org/domain/trento/parent_role']=='affidatario' || context['me']['http://simpatico.org/domain/trento/parent_role']=='preadottivo'|| context['me']['http://simpatico.org/domain/trento/parent_role']=='padre'|| context['me']['http://simpatico.org/domain/trento/parent_role']=='madre'|| context['me']['http://simpatico.org/domain/trento/parent_role']=='tutore'",
+				"completed": "context['me']['Tassonomia_CF1'] != null || context['me']['Tassonomia_CF2'] != null || context['me']['Tassonomia_CF3'] != null",
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare il bambino/a da iscrivere.<ul><li>Se risulta residente con chi presenta la domanda scegliere l’opzione <i>“avente codice fiscale”</i>, quindi indicare il CF del/la bambino/a da iscrivere;</li><li>se <b>NON</b> appartiene al nucleo familiare di chi presenta la domanda scegliere una delle altre opzioni.</li></ul><b>NB: è obbligatoria la scelta di una delle opzioni</b>"
+						}
+					}
+				]
+			},
+			{
+				"id": "block5",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[5]",
+				"concepts": ["child@http://simpatico.org/domain/trento/citizen"],
+				"tags": [],
+                "fields": [
+                    "Bambino_CodiceFiscale",
+                    "Bambino_Nome",
+                    "Bambino_Cognome",
+                    "Bambino_DataNascita",
+                    "Bambino_LuogoNascita",
+                    "Bambino_Sesso",
+                    "Bambino_Nazionalita",
+                    "Bambino_ProvinciaResidenza",
+                    "Bambino_ComuneResidenza",
+                    "Bambino_ViaResidenza",
+                    "Bambino_CivicoResidenza",
+                    "Bambino_BarraResidenza",
+                    "Bambino_CAPResidenza"
+                ],
+				"blocks": [],
+				"dependencies": [
+					"block4"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Verificare la correttezza dei dati anagrafici del bambino/a e dell’<i>“esito verifica età del bambino”</i>."
+						}
+					}
+				]
+			},
+
+			{
+				"id": "block7",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[7]",
+				"concepts": ["me@http://simpatico.org/domain/trento/family"],
+				"tags": [],
+				"fields": [
+                    "Parametri_CognomeFam1",
+                    "Parametri_NomeFam1",
+                    "Parametri_CFFam1",
+                    "Parametri_SessoFam1",
+				    "Parametri_DataNasFam1",
+				    "Parametri_GradoParFam1",
+                    "Parametri_CognomeFam2",
+                    "Parametri_NomeFam2",
+                    "Parametri_CFFam2",
+                    "Parametri_SessoFam2",
+                    "Parametri_DataNasFam2",
+                    "Parametri_GradoParFam2",
+                    "Parametri_CognomeFam3",
+                    "Parametri_NomeFam3",
+                    "Parametri_CFFam3",
+                    "Parametri_SessoFam3",
+                    "Parametri_DataNasFam3",
+                    "Parametri_GradoParFam3"
+				    
+				],
+				"blocks": [],
+				"dependencies": [
+					"block5"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "La tabella mostra l’elenco dei componenti del nucleo familiare che, secondo l’anagrafe comunale, risultano residenti con il bambino/a.<br><b>Indicare il grado di parentela di ciascun individuo rispetto al bambino/a che si intende iscrivere.</b><br>Relativamente al bambino/a da iscrivere selezionare l’opzione <i>“Bambino/a da iscrivere”</i>.<br>Nel caso in cui il richiedente sia l’affidatario/a o l’affidatario/a preadottivo la tabella mostra l’elenco dei componenti del nucleo familiare del richiedente con esso residenti.<br><br><b>NOTA: qualunque altro membro del nucleo familiare residente con il bambino, che non sia un genitore/compagno convivente o un fratello/sorella, va identificato con il grado di parentela <i>“Altro”</i>.</b>"
+						}
+					}
+				]
+			},
+			{
+				"id": "block8",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[8]",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [
+					"block7"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Inserire i dati di altri eventuali componenti del nucleo familiare NON residenti con il bambino/a,<b> indicando il grado di parentela di ciascun individuo rispetto al bambino/a che si intende iscrivere.</b><br><br>NB: Nel caso di nucleo familiare non monoparentale devono essere qui inseriti i dati del padre/compagno convivente e/o della madre/compagna convivente che non risiede con il bambino. Se inoltre tale genitore non risiede nell'Unione Europea, selezionare come provincia di residenza l'opzione <i>“EE”</i> e inserire la nazione di residenza nel campo “Comune”.<br><b>Nel caso in cui il richiedente sia il genitore non residente con il bambino, le prime righe della tabella si compilano in automatico con i dati del richiedente inseriti a inizio modulo.</b>"
+						}
+					}
+				]
+			},
+			{
+				"id": "block9",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[9]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_ICEF1",
+					"Tassonomia_ICEF2"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block8"
+				],
+				"condition": null,
+				"completed": "context['me']['Tassonomia_ICEF1']=='1' || context['me']['Tassonomia_ICEF2']=='2'",
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare la volontà di avvalersi o meno dell’attestazione ICEF.<br>In caso di risposta affermativa i dati verranno caricati automaticamente.<br><br><b>ATTENZIONE! Vengono accettate SOLO le attestazioni ICEF effettuate a partire dal 1 Luglio 2017</b>."
+						}
+					}
+				]
+			},
+			{
+				"id": "block10",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[10]",
+				"tags": [],
+				"fields": [
+					"Parametri_CoefficienteICEF",
+					"Parametri_DataCalcolo",
+					"Parametri_CognomeDichiaranteICEF",
+					"Parametri_NomeDichiaranteICEF",
+					"Parametri_CFDichiaranteICEF"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block9"
+				],
+				"condition": "context['me']['Tassonomia_ICEF1']=='1'",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Sono qui mostrati i dati risultanti dall’attestazione ICEF. Verificarne la correttezza e inserire eventuali osservazioni nell’apposito campo.<br><b>Se l’attestazione risulta antecedente il 1/7/2017 non produrrà punteggio ai fini del calcolo della graduatoria.</b>"
+						}
+					}
+				]
+			},
+			{
+				"id": "block11",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[11]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_FullTime",
+					"Tassonomia_PartTime"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block9"
+				],
+				"condition": null,
+				"completed": "context['me']['Tassonomia_FullTime']=='FT' || context['me']['Tassonomia_PartTime']=='PT'",
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare se si intende iscrivere il bambino/a ai nidi che offrono il servizio a tempo pieno e/o a tempo parziale.<br><br><b>NB: è obbligatoria la scelta di almeno una opzione ed è possibile scegliere di fare domanda per entrambi i servizi.</b>"
+						}
+					}
+				]
+			},
+			{
+				"id": "block12",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[12]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_TipoFrequenza1",
+					"Tassonomia_ICEF1",
+					"Tassonomia_ICEF2"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block11"
+				],
+				"condition": "context['me']['Tassonomia_FullTime']=='FT' && (context['me']['Tassonomia_ICEF1']=='1' || context['me']['Tassonomia_ICEF2']=='2')",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "In questo blocco il sistema verifica e mostra automaticamente il tipo di richiesta di iscrizione a tempo pieno che si sta effettuando (nuova iscrizione/ variazione/ aggiornamento).<ul><li>Indicare una prima scelta <b>(obbligatoria)</b> tra le strutture appartenenti alla propria area di utenza ed elencate nel menu a tendina.</li><li>E’ inoltre possibile indicare una seconda scelta <i>(opzionale)</i> tra tutte le strutture del territorio.</li><li>Per ciascuna scelta indicare se si intende usufruire dei servizi opzionali proposti dalle relative strutture.<br><b>Se non si vuole usufruire dei servizi opzionali, oppure se non ve ne sono disponibili è obbligatorio selezionare la voce <i>“nessun servizio”</i>.</b></li></ul>E’ inoltre possibile consultare l’elenco dei nidi, distinti per tipologia di servizio, cliccando il link <i>“mappa dei nidi con servizi”</i>."
+						}
+					}
+				]
+			},
+			{
+				"id": "block13",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[13]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_TipoFrequenza2"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block11"
+				],
+				"condition": "context['me']['Tassonomia_PartTime']=='PT' && (context['me']['Tassonomia_ICEF1']=='1' || context['me']['Tassonomia_ICEF2']=='2')",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "In questo blocco il sistema verifica e mostra automaticamente il tipo di richiesta di iscrizione a tempo parziale che si sta effettuando (nuova iscrizione/ variazione/ aggiornamento).<ul><li>Indicare una prima scelta <b>(obbligatoria)</b> tra le strutture elencate nel menu a tendina.</li><li>E’ inoltre possibile indicare una seconda scelta <i>(opzionale)</i>.</li><li>Per ciascuna scelta indicare se si intende usufruire dei servizi opzionali proposti dalle relative strutture.<br><b><i>Se non si vuole usufruire dei servizi opzionali, oppure se non ve ne sono disponibili è obbligatorio selezionare la voce “nessun servizio”</i>.</b></li></ul>E’ inoltre possibile consultare l’elenco dei nidi, distinti per tipologia di servizio, cliccando il link <i>“mappa dei nidi con servizi”</i>."
+						}
+					}
+				]
+			},
+			{
+				"id": "block14",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[14]",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [],
+				"condition": "context['me']['Tassonomia_TipoFrequenza1']=='FT' || context['me']['Tassonomia_TipoFrequenza2']=='PT'",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "La presente domanda verrà inserita nella graduatoria annuale per le ammissioni al nido dei bambini a partire dal prossimo anno educativo. Se si intende essere contattati già nell'anno educativo in corso, indicare il mese a partire dal quale si dà la disponibilità per un eventuale inserimento del bambino al nido."
+						}
+					}
+				]
+			},
+			{
+				"id": "block15",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[15]",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [
+					"block14"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Dopo la pubblicazione della graduatoria annuale se il bambino non è stato assegnato per nessuna delle scelte indicate in sede di domanda, dando la disponibilità si verrà contattati per l’accettazione di posti eventualmente rimasti liberi in qualsiasi nido del territorio comunale."
+						}
+					}
+				]
+			},
+			{
+				"id": "block16",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[16]",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [
+					"block15"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare una tra le possibili opzioni.<br>In caso si scelga di dare autorizzazione alle comunicazioni via SMS, <b>il campo relativo al numero di cellulare NON è compilabile</b>, in quanto viene caricato in automatico dalla sezione anagrafica a inizio modulo.<br>Pertanto, in caso di errore, modificare il numero inserito nella sezione anagrafica a inizio modulo."
+						}
+					}
+				]
+			},
+			{
+				"id": "block17",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[17]",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [
+					"block16"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare una tra le possibili opzioni, <b>dando preferenza, se possibile, alle comunicazioni via mail.</b><br><br><b>NB: QUESTI CAMPI NON SONO COMPILABILI</b>, al momento della scelta vengono caricati in automatico i dati inseriti nella sezione anagrafica a inizio modulo.<br>Pertanto, in caso di errori, o per inserire ulteriori contatti, modificare i dati inseriti nella sezione anagrafica a inizio modulo."
+						}
+					}
+				]
+			},
+			{
+				"id": "block18",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[18]",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [
+					"block17"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare un recapito alternativo sul quale si desidera ricevere comunicazioni."
+						}
+					}
+				]
+			},
+			{
+				"id": "block19",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[19]",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [
+					"block18"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Inizio della parte di modulo inerente la situazione del bambino/a e/o del nucleo familiare."
+						}
+					}
+				]
+			},
+			{
+				"id": "block20",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[20]",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [
+					"block19"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare se il bambino/a presenta/non presenta una situazione di disabilità certificata e in caso affermativo compilare i campi richiesti."
+						}
+					}
+				]
+			},
+			{
+				"id": "block21",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[21]",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [
+					"block20"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare se il nucleo è/non è seguito dai servizi sociali e in caso affermativo compilare i campi richiesti."
+						}
+					}
+				]
+			},
+			{
+				"id": "block22",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[22]",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [
+					"block21"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare se nel nucleo sono/non sono presenti uno o più componenti in situazione di disabilità certificata e in caso affermativo compilare i campi richiesti.<br><br>NOTA: I valori percentuali di disabilità certificata accettati vanno da 0 a 99, pertanto <b>nei casi di disabilità pari o superiori al 99%, inserire il valore 99.</b>"
+						}
+					}
+				]
+			},
+			{
+				"id": "block23",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[23]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_NoPadre",
+					"Tassonomia_NoMadre",
+					"Tassonomia_TipoNucleo2"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block22"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare se il nucleo familiare è/non è monoparentale. <br>Si definisce nucleo “monoparentale” quando il genitore vive effettivamente solo con il bambino/a a seguito della sussistenza di una delle condizioni elencate.<br>Il nucleo dove sono presenti entrambi i genitori, seppure con residenze diverse, non è considerato monoparentale."
+						}
+					}
+				]
+			},
+			{
+				"id": "block24",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[24]",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [
+					"block23"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Inizio della parte di modulo inerente la situazione lavorativa del padre/convivente."
+						}
+					}
+				]
+			},
+			{
+				"id": "block25",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[25]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_NoPadre"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block24"
+				],
+				"condition": "(context['http://simpatico.org/domain/trento/parent_role']=='madre' && context['Tassonomia_TipoNucleo2'])",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Opzione selezionata in automatico avendo precedentemente dichiarato un nucleo familiare monoparentale."
+						}
+					}
+				]
+			},
+			{
+				"id": "block26",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[26]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_TipoLavoroPadre3",
+					"Tassonomia_TipoLavoroPadre2",
+					"Tassonomia_TipoLavoroPadre1"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block24"
+				],
+				"condition": "context['me']['http://simpatico.org/domain/trento/parent_role']=='padre' || (context['me']['http://simpatico.org/domain/trento/parent_role']=='madre' && context['me']['Tassonomia_TipoNucleo2']==null)",
+				"completed": "context['me']['Tassonomia_TipoLavoroPadre3']=='3' || context['me']['Tassonomia_TipoLavoroPadre2']=='2' || context['me']['Tassonomia_TipoLavoroPadre1']=='1'",
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare la situazione lavorativa del padre/compagno convivente.<br><br><b>NB: è obbligatoria la scelta di una delle opzioni.<br>Qualora non si conosca la situazione lavorativa selezionare l’opzione <i>“non occupato”</i>."
+						}
+					}
+				]
+			},
+			{
+				"id": "block27",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[27]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_TipoLavoroPadre3"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block26"
+				],
+				"condition": "context['me']['Tassonomia_TipoLavoroPadre3']=='3'",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Specificare se il padre/convivente è lavoratore dipendente o autonomo e <b>OBBLIGATORIAMENTE</b> l’articolazione oraria (ovvero il numero di ore lavorate settimanali); quindi indicare se sussistono eventuali disagi di lavoro.<br><br><b>NB: nel caso di lavoratore dipendente si richiede di inserire il recapito telefonico o la mail dell’azienda (NON i recapiti del lavoratore)."
+						}
+					}
+				]
+			},
+			{
+				"id": "block28",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[28]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_TipoLavoroPadre2"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block26"
+				],
+				"condition": "context['me']['Tassonomia_TipoLavoroPadre2']=='2'",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Specificare la scuola/università o l’istituto formativo presso cui risulta iscritto il padre/convivente; quindi indicare se sussistono eventuali disagi per motivi di studio."
+						}
+					}
+				]
+			},
+			{
+				"id": "block29",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[29]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_TipoLavoroPadre1"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block26"
+				],
+				"condition": "context['me']['Tassonomia_TipoLavoroPadre1']=='1'",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Specificare se il padre/convivente è iscritto o meno al centro per l'impiego e indicarne sede e recapito telefonico.<br>Qualora non si conosca la situazione lavorativa del padre/convivente selezionare l’opzione <i>“non iscritto ad un centro per l’impiego”</i>."
+						}
+					}
+				]
+			},
+			{
+				"id": "block30",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[30]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_NoPadre",
+					"Tassonomia_TipoLavoroPadre3",
+					"Tassonomia_TipoLavoroPadre2",
+					"Tassonomia_TipoLavoroPadre1"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block23"
+				],
+				"condition": "context['me']['Tassonomia_TipoLavoroPadre3']=='3' || context['me']['Tassonomia_TipoLavoroPadre2']=='2' || context['me']['Tassonomia_TipoLavoroPadre1']=='1' || context['me']['Tassonomia_NoPadre'] == '1'",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Inizio della parte di modulo inerente la situazione lavorativa della madre/convivente."
+						}
+					}
+				]
+			},
+			{
+				"id": "block31",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[31]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_NoMadre"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block30"
+				],
+				"condition": "(context['me']['http://simpatico.org/domain/trento/parent_role']=='padre' && context['me']['Tassonomia_TipoNucleo2'])",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Opzione selezionata in automatico avendo precedentemente dichiarato un nucleo familiare monoparentale."
+						}
+					}
+				]
+			},
+			{
+				"id": "block32",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[32]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_TipoLavoroMadre3",
+					"Tassonomia_TipoLavoroMadre2",
+					"Tassonomia_TipoLavoroMadre1"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block30"
+				],
+				"condition": "context['me']['http://simpatico.org/domain/trento/parent_role']=='madre' || (context['me']['http://simpatico.org/domain/trento/parent_role']=='padre' && context['me']['Tassonomia_TipoNucleo2']==null)",
+				"completed": "context['me']['Tassonomia_TipoLavoroMadre3'] =='3' || context['me']['Tassonomia_TipoLavoroMadre2'] =='2' || context['me']['Tassonomia_TipoLavoroMadre1'] =='1'",
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Indicare la situazione lavorativa della madre/compagna convivente.<br><b>NB: è obbligatoria la scelta di una delle opzioni.<br>Qualora non si conosca la situazione lavorativa selezionare l’opzione <i>“non occupata”</i>."
+						}
+					}
+				]
+			},
+			{
+				"id": "block33",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[33]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_TipoLavoroMadre3"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block30"
+				],
+				"condition": "context['me']['Tassonomia_TipoLavoroMadre3']=='3'",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Specificare se la madre/convivente è lavoratrice dipendente o autonoma e <b>OBBLIGATORIAMENTE</b> l’articolazione oraria (ovvero il numero di ore lavorate settimanali); quindi indicare se sussistono eventuali disagi di lavoro.<br><br><b>NB: nel caso di lavoratrice dipendente si richiede di inserire il recapito telefonico o la mail dell’azienda (NON i recapiti della lavoratrice)."
+						}
+					}
+				]
+			},
+			{
+				"id": "block34",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[34]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_TipoLavoroMadre2"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block30"
+				],
+				"condition": "context['me']['Tassonomia_TipoLavoroMadre2']=='2'",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Specificare la scuola/università o l’istituto formativo presso cui risulta iscritta la madre/convivente; quindi indicare se sussistono eventuali disagi per motivi di studio."
+						}
+					}
+				]
+			},
+			{
+				"id": "block35",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[35]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_TipoLavoroMadre1"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block30"
+				],
+				"condition": "context['me']['Tassonomia_TipoLavoroMadre1']=='1'",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Specificare se la madre/convivente è iscritta o meno al centro per l'impiego e indicarne sede e recapito telefonico.<br>Qualora non si conosca la situazione lavorativa della madre/convivente selezionare l’opzione <i>“non iscritta ad un centro per l’impiego”</i>."
+						}
+					}
+				]
+			},
+			{
+				"id": "block36",
+				"type": "BLOCK",
+				"xpath": "(//*[contains(@class, 'simpatico-block')])[36]",
+				"tags": [],
+				"fields": [
+					"Tassonomia_NoPadre",
+					"Tassonomia_NoMadre",
+					"Tassonomia_TipoLavoroMadre3",
+					"Tassonomia_TipoLavoroMadre2",
+					"Tassonomia_TipoLavoroMadre1"
+				],
+				"blocks": [],
+				"dependencies": [
+					"block23"
+				],
+				"condition": "context['me']['Tassonomia_TipoLavoroMadre3'] =='3' || context['me']['Tassonomia_TipoLavoroMadre2'] =='2' || context['me']['Tassonomia_TipoLavoroMadre1'] =='1' || context['me']['Tassonomia_NoMadre'] == '1' || context['me']['Tassonomia_NoPadre'] == '1'",
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Leggere attentamente le dichiarazioni riportate in quanto obbligatorie ai fini della presentazione della domanda di iscrizione al nido; quindi premere il pulsante <i>“SUCCESSIVO”</i>."
+						}
+					}
+				]
+			},
+			{
+				"id": "block37",
+				"type": "BLOCK",
+				"xpath": "//*[@id='firme']",
+				"tags": [],
+				"fields": [],
+				"blocks": [],
+				"dependencies": [
+					"block36"
+				],
+				"condition": null,
+				"completed": null,
+				"annotations": [
+					{
+						"condition": null,
+						"text": {
+							"it": "Termine presentazione della domanda: specificare luogo e data. Per completare il modulo premere <i>“FINE”</i>. Verificare nuovamente tutti i dati inseriti e premere <b>“Salva modulo”</b>.  Verranno segnalate eventuali mancanze. In tal caso provvedere all’inserimento dei dati mancanti."
+						}
+					}
+				]
+			}
+		],
+		"fields": [
+			{
+				"id": "AventeTitolo_CodiceFiscale",
+				"xpath": "//*[@id=\"AventeTitolo_CodiceFiscale\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/fiscalid",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_Cognome",
+				"xpath": "//*[@id=\"AventeTitolo_Cognome\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#surname",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_Nome",
+				"xpath": "//*[@id=\"AventeTitolo_Nome\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#name",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_DataNascita",
+				"xpath": "//*[@id=\"AventeTitolo_DataNascita\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#birth_date",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_Sesso",
+				"xpath": "//*[@id=\"AventeTitolo_Sesso\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#gender",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_Nazionalita",
+				"xpath": "//*[@id=\"AventeTitolo_Nazionalita\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#nationality",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_LuogoNascita",
+				"xpath": "//*[@id=\"AventeTitolo_LuogoNascita\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#birth_place",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_ProvinciaResidenza",
+				"xpath": "//*[@id=\"AventeTitolo_ProvinciaResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#address.province",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_ComuneResidenza",
+				"xpath": "//*[@id=\"AventeTitolo_ComuneResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#address.city",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_ViaResidenza",
+				"xpath": "//*[@id=\"AventeTitolo_ViaResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#address.street",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_CivicoResidenza",
+				"xpath": "//*[@id=\"AventeTitolo_CivicoResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#address.number",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_BarraResidenza",
+				"xpath": "//*[@id=\"AventeTitolo_BarraResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#address.bar",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_CAPResidenza",
+				"xpath": "//*[@id=\"AventeTitolo_CAPResidenza\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/citizen#address.cap",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_Telefono",
+				"xpath": "//*[@id=\"AventeTitolo_Telefono\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/contacts#phone",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_Fax",
+				"xpath": "//*[@id=\"AventeTitolo_Fax\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/contacts#fax",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_EMail",
+				"xpath": "//*[@id=\"AventeTitolo_EMail\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/contacts#email",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_EMailPEC",
+				"xpath": "//*[@id=\"AventeTitolo_EMailPEC\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/contacts#email_pec",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_CodiceFiscale",
+				"xpath": "//*[@id=\"Bambino_CodiceFiscale\"]",
+				"mapping": {
+					"key": "beneficiary@http://simpatico.org/domain/trento/fiscalid",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_Cognome",
+				"xpath": "//*[@id=\"Bambino_Cognome\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#surname",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_Nome",
+				"xpath": "//*[@id=\"Bambino_Nome\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#name",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_DataNascita",
+				"xpath": "//*[@id=\"Bambino_DataNascita\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#birth_date",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_Sesso",
+				"xpath": "//*[@id=\"Bambino_Sesso\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#gender",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_Nazionalita",
+				"xpath": "//*[@id=\"Bambino_Cittadinanza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#nationality",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_LuogoNascita",
+				"xpath": "//*[@id=\"Bambino_LuogoNascita\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#birth_place",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_ProvinciaResidenza",
+				"xpath": "//*[@id=\"Bambino_ProvinciaResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#address.province",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_ComuneResidenza",
+				"xpath": "//*[@id=\"Bambino_ComuneResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#address.city",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_ViaResidenza",
+				"xpath": "//*[@id=\"Bambino_ViaResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#address.street",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_CivicoResidenza",
+				"xpath": "//*[@id=\"Bambino_CivicoResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#address.number",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_BarraResidenza",
+				"xpath": "//*[@id=\"Bambino_BarraResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#address.bar",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Bambino_CAPResidenza",
+				"xpath": "//*[@id=\"Bambino_CAPResidenza\"]",
+				"mapping": {
+					"key": "child@http://simpatico.org/domain/trento/citizen#address.cap",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Parametri_CoefficienteICEF",
+				"xpath": "//*[@id=\"Parametri_CoefficienteICEF\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/icef#value",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Parametri_DataCalcolo",
+				"xpath": "//*[@id=\"Parametri_DataCalcolo\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/icef#date",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Parametri_CognomeDichiaranteICEF",
+				"xpath": "//*[@id=\"Parametri_CognomeDichiaranteICEF\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/icef#surname",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Parametri_NomeDichiaranteICEF",
+				"xpath": "//*[@id=\"Parametri_NomeDichiaranteICEF\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/icef#name",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Parametri_CFDichiaranteICEF",
+				"xpath": "//*[@id=\"Parametri_CFDichiaranteICEF\"]",
+				"mapping": {
+					"key": "http://simpatico.org/domain/trento/icef#fiscalid",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Tassonomia_FullTime",
+				"xpath": "//*[@id=\"Tassonomia_FullTime\"]",
+				"mapping": {
+					"key": "Tassonomia_FullTime",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_PartTime",
+				"xpath": "//*[@id=\"Tassonomia_PartTime\"]",
+				"mapping": {
+					"key": "Tassonomia_PartTime",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_TipoFrequenza1",
+				"xpath": "//*[@id=\"Tassonomia_TipoFrequenza1\"]",
+				"mapping": {
+					"key": "Tassonomia_TipoFrequenza1",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_TipoFrequenza2",
+				"xpath": "//*[@id=\"Tassonomia_TipoFrequenza2\"]",
+				"mapping": {
+					"key": "Tassonomia_TipoFrequenza2",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "AventeTitolo_RuoloRichiedente",
+				"xpath": "//*[@id=\"AventeTitolo_RuoloRichiedente\"]",
+				"mapping": {
+					"key": "me@http://simpatico.org/domain/trento/parent_role",
+					"binding": "INOUT"
+				}
+			},
+			{
+				"id": "Tassonomia_ICEF1",
+				"xpath": "//*[@id=\"Tassonomia_ICEF1\"]",
+				"mapping": {
+					"key": "Tassonomia_ICEF1",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_ICEF2",
+				"xpath": "//*[@id=\"Tassonomia_ICEF2\"]",
+				"mapping": {
+					"key": "Tassonomia_ICEF2",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_TipoNucleo2",
+				"xpath": "//*[@id=\"Tassonomia_TipoNucleo2\"]",
+				"mapping": {
+					"key": "Tassonomia_TipoNucleo2",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_NoPadre",
+				"xpath": "//*[@id=\"Tassonomia_NoPadre\"]",
+				"mapping": {
+					"key": "Tassonomia_NoPadre",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_NoMadre",
+				"xpath": "//*[@id=\"Tassonomia_NoMadre\"]",
+				"mapping": {
+					"key": "Tassonomia_NoMadre",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_CF1",
+				"xpath": "//*[@id=\"Tassonomia_CF1\"]",
+				"mapping": {
+					"key": "Tassonomia_CF1",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_CF2",
+				"xpath": "//*[@id=\"Tassonomia_CF2\"]",
+				"mapping": {
+					"key": "Tassonomia_CF2",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_CF3",
+				"xpath": "//*[@id=\"Tassonomia_CF3\"]",
+				"mapping": {
+					"key": "Tassonomia_CF3",
+					"binding": "OUT"
+				}
+			},
+            {
+                "id": "Parametri_CFBambino",
+                "xpath": "//*[@id=\"Parametri_CFBambino\"]",
+                "mapping": {
+                    "key": "child@http://simpatico.org/domain/trento/fiscalid",
+                    "binding": "INOUT"
+                }
+            },
+			{
+				"id": "Tassonomia_TipoLavoroPadre3",
+				"xpath": "//*[@id=\"Tassonomia_TipoLavoroPadre3\"]",
+				"mapping": {
+					"key": "Tassonomia_TipoLavoroPadre3",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_TipoLavoroPadre2",
+				"xpath": "//*[@id=\"Tassonomia_TipoLavoroPadre2\"]",
+				"mapping": {
+					"key": "Tassonomia_TipoLavoroPadre2",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_TipoLavoroPadre1",
+				"xpath": "//*[@id=\"Tassonomia_TipoLavoroPadre1\"]",
+				"mapping": {
+					"key": "Tassonomia_TipoLavoroPadre1",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_TipoLavoroMadre3",
+				"xpath": "//*[@id=\"Tassonomia_TipoLavoroMadre3\"]",
+				"mapping": {
+					"key": "Tassonomia_TipoLavoroMadre3",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_TipoLavoroMadre2",
+				"xpath": "//*[@id=\"Tassonomia_TipoLavoroMadre2\"]",
+				"mapping": {
+					"key": "Tassonomia_TipoLavoroMadre2",
+					"binding": "OUT"
+				}
+			},
+			{
+				"id": "Tassonomia_TipoLavoroMadre1",
+				"xpath": "//*[@id=\"Tassonomia_TipoLavoroMadre1\"]",
+				"mapping": {
+					"key": "Tassonomia_TipoLavoroMadre1",
+					"binding": "OUT"
+				}
+			},
+			
+			{
+                "id": "Parametri_CognomeFam1",
+                "xpath": "//*[@id=\"Parametri_CognomeFam1\"]",
+                "mapping": {
+                    "key": "member1@http://simpatico.org/domain/trento/family_member#surname",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_NomeFam1",
+                "xpath": "//*[@id=\"Parametri_NomeFam1\"]",
+                "mapping": {
+                    "key": "member1@http://simpatico.org/domain/trento/family_member#name",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_CFFam1",
+                "xpath": "//*[@id=\"Parametri_CFFam1\"]",
+                "mapping": {
+                    "key": "member1@http://simpatico.org/domain/trento/family_member#fiscalid",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_SessoFam1",
+                "xpath": "//*[@id=\"Parametri_SessoFam1\"]",
+                "mapping": {
+                    "key": "member1@http://simpatico.org/domain/trento/family_member#gender",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_DataNasFam1",
+                "xpath": "//*[@id=\"Parametri_DataNas1\"]",
+                "mapping": {
+                    "key": "member1@http://simpatico.org/domain/trento/family_member#birth_date",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_GradoParFam1",
+                "xpath": "//*[@id=\"Parametri_GradoParFam1\"]",
+                "mapping": {
+                    "key": "member1@http://simpatico.org/domain/trento/family_member#relation",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_CognomeFam2",
+                "xpath": "//*[@id=\"Parametri_CognomeFam2\"]",
+                "mapping": {
+                    "key": "member2@http://simpatico.org/domain/trento/family_member#surname",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_NomeFam2",
+                "xpath": "//*[@id=\"Parametri_NomeFam2\"]",
+                "mapping": {
+                    "key": "member2@http://simpatico.org/domain/trento/family_member#name",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_CFFam2",
+                "xpath": "//*[@id=\"Parametri_CFFam2\"]",
+                "mapping": {
+                    "key": "member2@http://simpatico.org/domain/trento/family_member#fiscalid",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_SessoFam2",
+                "xpath": "//*[@id=\"Parametri_SessoFam2\"]",
+                "mapping": {
+                    "key": "member2@http://simpatico.org/domain/trento/family_member#gender",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_DataNasFam2",
+                "xpath": "//*[@id=\"Parametri_DataNas2\"]",
+                "mapping": {
+                    "key": "member2@http://simpatico.org/domain/trento/family_member#birth_date",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_GradoParFam2",
+                "xpath": "//*[@id=\"Parametri_GradoParFam2\"]",
+                "mapping": {
+                    "key": "member2@http://simpatico.org/domain/trento/family_member#relation",
+                    "binding": "INOUT"
+                }
+            },
+                        {
+                "id": "Parametri_CognomeFam3",
+                "xpath": "//*[@id=\"Parametri_CognomeFam3\"]",
+                "mapping": {
+                    "key": "member3@http://simpatico.org/domain/trento/family_member#surname",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_NomeFam3",
+                "xpath": "//*[@id=\"Parametri_NomeFam3\"]",
+                "mapping": {
+                    "key": "member3@http://simpatico.org/domain/trento/family_member#name",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_CFFam3",
+                "xpath": "//*[@id=\"Parametri_CFFam3\"]",
+                "mapping": {
+                    "key": "member3@http://simpatico.org/domain/trento/family_member#fiscalid",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_SessoFam3",
+                "xpath": "//*[@id=\"Parametri_SessoFam3\"]",
+                "mapping": {
+                    "key": "member3@http://simpatico.org/domain/trento/family_member#gender",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_DataNasFam3",
+                "xpath": "//*[@id=\"Parametri_DataNas3\"]",
+                "mapping": {
+                    "key": "member3@http://simpatico.org/domain/trento/family_member#birth_date",
+                    "binding": "INOUT"
+                }
+            },
+            {
+                "id": "Parametri_GradoParFam3",
+                "xpath": "//*[@id=\"Parametri_GradoParFam3\"]",
+                "mapping": {
+                    "key": "member3@http://simpatico.org/domain/trento/family_member#relation",
+                    "binding": "INOUT"
+                }
+            }
+            
+                        
+		]
+	}
+}
