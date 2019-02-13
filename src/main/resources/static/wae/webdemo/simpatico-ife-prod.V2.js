@@ -6,6 +6,7 @@
 //-----------------------------------------------------------------------------
 
 var cdvRequested = false;
+var waeStarted = true;
 
 function isProd() {
 	return window.location.origin.indexOf('sportello.comune.trento.it') >= 0;
@@ -199,8 +200,8 @@ function initFeatures() {
                   styleClassEnabled: "simp-bottomBar-btn-active",
                   styleClassDisabled: "simp-bottomBar-btn-inactive",
                   isEnabled: function() { return waeUI.getInstance().isEnabled(); },
-                  enable: function() { var idProfile = null; waeUI.getInstance().enableV2(idProfile); },
-                  disable: function() { waeUI.getInstance().disableV2(); },
+                  enable: function() { waeStarted = true; var idProfile = null; waeUI.getInstance().enableV2(idProfile); },
+                  disable: function() { waeStarted = false; waeUI.getInstance().disableV2(); },
                   text: "Step by step compilation",
                   simpBar:"bottom"
                 }
@@ -443,17 +444,25 @@ function initFeatures() {
       
       
         guideModalContainer.innerHTML=guideModalHTML;
-        $("#guideModal").toggle();
-        $("#helpModal").toggle();
         // citizenpediaUI.getInstance().setParagraphGuide('paragraphTitles');
         var idProfile = null; 
         waeUI.getInstance().enableV2(idProfile);
         // $("#paragraphTitles").scroll();
     }else{
-      $("#guideModal").toggle();
-      $("#helpModal").toggle();
-      waeUI.getInstance().disable();
+//      waeUI.getInstance().disable();
     }
+    $("#guideModal").toggle();
+    $("#helpModal").toggle();
+    if ($("#helpModal").is(":hidden")) {
+    	waeUI.getInstance().disable();
+    } else {
+    	if (waeStarted) {
+            setTimeout(function() {
+            	toggleAction('workflow');        	
+            }, 300);    		
+    	}
+    } 
+
   }
   
   
