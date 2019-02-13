@@ -408,7 +408,10 @@ function initFeatures() {
                                 '<p class="modelheader-title">Guida</p>'+
                               '</div>'+
                               '<div class="modal-body" >'+
-                                '<div class="guide-noti" id="guideNotification" onclick="waeUI.getInstance().progress()"></div>'+
+                                '<div class="guide-noti" id="guideNotification">'+
+                                '<button id="guideNotificationPrev"  onclick="waeUI.getInstance().back()" ></button>'+
+                                '<button id="guideNotificationNext"  onclick="waeUI.getInstance().progress()" ></button>'+
+                                '</div>'+
                                 '<div id="errorMessages"></div>'+
                                 '<div class="list-group" id="paragraphTitles"></div>'+
                               '</div>'+
@@ -459,6 +462,10 @@ function initFeatures() {
 document.addEventListener('simpaticoDestroy', function () {
 	  var simpaticoBarContainer = document.getElementById('simp-bottomBar');;
 	  simpaticoBarContainer.parentNode.removeChild(simpaticoBarContainer);
+
+	  $("#guideModal").hide();
+      $("#helpModal").hide();
+	  
 	  if (authManager.getInstance().isEnabled()) sfUI.getInstance().showSF();
 	  logCORE.getInstance().setSyncMode();	
 	  logCORE.getInstance().ifeLogger.sessionEnd(simpaticoEservice);
