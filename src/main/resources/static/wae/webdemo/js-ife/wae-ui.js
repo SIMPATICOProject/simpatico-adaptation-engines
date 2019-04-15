@@ -33,6 +33,10 @@ var waeUI = (function () {
 	 * - topBarHeight: HEIGHT OF THE BAR
 	 */
 	this.init = function(config) {
+		this.reset();
+		currentParagraphId = null, currentParagraphTitle = null, currentBlockId = null;
+		waeEngine.reset();
+		
 		config = config || {};
 		if (config.lang) {
 			lang = config.lang;

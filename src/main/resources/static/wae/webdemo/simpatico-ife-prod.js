@@ -24,6 +24,8 @@ function sfEnabled() {
 
 // It inits all the enabled features of IFE 
 function initFeatures() {
+	waeStarted = false;
+	
 	if (!window.simpaticoEserviceName) {
 		simpaticoEserviceName = '';
 	}
