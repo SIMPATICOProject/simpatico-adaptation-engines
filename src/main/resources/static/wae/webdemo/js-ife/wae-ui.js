@@ -104,6 +104,7 @@ var waeUI = (function () {
 				showElement(key, "SHOW");
 			}
 		}
+		$('.groupList').removeClass('active');
 		resetBlock(waeEngine.getActualBlockId());
 		instance.active = false;
 		if (!stay) $('html, body').animate({scrollTop: 0}, 200);

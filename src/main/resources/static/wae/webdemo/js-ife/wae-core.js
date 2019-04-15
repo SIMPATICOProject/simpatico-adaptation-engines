@@ -48,6 +48,8 @@ var waeEngine = new function() {
 		blockCompiledMap = {};
 		uncompletedFieldMap = {};
 		contextVar = {};
+	  	initModule();
+
 	}
 	
 	function getActualBlockIndex() {
@@ -197,6 +199,7 @@ var waeEngine = new function() {
 	};
 
 	function initModule() {
+		if (!workflowModel) return;
 		for(var i = 0; i < workflowModel.blocks.length; i++) {
 			var block = workflowModel.blocks[i];
 			var element = document.evaluate(block.xpath, document, null, 
