@@ -385,6 +385,7 @@ function initFeatures() {
     
     // Add the generated bar to the container
     simpaticoBarContainer.innerHTML = simpaticoBarHtml;
+    toggleBottomBar();
   }//addSimpaticoBottomBar()
   //expand Bottom Bar for showing others buttan
   function toggleBottomBar(){
