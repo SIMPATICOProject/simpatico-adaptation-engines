@@ -169,29 +169,29 @@ function initFeatures() {
     // The first one is the login button. This is mandatory but it also can be personalised
     // Options available:
     buttons = [
-                { // login
-                  id: 'simp-bottomBar-login',
-                  imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png",
-                  imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png",
-                  alt: "Dati personali",
-                  // Ad-hoc css classes to define the enabled/disabled styles
-                  styleClassEnabled: "simp-bottomBar-btn-active",
-                  styleClassDisabled: "simp-bottomBar-btn-inactive",
-                  isEnabled: function() { return cdvUI.getInstance().isEnabled(); },
-                  enable: function() { 
-                	  if (authManager.getInstance().isEnabled()) {
-                    	  cdvUI.getInstance().enable();
-                	  } else {
-                		  cdvRequested = true;
-                		  authManager.getInstance().enable();
-                	  }
-                  },
-                  disable: function() { 
-                	  cdvUI.getInstance().disable(); 
-                  },
-                  text: "Dati personali",
-                  simpBar:"bottom"
-                },
+//                { // login
+//                  id: 'simp-bottomBar-login',
+//                  imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png",
+//                  imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png",
+//                  alt: "Dati personali",
+//                  // Ad-hoc css classes to define the enabled/disabled styles
+//                  styleClassEnabled: "simp-bottomBar-btn-active",
+//                  styleClassDisabled: "simp-bottomBar-btn-inactive",
+//                  isEnabled: function() { return cdvUI.getInstance().isEnabled(); },
+//                  enable: function() { 
+//                	  if (authManager.getInstance().isEnabled()) {
+//                    	  cdvUI.getInstance().enable();
+//                	  } else {
+//                		  cdvRequested = true;
+//                		  authManager.getInstance().enable();
+//                	  }
+//                  },
+//                  disable: function() { 
+//                	  cdvUI.getInstance().disable(); 
+//                  },
+//                  text: "Dati personali",
+//                  simpBar:"bottom"
+//                },
                 { //  workflow adaptation. Switch to the modality, where the form adaptation starts
                   id: 'workflow',
                   imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/play.png",
@@ -583,8 +583,8 @@ function closeTutorial() {
 }
 function nextTutorial() {
 	dialog_step++;
-	// in prod skip CDV for the moment
-	if (isProd() && dialog_step == 1) {
+	// skip CDV for the moment
+	if (/* isProd() && */ dialog_step == 1) {
 		nextTutorial();
 		return;
 	}
