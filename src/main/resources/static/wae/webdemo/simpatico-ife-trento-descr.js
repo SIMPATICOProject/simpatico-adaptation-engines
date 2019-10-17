@@ -13,7 +13,7 @@ function isTestProd() {
 }
 
 function logEnabled() {
-	return isProd() || isTestProd();
+	return false; //isProd() || isTestProd();
 }
 function sfEnabled() {
 	return true;
