@@ -196,14 +196,14 @@ function initFeatures() {
                   id: 'workflow',
                   imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/play.png",
                   imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/play.png",
-                  alt: "Step-by-step execution",
+                  alt: "Guida",
                   // Ad-hoc css classes to define the enabled/disabled styles
                   styleClassEnabled: "simp-bottomBar-btn-active",
                   styleClassDisabled: "simp-bottomBar-btn-inactive",
                   isEnabled: function() { return waeUI.getInstance().isEnabled(); },
                   enable: function() { waeStarted = true; var idProfile = null; waeUI.getInstance().enableV2(idProfile); },
                   disable: function() { waeStarted = false; waeUI.getInstance().disableV2(); },
-                  text: "Step by step compilation",
+                  text: "Guida",
                   simpBar:"bottom"
                 }
               ];
@@ -366,21 +366,12 @@ function initFeatures() {
     var simpaticoBarHtml = '<div id="simp-bottomBar">' +
                               '<div id="simp-bottomBar-container-left" onclick="toggleBottomBar();">' +
                                 //'<a href="#">' +
-                                  '<img class="logoSmall" src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/logo.png" ' +
-                                  'alt="Simpatico ">Simpatico' +
+                                  '<div class="barlabel">Assistente virtuale</div>' +
+                                  '<div class="barstate" id="barstate">(disattiva)</div>'+
                                 //'</a>' +
                               '</div>';
   
-    // Add the left side of the toolbar
-    // simpaticoBarHtml += '<div id="simp-bottomBar-container-left" style="display:none"> <p>expand</p> </div>';
-    // simpaticoBarHtml += '<div id="simp-bottomBar-container-right" style="display:none"><ul id="simp-bottomBar-left" >  </ul></div>';
     simpaticoBarHtml += '<div id="simp-bottomBar-container-right" style="display:none"></div>';
-    // Add the right side of the toolbar
-    // simpaticoBarHtml += '<ul id="simp-bottomBar-right" >' + 
-    //                         '<li ><span id="simp-usr-data">Labu</span></li>' +
-    //                       //   createButtonNode(buttons[0]).outerHTML +
-    //                     '</ul></div>';
-  
     // Close the main div
     simpaticoBarHtml += '</div>';
     
@@ -392,6 +383,13 @@ function initFeatures() {
       $("#simp-bottomBar-container-right").toggle('fast', function(){
         enablePrivateFeaturesBottom();
         openGuideDiagram();
+        if ($("#simp-bottomBar-container-right").is(":hidden")) {
+        	$('#barstate').text('(disattiva)');
+        	$('#simp-bottomBar').addClass('inactive');
+        } else {
+        	$('#barstate').text('(attiva)');
+        	$('#simp-bottomBar').removeClass('inactive');
+        }
       });
   }
   //
@@ -407,14 +405,9 @@ function initFeatures() {
       var guideModalHTML='<div class="guide-modal" id="guideModal">'+
                             '<div class="modal-content">'+
                               '<div class="modal-header guide-modalHeader">'+
-                                '<p class="modelheader-title">Guida</p>'+
+                                '<p class="modelheader-title">Dati richiesti</p>'+
                               '</div>'+
-                              '<div class="modal-body" >'+
-                                '<div class="guide-noti" id="guideNotification">'+
-                                '<button id="guideNotificationPrev"  onclick="waeUI.getInstance().back()" ></button>'+
-                                '<button id="guideNotificationNext"  onclick="waeUI.getInstance().progress()" ></button>'+
-                                '</div>'+
-                                '<div id="errorMessages"></div>'+
+                              '<div class="modal-body" ><br>'+
                                 '<div class="list-group" id="paragraphTitles"></div>'+
                               '</div>'+
                               '<div class="modal-footer">'+
@@ -424,19 +417,24 @@ function initFeatures() {
                           '<div class="help-modal" id="helpModal">'+
                             '<div class="modal-content">'+
                                 '<div class="modal-header help-modalHeader">'+
-                                  '<p class="modelheader-title">Aiuto</p>'+
+                                  '<p class="modelheader-title">Un aiuto per te</p>'+
                                 '</div>'+
                                 '<div class="helpModal-body" >'+
+                                '<div class="guide-noti" id="guideNotification">'+
+                                '<button id="guideNotificationPrev"  onclick="waeUI.getInstance().back()" ></button>'+
+                                '<button id="guideNotificationNext"  onclick="waeUI.getInstance().progress()" ></button>'+
+                                '</div>'+
+                                '<div id="errorMessages"></div>'+
                                   '<div id="helpModalPlaceholder">Seleziona un blocco oppure avvia la compilazione guidata</div>'+
                                   '<div id="helpModalContent" style="display:none">' + 
                                   '<div class="" id="">'+
-                                    '<p class="modelContent-title">Descrizione del passo</p>'+
+                                    '<p class="modelContent-title">Cosa inserire</p>'+
                                     '<div class="modelContent-details" id="blockDetails"></div>'+
                                   '</div>'+
                                   '<div class="" id="">'+
-                                    '<p class="modelContent-title">Domande Legate</p>'+
+                                    '<p class="modelContent-title">Domande comuni</p>'+
                                     '<div class="modelContent-details" id="blockQuestions"></div>'+
-                                    '<button type="button" class="btn-askQuestion" id="sendQuestions" onclick="waeUI.getInstance().createNewQuestion();" >Aggiungi una domanda</button>'+
+//                                    '<button type="button" class="btn-askQuestion" id="sendQuestions" onclick="waeUI.getInstance().createNewQuestion();" >Aggiungi una domanda</button>'+
                                   '</div>'+
                                   '</div>'+
                                 '</div>'+
@@ -455,7 +453,7 @@ function initFeatures() {
     $("#guideModal").toggle();
     $("#helpModal").toggle();
     if ($("#helpModal").is(":hidden")) {
-    	waeUI.getInstance().disable();
+    	waeUI.getInstance().disable(true);
     } else {
     	if (waeStarted) {
             setTimeout(function() {
@@ -523,6 +521,11 @@ document.addEventListener('simpaticoEvent', function () {
   
   checkShowTutorial();
   setTimeout(toggleBottomBar, 1000);
+  
+  $('#SalvaModulo').click(function() {
+	  toggleBottomBar();
+	});
+
 
 });
 
@@ -547,9 +550,7 @@ function checkShowTutorial() {
 					'<div id="dialog-tutorial">' +
 					'	<div id="tutorial">'+
 						 '<div class="tutorial-header">'+
-					       '<img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/logo.png" ' +
-					      		'style="vertical-align: bottom;" height="50px" alt="Simpatico">'+
-					      		'<div style="display: inline-block;"><h1 style="margin: 0;">Simpatico</h1><span style="float:right;">TUTORIAL</span></div>'+
+					      		'<div style="display: inline-block;"><h1 style="margin: 0;">Assistente virtuale</h1></div>'+
 			      		 '</div>'+
 			      		 '<div id="tutorialcontent"></div>' +
 			      		 '<div id="tutorial-buttons">' +
@@ -583,22 +584,21 @@ function closeTutorial() {
 }
 function nextTutorial() {
 	dialog_step++;
-	// skip CDV for the moment
-	if (/* isProd() && */ dialog_step == 1) {
-		nextTutorial();
-		return;
-	}
+	// in prod skip CDV for the moment
 	$('#tutorialcontent').html(tutorialContent(dialog_step));
-	if (dialog_step == 2) {
+	if (dialog_step == 1) {
 		$('#tutorialnext').hide();
 	}
 }
 
 function tutorialContent(step) {
 	switch(step) {
-	case 0: return '<p>Il servizio SIMPATICO mette a disposizione strumenti per semplificare la compilazione dei moduli online.</p><br/><p>Per accedere alle funzionalità effettua l\'accesso in alto a destra.</p>';
-	case 1: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png"></td><td width="100%">La funzionalità DATI PERSONALI ti consente di salvare e recuperare in altri moduli le informazioni che hai inserito (es. nucleo familiare).</td></tr></table>';
-	case 2: return '<table><tr><td><img src="https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/forms.png"></td><td width="100%">La funzionalità COMPILAZIONE GUIDATA ti accompagna passo-passo nella compilazione del modulo online.</td></tr></table>';
+	case 0: return '<p><b>L’Assistente virtuale</b> ti aiuta nella compilazione dei moduli online guidandoti passo passo. <br/><br/>Puoi attivarla/disattivarla semplicemente cliccando sul pulsante "Assistente virtuale" in basso a destra.</p></p>';
+	case 1: return '<p><b>Al centro</b> il modulo viene suddiviso in blocchi (in base ai dati richiesti) evidenziando quello su cui concentrarti</p>'+
+					'<p><b>A sinistra</b> trovi l’elenco dei dati richiesti (blocchi) evidenziando quello attuale</p>'+
+					'<p><b>A destra</b> trovi un aiuto per capire cosa inserire in quel blocco e le risposte alle domande più comuni</p>'+
+					'<br><p>Una volta inserito i dati nel blocco puoi proseguire la compilazione premendo il pulsante “Successivo”</p>'+
+					'<br><p>Se ti sei dimenticato qualcosa di importante ti verrà segnalato in rosso.</p>';
 	}
 }
 	

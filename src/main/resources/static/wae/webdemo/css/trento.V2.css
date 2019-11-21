@@ -54,6 +54,20 @@ body {
     position: relative;
   }  
 
+#simp-bottomBar-container-left .barstate {
+	display: block !important;
+	font-weight: normal;
+	text-align: center;
+	font-size: 14px;
+    line-height: 24px;
+}
+#simp-bottomBar-container-left .barlabel {
+	line-height: 24px;
+}
+
+#simp-bottomBar.inactive {
+	background-color: #ccc !important;
+}
 
   /*  */
 .guide-modal{
