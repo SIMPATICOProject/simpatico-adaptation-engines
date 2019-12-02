@@ -367,7 +367,7 @@ function initFeatures() {
                               '<div id="simp-bottomBar-container-left" onclick="toggleBottomBar();">' +
                                 //'<a href="#">' +
                                   '<div class="barlabel">Assistente virtuale</div>' +
-                                  '<div class="barstate" id="barstate">(attiva)</div>'+
+                                  '<div class="barstate" id="barstate">(disattiva)</div>'+
                                 //'</a>' +
                               '</div>';
   
@@ -384,10 +384,10 @@ function initFeatures() {
         enablePrivateFeaturesBottom();
         openGuideDiagram();
         if ($("#simp-bottomBar-container-right").is(":hidden")) {
-        	$('#barstate').text('(attiva)');
+        	$('#barstate').text('(disattiva)');
         	$('#simp-bottomBar').addClass('inactive');
         } else {
-        	$('#barstate').text('(disattiva)');
+        	$('#barstate').text('(attiva)');
         	$('#simp-bottomBar').removeClass('inactive');
         }
       });
