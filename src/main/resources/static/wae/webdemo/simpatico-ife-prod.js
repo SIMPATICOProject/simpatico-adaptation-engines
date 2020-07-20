@@ -5,7 +5,6 @@
 //
 //-----------------------------------------------------------------------------
 
-var cdvRequested = false;
 var waeStarted = true;
 
 function isProd() {
@@ -86,49 +85,7 @@ function initFeatures() {
     diagramNotificationText: "C'e' una visualizzazione di e-service in Citizenpedia",
     questionSelectionFilters: ['h1', '.Rigaintestazione', '.Rigaintestazioneridotta']
   });
-  
-  // Init the CDV component (see cdv-ui.js)
-  // - endpoint: the main URL of the used cdv instance
-  // - serviceID: the id corresponding to the e-service
-  // - serviceName: name corresponding to the e-service
-  // - serviceURL: the URL of the e-service page
-  // - dataFields: eservice field ids mapped with cdv
-  // - cdvColor: Color used to highlight the eservice fields enhanced with cdv 
-  // - dialogTitle: Title of the dialog box of CDV component
-  // - tabPFieldsTitle: tab label of personal data
-  cdvUI.getInstance().init({
-	    endpoint: 'https://cdv.comune.trento.it/CDV',
-	    serviceID: simpaticoEservice,
-		serviceName: serviceName || simpaticoEserviceName,
-	    serviceURL: serviceURL || window.location.href,
-	    dataFields: simpaticoMapping,
-	    informedConsentLink: "https://cdv.comune.trento.it/CDV/IFE/informed_consent.html",
-	    consentGiven:true,
-	    cdvColor: '#008000',
-	    dialogTitle: 'Gestione dati personali',
-	    dlgPosition: { my: "right bottom", at: "right top",  of: "#cdv_toolbar_buttons"},
-	    tabPFieldsTitle: 'I miei dati',
-	    entryMessage: 'Gestione dati personali',
-	    statusMessage: 'Adesso puoi selezionare i tuoi dati per compilare i campi evidenziati con bordo verde. Usa i valori ' +
-	    'salvati predecentemente oppure aggiungi i valori nuovi.',
-	    notextMessage: 'Nessun campo selezionato',
-	    dialogSaveTitle: 'I dati salvati!',
-	    dialogSaveMessage: 'I tuoi dati sono stati salvati con successo al tuo Data Vault.',
-	    statusMessageNoAccount: "Nessun account di gestione dati personali e' associato a te. Crearne uno?",
-	    statusMessageNoActive: "CDV non e' abilitato per questo servizio. Abilitare?",
-	    confirmSaveDataMessage: "Vuoi aggiornare i tuoi dati personali?",
-	    tabSettingsTitle: 'Impostazioni',
-	    buttonSaveData: 'Salva i tuoi dati',
-	    buttonManageData:"Gestisci i tuoi dati",
-	    buttonActivate:"Attiva",
-	    buttonCreate: "Crea",
-	    consentButton: "Consenti",
-	    tabSettingsTitle: 'Configura',
-		cdvDashUrl:'https://cdv.comune.trento.it/CDV/cdv-dashboard/index.html'
-  });
 
-
-  
   // Init the Workflow Adaptation Engine component (see wae-ui.js)
   // - lang: language used
   // - endpoint: the main URL of the used WAE instance
@@ -147,51 +104,9 @@ function initFeatures() {
 		errorLabel: ERROR_LABELS
   });
   
-  // Init the Session Feedback component (see sf-ui.js)
-  // - buttonToShowSfId: the id of the button/link that opens the dialog of the feedback form
-  // - apiEndpoint: the main URL of the logs API server (<site>/simpatico/api)
-  // NOTE: Requires jquery-ui to work properly
-  
-  if (sfEnabled()) {
-	  sfUI.getInstance().init({
-		    language: 'it',
-//			buttonToShowSfId: 'SF',
-		    apiEndpoint: 'https://simpatico.smartcommunitylab.it/simpatico-logs/api',
-		    // TEMPORALY DISABLED
-//		    formSelector: '#modulo',
-//		    listener: function() {
-//		    	$('#modulo').submit();
-//		    },
-		  });	  
-  }
-
-    // Declare here the buttons that will be available in the Simpatico Bar
-    // The first one is the login button. This is mandatory but it also can be personalised
-    // Options available:
-    buttons = [
-//                { // login
-//                  id: 'simp-bottomBar-login',
-//                  imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png",
-//                  imageSrcDisabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/cdv.png",
-//                  alt: "Dati personali",
-//                  // Ad-hoc css classes to define the enabled/disabled styles
-//                  styleClassEnabled: "simp-bottomBar-btn-active",
-//                  styleClassDisabled: "simp-bottomBar-btn-inactive",
-//                  isEnabled: function() { return cdvUI.getInstance().isEnabled(); },
-//                  enable: function() { 
-//                	  if (authManager.getInstance().isEnabled()) {
-//                    	  cdvUI.getInstance().enable();
-//                	  } else {
-//                		  cdvRequested = true;
-//                		  authManager.getInstance().enable();
-//                	  }
-//                  },
-//                  disable: function() { 
-//                	  cdvUI.getInstance().disable(); 
-//                  },
-//                  text: "Dati personali",
-//                  simpBar:"bottom"
-//                },
+  // Declare here the buttons that will be available in the Simpatico Bar
+  // Options available:
+  buttons = [
                 { //  workflow adaptation. Switch to the modality, where the form adaptation starts
                   id: 'workflow',
                   imageSrcEnabled: "https://simpatico.smartcommunitylab.it/simp-engines/wae/webdemo/img/play.png",
@@ -209,56 +124,12 @@ function initFeatures() {
               ];
   }//initFeatures()
   
-  // It creates the HTML code corresponding to the button passed as parameter
-  // - button: The button object stored in buttons
-  function createButtonHTML(button) {
-    return '<li class="'+ button.styleClassDisabled +'" id="' + button.id + '" ' +'onclick="toggleAction(\'' + button.id + '\');"'+
-                            '">'+
-                            //'<a href="#">' +
-                            '<img ' + 
-                              'alt="' + button.alt + '" ' + 
-                              'title="' + button.alt + '" ' +
-                              'id="' + button.id + '-img" ' +
-                              'src="' + button.imageSrcDisabled + '" ' +
-                              'width="50" height="50" />' +
-                              (button.label ? ('<div class="toolbar-button-label">'+ button.label+'</div>') :'')+
-                              //'</a>'+
-                          '<figcaption id="'+button.id +'-fig" style="text-align: center;">'+
-                              button.text + 
-                              '</figcaption>' + 
-                            '</figure>' + 
-                            '</li>';
-  }//createButtonHTMLbutton()
+  // Placeholder. Called when authentication is done
+  function enablePrivateFeatures() { }//enablePrivateFeatures(id)
   
-  // It creates the Node corresponding to the button passed as parameter
-  // - button: The button object stored in buttons
-  function createButtonNode(button) {
-    var template = document.createElement("div");
-    template.innerHTML = createButtonHTML(button);
-    return template.childNodes[0];
-  }//createButtonNode(button)
-  
-  // It creates the configured buttons and adds them to the toolbar
+  // Placeholder. Called upon logout
   // Called one time
-  function enablePrivateFeatures() {
-	  if (cdvRequested) {
-    	  cdvUI.getInstance().enable(); 
-	      for (var i = 0, len = buttons.length; i < len; i++) {
-	          if(buttons[i].id == 'simp-bottomBar-login') {
-	        	  updateButtonStyle(buttons[i]);
-	        	  break;
-	          }
-	      } 
-	  }
-
-	  // TODO
-  }//enablePrivateFeatures(id)
-  
-  // It inits all the configured buttons
-  // Called one time
-  function disablePrivateFeatures() {
-	  // TODO
-  }//disablePrivateFeatures()
+  function disablePrivateFeatures() { }//disablePrivateFeatures()
    
   // switch on/off the control buttons.
   // -id: of the button which calls this function
@@ -327,30 +198,8 @@ function initFeatures() {
     template.innerHTML = createBottomButtonHTML(button);
     return template.childNodes[0];
   }//createBottomButtonNode(button)
-  /**/
-  // It creates the configured buttons and adds them to the toolbar
-  // Called one time
-  function enablePrivateFeaturesBottom() {
-    // Update the login button status
-    // var loginButton = document.getElementById(buttons[0].id);
-    // loginButton.childNodes[0].src = buttons[0].imageSrcEnabled;
-    
-    // For each button (without the login one) create and add the node
-    var buttonsContainer = document.getElementById("simp-bottomBar-container-right");
-    // while (buttonsContainer.firstChild) {
-    //   cuttonsContainer.removeChild(buttonsContainer.firstChild);
-    // }
-    for (var i = 0, len = buttons.length; i < len; i++) {
-      if (document.getElementById(buttons[i].id) == null) {
-        if(buttons[i].simpBar=="bottom"){
-          buttonsContainer.appendChild(createBottomButtonNode(buttons[i]));
-        }
-          
-      }
-    }
-    // document.getElementById("simpatico-bar-copy").style.display = "none";
-    // document.getElementById("simp-bar-sw-login-fig").innerHTML = "Log Out";
-  }//enablePrivateFeatures(id)
+
+  
   // It adds the Simpatico Toolbar inside the component of which id is passed 
 // as parameter
 // - containerID: the Id of the element which is going to contain the toolbar 
@@ -381,7 +230,15 @@ function initFeatures() {
   //expand Bottom Bar for showing others buttan
   function toggleBottomBar(){
       $("#simp-bottomBar-container-right").toggle('fast', function(){
-        enablePrivateFeaturesBottom();
+        // For each button  create and add the node
+        var buttonsContainer = document.getElementById("simp-bottomBar-container-right");
+        for (var i = 0, len = buttons.length; i < len; i++) {
+          if (document.getElementById(buttons[i].id) == null) {
+            if(buttons[i].simpBar=="bottom"){
+              buttonsContainer.appendChild(createBottomButtonNode(buttons[i]));
+            }              
+          }
+        }
         openGuideDiagram();
         if ($("#simp-bottomBar-container-right").is(":hidden")) {
         	$('#barstate').text('(disattiva)');
@@ -443,12 +300,8 @@ function initFeatures() {
       
       
         guideModalContainer.innerHTML=guideModalHTML;
-        // citizenpediaUI.getInstance().setParagraphGuide('paragraphTitles');
         var idProfile = null; 
         waeUI.getInstance().enableV2(idProfile);
-        // $("#paragraphTitles").scroll();
-    }else{
-//      waeUI.getInstance().disable();
     }
     $("#guideModal").toggle();
     $("#helpModal").toggle();
@@ -474,18 +327,13 @@ document.addEventListener('simpaticoDestroy', function () {
 	  $("#guideModal").hide();
       $("#helpModal").hide();
 	  
-	  if (authManager.getInstance().isEnabled()) sfUI.getInstance().showSF();
-	  logCORE.getInstance().setSyncMode();	
-	  logCORE.getInstance().ifeLogger.sessionEnd(simpaticoEservice);
-	  if (window.simpaticoForm) {
-	        // log end of session
-	      logCORE.getInstance().ifeLogger.formEnd(simpaticoEservice, simpaticoForm);
-	  }
 });
 
 // Once the document is loaded the Simpatico features are initialised and the 
 // toolbar added
 document.addEventListener('simpaticoEvent', function () {
+	var  modulo = $('#modulo');
+	if (!modulo || !modulo.attr('data-simpatico-workflow')) return;
   initFeatures();
   addSimpaticoBottomBar("simpatico_bottom");
   authManager.getInstance().updateUserData();
@@ -526,18 +374,8 @@ document.addEventListener('simpaticoEvent', function () {
 	  toggleBottomBar();
 	});
 
-
 });
 
-
-window.addEventListener('beforeunload', function (e) {
-  logCORE.getInstance().setSyncMode();	
-  logCORE.getInstance().ifeLogger.sessionEnd(simpaticoEservice);
-  if (window.simpaticoForm) {
-      // log end of session
-	  logCORE.getInstance().ifeLogger.formEnd(simpaticoEservice, simpaticoForm);
-  }
-});
 
 dialog_tutorial = null;
 dialog_step = 0;
@@ -584,7 +422,6 @@ function closeTutorial() {
 }
 function nextTutorial() {
 	dialog_step++;
-	// in prod skip CDV for the moment
 	$('#tutorialcontent').html(tutorialContent(dialog_step));
 	if (dialog_step == 1) {
 		$('#tutorialnext').hide();
